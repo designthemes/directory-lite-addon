@@ -2,8 +2,7 @@
 
 if(!function_exists('dtdr_on_order_status_completion_from_listings_module')) {
 	function dtdr_on_order_status_completion_from_listings_module($order_id) {
-
-		$order = new WC_Order( $order_id );
+		$order   = new WC_Order( $order_id );
 		$user_id = get_post_meta($order_id, '_customer_user', true);
 
 		$items = $order->get_items();
@@ -20,12 +19,10 @@ if(!function_exists('dtdr_on_order_status_completion_from_listings_module')) {
 				$current_timestamp = strtotime(current_time(get_option('date_format')));
 
 				// Update listings
-
 				$purchased_users = get_post_meta($listing_id, 'purchased_users', true);
 				$purchased_users = (is_array($purchased_users) && !empty($purchased_users)) ? $purchased_users : array();
-				$purchased_users[$user_id] = array (
-												'purchased-date' => $current_timestamp
-											);
+
+				$purchased_users[$user_id] = array ( 'purchased-date' => $current_timestamp );
 				update_post_meta($listing_id, 'purchased_users', $purchased_users);
 
 				$purchased_users_timestamp = get_post_meta($listing_id, 'purchased_users_timestamp', true);
@@ -34,12 +31,9 @@ if(!function_exists('dtdr_on_order_status_completion_from_listings_module')) {
 				update_post_meta($listing_id, 'purchased_users_timestamp', $purchased_users_timestamp);
 
 				// Update users
-
 				$purchased_listings = get_user_meta($user_id, 'purchased_listings', true);
 				$purchased_listings = (is_array($purchased_listings) && !empty($purchased_listings)) ? $purchased_listings : array();
-				$purchased_listings[$listing_id] = array (
-												'purchased-date' => $current_timestamp
-											);
+				$purchased_listings[$listing_id] = array ( 'purchased-date' => $current_timestamp );
 				update_user_meta($user_id, 'purchased_listings', $purchased_listings);
 
 				$purchased_listings_timestamp = get_user_meta($user_id, 'purchased_listings_timestamp', true);
@@ -123,12 +117,11 @@ if(!function_exists('dtdr_on_user_deletion_from_listings_module')) {
     function dtdr_on_user_deletion_from_listings_module($user_id) {
 
 		$args = array (
-					'posts_per_page' => -1,
-					'post_type' => 'dtdr_listings',
-					'meta_query' => array (),
-					'tax_query' => array (),
-				);
-
+			'posts_per_page' => -1,
+			'post_type'      => 'dtdr_listings',
+			'meta_query'     => array (),
+			'tax_query'      => array (),
+		);
 
 		$listings_query = new WP_Query( $args );
 

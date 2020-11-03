@@ -6,11 +6,11 @@ function dtdr_sellers_vc_map() {
 	$seller_plural_label = apply_filters( 'seller_label', 'plural' );
 
 	vc_map( array(
-		"name" => sprintf( esc_html__('%1$s Listing','dtdr-lite'), $seller_plural_label),
-		"base" => "dtdr_sellers",
-		"icon" => "dtdr_sellers",
+		"name"     => sprintf( esc_html__('%1$s Listing','dtdr-lite'), $seller_plural_label),
+		"base"     => "dtdr_sellers",
+		"icon"     => "dtdr_sellers",
 		"category" => DTDR_PB_MODULE_DEFAULT_TITLE,
-		"params" => array(
+		"params"   => array(
 
 			// Type
 			array(

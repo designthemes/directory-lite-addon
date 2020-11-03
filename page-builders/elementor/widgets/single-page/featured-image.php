@@ -66,13 +66,9 @@ class DTDirectoryLiteSpFeaturedImage extends Widget_Base {
 	}
 
 	protected function render() {
-
 		$settings = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_sp_featured_image '.$attributes.' /]');
-
-		echo $output;
-
+		echo do_shortcode('[dtdr_sp_featured_image '.$attributes.' /]');
 	}
 
 }

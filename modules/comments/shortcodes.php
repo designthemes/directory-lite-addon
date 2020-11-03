@@ -5,7 +5,6 @@ if(!function_exists('dtdr_sp_featured_comments')) {
 	function dtdr_sp_featured_comments($attrs, $content = null) {
 
 		$attrs = shortcode_atts ( array (
-
 			'enable_title'  => 'false',
 			'enable_rating' => 'false',
 			'enable_media'  => 'false',
@@ -26,7 +25,7 @@ if(!function_exists('dtdr_sp_featured_comments')) {
 
 		ob_end_clean();
 
-		$output .= '<div class="dtdr-listings-comment-list-holder '.$attrs['class'].'">';
+		$output .= '<div class="dtdr-listings-comment-list-holder '.esc_attr( $attrs['class'] ).'">';
 			$output .= $comment_list_template;
 		$output .= '</div>';
 
@@ -41,13 +40,11 @@ if(!function_exists('dtdr_sp_average_rating')) {
 	function dtdr_sp_average_rating( $attrs, $content = null ) {
 
 		$attrs = shortcode_atts ( array (
-
-					'listing_id' => '',
-					'display'    => 'both',
-					'type'       => 'type1',
-					'class'      => '',
-
-				), $attrs, 'dtdr_sp_average_rating' );
+			'listing_id' => '',
+			'display'    => 'both',
+			'type'       => 'type1',
+			'class'      => '',
+		), $attrs, 'dtdr_sp_average_rating' );
 
 		$output = '';
 
@@ -58,8 +55,7 @@ if(!function_exists('dtdr_sp_average_rating')) {
 
 		if($attrs['listing_id'] != '') {
 
-			$output .= '<div class="dtdr-listings-average-rating-container '.$attrs['type'].' '.$attrs['class'].'">';
-
+			$output .= '<div class="dtdr-listings-average-rating-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 				$dtdr_average_ratings = get_post_meta($attrs['listing_id'], 'dtdr_average_ratings', true);
 				$dtdr_average_ratings = round($dtdr_average_ratings, 2);
 				if($dtdr_average_ratings == '') {
@@ -75,8 +71,8 @@ if(!function_exists('dtdr_sp_average_rating')) {
 
 				$dtdr_average_ratings_html = $dtdr_average_ratings_type2_html = '';
 				if($attrs['display'] == 'overall-rating' || $attrs['display'] == 'both') {
-					$dtdr_average_ratings_html .= '<div class="dtdr-listings-average-rating-overall"><span>'.$dtdr_average_ratings.'</span>/<span>5</span></div>';
-					$dtdr_average_ratings_type2_html .= '<div class="dtdr-listings-average-rating-overall"><span>'.$dtdr_average_ratings.'</span></div>';
+					$dtdr_average_ratings_html .= '<div class="dtdr-listings-average-rating-overall"><span>'.esc_html( $dtdr_average_ratings ).'</span>/<span>5</span></div>';
+					$dtdr_average_ratings_type2_html .= '<div class="dtdr-listings-average-rating-overall"><span>'.esc_html( $dtdr_average_ratings ).'</span></div>';
 				}
 
 				$comments = get_approved_comments( $attrs['listing_id'] );

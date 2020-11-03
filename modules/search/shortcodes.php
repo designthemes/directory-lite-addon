@@ -48,17 +48,15 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_keyword_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'placeholder_text' => '',
-						'ajax_load' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sf_keyword_field' );
+				'placeholder_text' => '',
+				'ajax_load'        => '',
+				'class'            => '',
+			), $attrs, 'dtdr_sf_keyword_field' );
 
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-keyword-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-keyword-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -72,10 +70,10 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 				$dtdr_sf_keyword = '';
 				if(isset($_REQUEST['dtdr_sf_keyword']) && $_REQUEST['dtdr_sf_keyword'] != '') {
-					$dtdr_sf_keyword = $_REQUEST['dtdr_sf_keyword'];
+					$dtdr_sf_keyword = sanitize_text_field($_REQUEST['dtdr_sf_keyword']);
 				}
 
-				$output .= '<input name="dtdr_sf_keyword" class="dtdr-sf-field dtdr-sf-keyword '.esc_attr($additional_class).'" type="text" value="'.esc_attr($dtdr_sf_keyword).'" placeholder="'.esc_attr($placeholder_text).'" />';
+				$output .= '<input name="dtdr_sf_keyword" class="dtdr-sf-field dtdr-sf-keyword '.esc_attr($additional_class).'" type="text" value="'.esc_attr($dtdr_sf_keyword).'" placeholder="'.esc_attr($placeholder_text).'"/>';
 				$output .= '<span></span>';
 
 			$output .= '</div>';
@@ -87,22 +85,20 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_categories_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'field_type'              => '',
-						'placeholder_text'        => '',
-						'dropdown_type'           => '',
-						'ajax_load'               => '',
-						'default_item_id'         => '',
-						'show_parent_items_alone' => 'false',
-						'child_of'                => '',
-						'class'                   => '',
-
-					), $attrs, 'dtdr_sf_categories_field' );
+				'field_type'              => '',
+				'placeholder_text'        => '',
+				'dropdown_type'           => '',
+				'ajax_load'               => '',
+				'default_item_id'         => '',
+				'show_parent_items_alone' => 'false',
+				'child_of'                => '',
+				'class'                   => '',
+			), $attrs, 'dtdr_sf_categories_field' );
 
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-categories-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-categories-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -112,12 +108,12 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 				$dtdr_sf_categories = array ();
 				if(isset($_REQUEST['dtdr_sf_categories'])) {
 					if(is_array($_REQUEST['dtdr_sf_categories']) && !empty($_REQUEST['dtdr_sf_categories'])) {
-						$dtdr_sf_categories = $_REQUEST['dtdr_sf_categories'];
+						$dtdr_sf_categories = dtdr_sanitize_fields($_REQUEST['dtdr_sf_categories']);
 					} else if($_REQUEST['dtdr_sf_categories'] != '') {
-						$dtdr_sf_categories = explode(',', $_REQUEST['dtdr_sf_categories']);
+						$dtdr_sf_categories = explode(',', sanitize_text_field($_REQUEST['dtdr_sf_categories']));
 					}
 				} elseif($attrs['default_item_id'] != '') {
-					$dtdr_sf_categories = explode(',', $attrs['default_item_id']);
+					$dtdr_sf_categories = explode(',', sanitize_text_field($attrs['default_item_id']));
 				}
 
 				$placeholder_text = esc_html__('Categories','dtdr-lite');
@@ -134,7 +130,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 					$output .= '<select class="dtdr-sf-field dtdr-sf-categories '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_categories" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
 						if($mulitple_attr == '') {
-							$output .= '<option value="">'.esc_attr($placeholder_text).'</option>';
+							$output .= '<option value="">'.esc_html($placeholder_text).'</option>';
 						}
 
 						$categories_args = array (
@@ -200,21 +196,17 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		}
 
 		function dtdr_sf_tags_field( $attrs, $content = null ) {
-
 			$attrs = shortcode_atts ( array (
-
-						'field_type' => '',
-						'placeholder_text' => '',
-						'dropdown_type' => '',
-						'ajax_load' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sf_tags_field' );
-
+				'field_type'       => '',
+				'placeholder_text' => '',
+				'dropdown_type'    => '',
+				'ajax_load'        => '',
+				'class'            => '',
+			), $attrs, 'dtdr_sf_tags_field' );
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-tags-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-tags-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -224,9 +216,9 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 				$dtdr_sf_tags = array ();
 				if(isset($_REQUEST['dtdr_sf_tags'])) {
 					if(is_array($_REQUEST['dtdr_sf_tags']) && !empty($_REQUEST['dtdr_sf_tags'])) {
-						$dtdr_sf_tags = $_REQUEST['dtdr_sf_tags'];
+						$dtdr_sf_tags = dtdr_sanitize_fields($_REQUEST['dtdr_sf_tags']);
 					} else if($_REQUEST['dtdr_sf_tags'] != '') {
-						$dtdr_sf_tags = explode(',', $_REQUEST['dtdr_sf_tags']);
+						$dtdr_sf_tags = explode(',', sanitize_text_field($_REQUEST['dtdr_sf_tags']));
 					}
 				}
 
@@ -246,7 +238,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 					$output .= '<select class="dtdr-sf-field dtdr-sf-tags '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_tags" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
 						if($mulitple_attr == '') {
-							$output .= '<option value="">'.esc_attr($placeholder_text).'</option>';
+							$output .= '<option value="">'.esc_html($placeholder_text).'</option>';
 						}
 						$listing_tags = get_categories('taxonomy=dtdr_listings_amenity&hide_empty=1');
 						if(isset($listing_tags)) {
@@ -285,22 +277,19 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_ctype_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'field_type'              => '',
-						'placeholder_text'        => '',
-						'dropdown_type'           => '',
-						'ajax_load'               => '',
-						'default_item_id'         => '',
-						'show_parent_items_alone' => 'false',
-						'child_of'                => '',
-						'class'                   => '',
-
-					), $attrs, 'dtdr_sf_ctype_field' );
-
+				'field_type'              => '',
+				'placeholder_text'        => '',
+				'dropdown_type'           => '',
+				'ajax_load'               => '',
+				'default_item_id'         => '',
+				'show_parent_items_alone' => 'false',
+				'child_of'                => '',
+				'class'                   => '',
+			), $attrs, 'dtdr_sf_ctype_field' );
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-ctype-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-ctype-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -310,12 +299,12 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 				$dtdr_sf_ctype = array ();
 				if(isset($_REQUEST['dtdr_sf_ctype'])) {
 					if(is_array($_REQUEST['dtdr_sf_ctype']) && !empty($_REQUEST['dtdr_sf_ctype'])) {
-						$dtdr_sf_ctype = $_REQUEST['dtdr_sf_ctype'];
+						$dtdr_sf_ctype = dtdr_sanitize_fields($_REQUEST['dtdr_sf_ctype']);
 					} else if($_REQUEST['dtdr_sf_ctype'] != '') {
-						$dtdr_sf_ctype = explode(',', $_REQUEST['dtdr_sf_ctype']);
+						$dtdr_sf_ctype = explode(',', sanitize_text_field($_REQUEST['dtdr_sf_ctype']));
 					}
 				} elseif($attrs['default_item_id'] != '') {
-					$dtdr_sf_ctype = explode(',', $attrs['default_item_id']);
+					$dtdr_sf_ctype = explode(',', sanitize_text_field($attrs['default_item_id']));
 				}
 
 				$contracttype_plural_label = apply_filters( 'contracttype_label', 'plural' );
@@ -335,7 +324,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 					$output .= '<select class="dtdr-sf-field dtdr-sf-ctype '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_ctype" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
 						if($mulitple_attr == '') {
-							$output .= '<option value="">'.esc_attr($placeholder_text).'</option>';
+							$output .= '<option value="">'.esc_html( $placeholder_text ).'</option>';
 						}
 
 						$ctypes_args = array (
@@ -403,24 +392,20 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_features_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'tab_id'               => '',
-						'field_type'           => 'range',
-						'placeholder_text'     => '',
-						'min_value'            => 1,
-						'max_value'            => 100,
-						'dropdownlist_options' => '',
-						'dropdown_type'        => '',
-						'item_unit'            => '',
-						'ajax_load'            => '',
-						'class'                => '',
-
-					), $attrs, 'dtdr_sf_features_field' );
-
+				'tab_id'               => '',
+				'field_type'           => 'range',
+				'placeholder_text'     => '',
+				'min_value'            => 1,
+				'max_value'            => 100,
+				'dropdownlist_options' => '',
+				'dropdown_type'        => '',
+				'item_unit'            => '',
+				'ajax_load'            => '',
+				'class'                => '',
+			), $attrs, 'dtdr_sf_features_field' );
 
 			$output = '';
-
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-features-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-features-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				if($attrs['tab_id'] != '') {
 
@@ -430,7 +415,6 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 					}
 
 					// Tab Id
-
 					$dtdr_sf_features_tab_id = $attrs['tab_id'];
 					$tab_id_name = '_tab'.$dtdr_sf_features_tab_id;
 
@@ -438,30 +422,23 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 
 					// Item Unit
-
 					$item_unit = $attrs['item_unit'];
-
 					$output .= '<input name="dtdr_sf_features_item_unit" class="dtdr-sf-field dtdr-sf-features-item-unit" type="hidden" value="'.esc_attr($item_unit).'" />';
 
-
 					// Field Type
-
 					$output .= '<input name="dtdr_sf_features_field_type" class="dtdr-sf-field dtdr-sf-features-field-type" type="hidden" value="'.esc_attr($attrs['field_type']).'" />';
 
-
 					// Extract Values
-
 					$dtdr_sf_features = array ();
 					if(isset($_REQUEST['dtdr_sf_features'.$tab_id_name])) {
 						if(is_array($_REQUEST['dtdr_sf_features'.$tab_id_name]) && !empty($_REQUEST['dtdr_sf_features'.$tab_id_name])) {
-							$dtdr_sf_features = $_REQUEST['dtdr_sf_features'.$tab_id_name];
+							$dtdr_sf_features = dtdr_sanitize_fields($_REQUEST['dtdr_sf_features'.$tab_id_name]);
 						} else if($_REQUEST['dtdr_sf_features'.$tab_id_name] != '') {
-							$dtdr_sf_features = explode(',', $_REQUEST['dtdr_sf_features'.$tab_id_name]);
+							$dtdr_sf_features = explode(',', sanitize_text_field($_REQUEST['dtdr_sf_features'.$tab_id_name]));
 						}
 					}
 
 					// Dropdown / List Options
-
 					$dropdownlist_options = $attrs['dropdownlist_options'];
 					$dropdownlist_options = ($dropdownlist_options != '') ? explode(',', $dropdownlist_options) : array ();
 
@@ -481,7 +458,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 							$output .= '<select class="dtdr-sf-field dtdr-sf-features '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_features'.$tab_id_name.'" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
 								if($mulitple_attr == '') {
-									$output .= '<option value="">'.esc_attr($placeholder_text).'</option>';
+									$output .= '<option value="">'.esc_html($placeholder_text).'</option>';
 								}
 								if(isset($dropdownlist_options)) {
 									foreach($dropdownlist_options as $dropdownlist_option) {
@@ -517,31 +494,31 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 						$dtdr_sf_features_start = $attrs['min_value'];
 						if(isset($_REQUEST['dtdr_sf_features'.$tab_id_name.'_start']) && $_REQUEST['dtdr_sf_features'.$tab_id_name.'_start'] != '') {
-							$dtdr_sf_features_start = $_REQUEST['dtdr_sf_features'.$tab_id_name.'_start'];
+							$dtdr_sf_features_start = sanitize_text_field($_REQUEST['dtdr_sf_features'.$tab_id_name.'_start']);
 						}
 
 						$dtdr_sf_features_end = $attrs['max_value'];
 						if(isset($_REQUEST['dtdr_sf_features'.$tab_id_name.'_end']) && $_REQUEST['dtdr_sf_features'.$tab_id_name.'_end'] != '') {
-							$dtdr_sf_features_end = $_REQUEST['dtdr_sf_features'.$tab_id_name.'_end'];
+							$dtdr_sf_features_end = sanitize_text_field($_REQUEST['dtdr_sf_features'.$tab_id_name.'_end']);
 						}
 
 						$output .= '<div class="dtdr-sf-features-slider '.esc_attr($additional_class).'" data-min="'.esc_attr($attrs['min_value']).'" data-max="'.esc_attr($attrs['max_value']).'" data-updated-min="'.esc_attr($dtdr_sf_features_start).'" data-updated-max="'.esc_attr($dtdr_sf_features_end).'"  data-itemunit="'.esc_attr($item_unit).'">';
-							$output .= '<div class="dtdr-sf-features-slider-start-handle">'.esc_attr($dtdr_sf_features_start).' '.esc_attr($item_unit).'</div>';
-							$output .= '<div class="dtdr-sf-features-slider-end-handle">'.esc_attr($dtdr_sf_features_end).' '.esc_attr($item_unit).'</div>';
+							$output .= '<div class="dtdr-sf-features-slider-start-handle">'.esc_html($dtdr_sf_features_start).' '.esc_html($item_unit).'</div>';
+							$output .= '<div class="dtdr-sf-features-slider-end-handle">'.esc_html($dtdr_sf_features_end).' '.esc_html($item_unit).'</div>';
 							$output .= '<div class="dtdr-sf-features-slider-ranges">';
 								$output .= '<div class="dtdr-sf-features-slider-range-min-holder">';
 									$output .= '<label>'.esc_html__('Min','dtdr-lite').'</label>';
-									$output .= '<div class="dtdr-sf-features-slider-range-min">'.esc_attr($attrs['min_value']).' '.esc_attr($item_unit).'</div>';
+									$output .= '<div class="dtdr-sf-features-slider-range-min">'.esc_html($attrs['min_value']).' '.esc_html($item_unit).'</div>';
 								$output .= '</div>';
 								$output .= '<div class="dtdr-sf-features-slider-range-max-holder">';
 									$output .= '<label>'.esc_html__('Max','dtdr-lite').'</label>';
-									$output .= '<div class="dtdr-sf-features-slider-range-max">'.esc_attr($attrs['max_value']).' '.esc_attr($item_unit).'</div>';
+									$output .= '<div class="dtdr-sf-features-slider-range-max">'.esc_html($attrs['max_value']).' '.esc_html($item_unit).'</div>';
 								$output .= '</div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
-						$output .= '<input name="dtdr_sf_features'.$tab_id_name.'_start" class="dtdr-sf-field dtdr-sf-features-start" type="hidden" value="'.esc_attr($dtdr_sf_features_start).'" />';
-						$output .= '<input name="dtdr_sf_features'.$tab_id_name.'_end" class="dtdr-sf-field dtdr-sf-features-end" type="hidden" value="'.esc_attr($dtdr_sf_features_end).'" />';
+						$output .= '<input name="dtdr_sf_features'.esc_attr( $tab_id_name ).'_start" class="dtdr-sf-field dtdr-sf-features-start" type="hidden" value="'.esc_attr($dtdr_sf_features_start).'" />';
+						$output .= '<input name="dtdr_sf_features'.esc_attr( $tab_id_name ).'_end" class="dtdr-sf-field dtdr-sf-features-end" type="hidden" value="'.esc_attr($dtdr_sf_features_end).'" />';
 
 					}
 
@@ -560,22 +537,20 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_orderby_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'field_type' => '',
-						'placeholder_text' => '',
-						'alphabetical_order' => 'true',
-						'highestrated_order' => 'true',
-						'mostreviewed_order' => 'true',
-						'mostviewed_order' => 'true',
-						'ajax_load' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sf_orderby_field' );
+				'field_type' => '',
+				'placeholder_text' => '',
+				'alphabetical_order' => 'true',
+				'highestrated_order' => 'true',
+				'mostreviewed_order' => 'true',
+				'mostviewed_order' => 'true',
+				'ajax_load' => '',
+				'class' => '',
+			), $attrs, 'dtdr_sf_orderby_field' );
 
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-orderby-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-orderby-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -585,9 +560,9 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 				$dtdr_sf_orderby = array ();
 				if(isset($_REQUEST['dtdr_sf_orderby'])) {
 					if(is_array($_REQUEST['dtdr_sf_orderby']) && !empty($_REQUEST['dtdr_sf_orderby'])) {
-						$dtdr_sf_orderby = $_REQUEST['dtdr_sf_orderby'];
+						$dtdr_sf_orderby = dtdr_sanitize_fields($_REQUEST['dtdr_sf_orderby']);
 					} else if($_REQUEST['dtdr_sf_orderby'] != '') {
-						$dtdr_sf_orderby = explode(',', $_REQUEST['dtdr_sf_orderby']);
+						$dtdr_sf_orderby = explode(',', sanitize_text_field($_REQUEST['dtdr_sf_orderby']));
 					}
 				}
 
@@ -648,17 +623,15 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_mls_number_field( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'placeholder_text' => '',
-						'ajax_load' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sf_mls_number_field' );
+				'placeholder_text' => '',
+				'ajax_load' => '',
+				'class' => '',
+			), $attrs, 'dtdr_sf_mls_number_field' );
 
 
 			$output = '';
 
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-mls-number-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-mls-number-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_class = '';
 				if($attrs['ajax_load'] == 'true') {
@@ -672,7 +645,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 
 				$dtdr_sf_mls_number = '';
 				if(isset($_REQUEST['dtdr_sf_mls_number']) && $_REQUEST['dtdr_sf_mls_number'] != '') {
-					$dtdr_sf_mls_number = $_REQUEST['dtdr_sf_mls_number'];
+					$dtdr_sf_mls_number = sanitize_text_field($_REQUEST['dtdr_sf_mls_number']);
 				}
 
 				$output .= '<input name="dtdr_sf_mls_number" class="dtdr-sf-field dtdr-sf-mls-number '.esc_attr($additional_class).'" type="text" value="'.esc_attr($dtdr_sf_mls_number).'" placeholder="'.esc_attr($placeholder_text).'" />';
@@ -687,17 +660,13 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_submit_button( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'output_type' => '',
-						'separate_page_url' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sf_submit_button' );
-
+				'output_type'       => '',
+				'separate_page_url' => '',
+				'class'             => '',
+			), $attrs, 'dtdr_sf_submit_button' );
 
 			$output = '';
-
-			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-submitbutton-field-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-submitbutton-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 				$additional_attr = $execution_class = 'dtdr-execute';
 				if($attrs['output_type'] == 'separate-page') {
@@ -705,7 +674,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 					$execution_class = '';
 				}
 
-				$output .= '<a href="#" class="custom-button-style dtdr-submit-searchform '.esc_attr($attrs['class']).' '.esc_attr($execution_class).'" data-outputtype="'.esc_attr($attrs['output_type']).'" data-separatepageurl="'.$additional_attr.'">'.esc_html__('Submit','dtdr-lite').'</a>';
+				$output .= '<a href="#" class="custom-button-style dtdr-submit-searchform '.esc_attr($attrs['class']).' '.esc_attr($execution_class).'" data-outputtype="'.esc_attr($attrs['output_type']).'" data-separatepageurl="'.esc_attr( $additional_attr ).'">'.esc_html__('Submit','dtdr-lite').'</a>';
 
 			$output .= '</div>';
 
@@ -716,31 +685,25 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 		function dtdr_sf_output_data_container( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'type'                   => 'type1',
-						'gallery'                => 'featured_image',
-						'post_per_page'          => '',
-						'columns'                => 1,
-						'apply_isotope'          => '',
-						'excerpt_length'         => '',
-						'features_image_or_icon' => '',
-						'features_include'       => '',
-						'no_of_cat_to_display'   => 2,
-						'apply_equal_height'     => 'false',
-						'apply_custom_height'    => 'false',
-						'height'                 => '',
-						'vc_height'              => '',
-						'sidebar_widget'         => 'false',
-
-						'category_ids'           => '',
-
-						'class'                  => '',
-
-					), $attrs, 'dtdr_sf_output_data_container' );
-
+				'type'                   => 'type1',
+				'gallery'                => 'featured_image',
+				'post_per_page'          => '',
+				'columns'                => 1,
+				'apply_isotope'          => '',
+				'excerpt_length'         => '',
+				'features_image_or_icon' => '',
+				'features_include'       => '',
+				'no_of_cat_to_display'   => 2,
+				'apply_equal_height'     => 'false',
+				'apply_custom_height'    => 'false',
+				'height'                 => '',
+				'vc_height'              => '',
+				'sidebar_widget'         => 'false',
+				'category_ids'           => '',
+				'class'                  => '',
+			), $attrs, 'dtdr_sf_output_data_container' );
 
 			$output = '';
-
 			$data_attributes = array ();
 			array_push($data_attributes, 'data-type="'.esc_attr($attrs['type']).'"');
 			array_push($data_attributes, 'data-gallery="'.esc_attr($attrs['gallery']).'"');
@@ -757,7 +720,6 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 			// Custom attributes update from modules
 			$dtdr_custom_options = apply_filters('dtdr_sf_output_data_container_data_attrs_from_modules', '', $attrs);
 			array_push($data_attributes, 'data-customoptions="'.esc_attr($dtdr_custom_options).'"');
-
 
 			if(!empty($data_attributes)) {
 				$data_attributes_string = implode(' ', $data_attributes);
@@ -776,7 +738,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 				$height_attr = 'style="height:'.$attrs['vc_height'].'px;"';
 			}
 
-			$output .= '<div class="dtdr-listing-output-data-container dtdr-search-list-items  '.$attrs['class'].'" '.$height_attr.'>';
+			$output .= '<div class="dtdr-listing-output-data-container dtdr-search-list-items  '.esc_attr( $attrs['class'] ).'" '.$height_attr.'>';
 				$output .= '<div class="dtdr-listing-output-data-holder" '.$data_attributes_string.'></div>';
 				$output .= dtdr_generate_loader_html(false);
 			$output .= '</div>';

@@ -5,13 +5,10 @@ add_action( 'wp_ajax_dtdr_save_options_settings', 'dtdr_save_options_settings' )
 add_action( 'wp_ajax_nopriv_dtdr_save_options_settings', 'dtdr_save_options_settings' );
 function dtdr_save_options_settings() {
 
-	$dtdr_settings_options = $_REQUEST;
-
-	$settings = $dtdr_settings_options['settings'];
-
+	$settings = sanitize_text_field($_REQUEST['settings']);
 	$dtdr_settings = get_option('dtdr-settings');
 
-	$dtdr_settings[$settings] = $dtdr_settings_options['dtdr'][$settings];
+	$dtdr_settings[$settings] = dtdr_sanitize_fields($_REQUEST['dtdr'][$settings]);
 	$dtdr_settings['plugin-status'] = 'activated';
 
 	if (get_option('dtdr-settings') != $dtdr_settings) {
@@ -23,7 +20,6 @@ function dtdr_save_options_settings() {
 	}
 
 	die();
-
 }
 
 // Save Skin Settings
@@ -31,14 +27,11 @@ add_action( 'wp_ajax_dtdr_save_skin_settings', 'dtdr_save_skin_settings' );
 add_action( 'wp_ajax_nopriv_dtdr_save_skin_settings', 'dtdr_save_skin_settings' );
 function dtdr_save_skin_settings() {
 
-	$dtdr_skin_settings = $_REQUEST['dtdr-skin-settings'];
-
+	$dtdr_skin_settings = dtdr_sanitize_fields( $_REQUEST['dtdr-skin-settings'] );
 	update_option('dtdr-skin-settings', $dtdr_skin_settings);
 
 	echo esc_html__('"Skin" settings have been updated successfully!','dtdr-lite');
-
 	die();
-
 }
 
 // Import Settings
@@ -58,7 +51,6 @@ function dtdr_process_imported_file() {
 			if($i > 0) {
 
 				// Extract datas
-
 				$title                    = $xlsx_row[0];
 				$mls_num                  = $xlsx_row[1];
 				$incharge_ids             = $xlsx_row[2];
@@ -542,6 +534,25 @@ if(!function_exists('dtdr_get_incharge_label')) {
 
 	}
 	add_filter( 'incharge_label', 'dtdr_get_incharge_label', 10, 1 );
+}
+
+/**
+ * Recursive sanitation for text or array
+ */
+function dtdr_sanitize_fields($data) {
+    if( is_string($data) ) {
+        $data = sanitize_text_field($data);
+    } elseif( is_array($data) ) {
+        foreach ( $data as $key => &$value ) {
+            if ( is_array( $value ) ) {
+                $value = dtdr_sanitize_fields($value);
+            } else {
+                $value = sanitize_text_field( $value );
+            }
+        }
+    }
+
+    return $data;
 }
 
 ?>

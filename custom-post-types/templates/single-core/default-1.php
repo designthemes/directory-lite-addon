@@ -23,8 +23,6 @@ $listing_id = get_the_ID();
             <?php echo do_shortcode('[dtdr_sp_utils show_favourite="true" show_socialshare="true" show_print="true" listing_id="'.$listing_id.'"]'); ?>
             <?php echo do_shortcode('[dtdr_sp_price type="type1" listing_id="'.$listing_id.'"]'); ?>
             <span class="dtdr-empty-space-25"> </span>
-            <?php echo do_shortcode('[dtdr_sp_add_to_cart listing_id="'.$listing_id.'"]'); ?>
-            <span class="dtdr-empty-space-25"> </span>
         </div>    
     </div>
 </div>

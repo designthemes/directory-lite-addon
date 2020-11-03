@@ -66,10 +66,10 @@ class DTDirectoryLiteSpAverageRating extends Widget_Base {
 			) );
 
 			$this->add_control( 'class', array(
-				'label'   => esc_html__( 'Class','dtdr-lite'),
-				'type'    => Controls_Manager::TEXT,
+				'label'       => esc_html__( 'Class','dtdr-lite'),
+				'type'        => Controls_Manager::TEXT,
 				'description' => esc_html__( 'If you wish you can add additional class name here.','dtdr-lite'),
-				'default' => ''
+				'default'     => ''
 			) );
 
 		$this->end_controls_section();
@@ -77,9 +77,9 @@ class DTDirectoryLiteSpAverageRating extends Widget_Base {
 
 	protected function render() {
 
-		$settings = $this->get_settings();
+		$settings   = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_sp_average_rating '.$attributes.' /]');
+		$output     = do_shortcode('[dtdr_sp_average_rating '.$attributes.' /]');
 
 		echo $output;
 

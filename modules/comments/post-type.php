@@ -40,40 +40,37 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 		function createPostType() {
 
 			$labels = array (
-						'name' => esc_html__('Comments','dtdr-lite'),
-						'all_items' => esc_html__('All Comments','dtdr-lite'),
-						'singular_name' => esc_html__('Comment','dtdr-lite'),
-						'add_new' => esc_html__('Add New','dtdr-lite'),
-						'add_new_item' => esc_html__('Add New Comment','dtdr-lite'),
-						'edit_item' => esc_html__('Edit Comment','dtdr-lite'),
-						'new_item' => esc_html__('New Comment','dtdr-lite'),
-						'view_item' => esc_html__('View Comment','dtdr-lite'),
-						'search_items' => esc_html__('Search Comments','dtdr-lite'),
-						'not_found' => esc_html__('No Comments found','dtdr-lite'),
-						'not_found_in_trash' => esc_html__('No Comments found in Trash','dtdr-lite'),
-						'parent_item_colon' => esc_html__('Parent Comment:','dtdr-lite'),
-						'menu_name' => esc_html__('Comments','dtdr-lite')
-					);
+				'name'               => esc_html__('Comments','dtdr-lite'),
+				'all_items'          => esc_html__('All Comments','dtdr-lite'),
+				'singular_name'      => esc_html__('Comment','dtdr-lite'),
+				'add_new'            => esc_html__('Add New','dtdr-lite'),
+				'add_new_item'       => esc_html__('Add New Comment','dtdr-lite'),
+				'edit_item'          => esc_html__('Edit Comment','dtdr-lite'),
+				'new_item'           => esc_html__('New Comment','dtdr-lite'),
+				'view_item'          => esc_html__('View Comment','dtdr-lite'),
+				'search_items'       => esc_html__('Search Comments','dtdr-lite'),
+				'not_found'          => esc_html__('No Comments found','dtdr-lite'),
+				'not_found_in_trash' => esc_html__('No Comments found in Trash','dtdr-lite'),
+				'parent_item_colon'  => esc_html__('Parent Comment:','dtdr-lite'),
+				'menu_name'          => esc_html__('Comments','dtdr-lite')
+			);
 
 			$args = array (
-						'labels' => $labels,
-						'hierarchical' => true,
-						'description' => 'This is custom post type comments',
-						'supports' => array (
-							'title'
-						),
-
-						'public' => true,
-						'show_ui' => true,
-						'show_in_menu' => 'dtdr',
-						'show_in_nav_menus' => false,
-						'publicly_queryable' => true,
-						'exclude_from_search' => false,
-						'has_archive' => true,
-						'query_var' => true,
-						'can_export' => true,
-						'capability_type' => 'post'
-					);
+				'labels'              => $labels,
+				'hierarchical'        => true,
+				'description'         => 'This is custom post type comments',
+				'supports'            => array ( 'title' ),
+				'public'              => true,
+				'show_ui'             => true,
+				'show_in_menu'        => 'dtdr',
+				'show_in_nav_menus'   => false,
+				'publicly_queryable'  => true,
+				'exclude_from_search' => false,
+				'has_archive'         => true,
+				'query_var'           => true,
+				'can_export'          => true,
+				'capability_type'     => 'post'
+			);
 
 			register_post_type ( 'dtdr_comments', $args );
 

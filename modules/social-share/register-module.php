@@ -45,7 +45,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterSocialShareModule' )) {
 		function dtdr_register_dependent_files() {
 
 			wp_register_style ( 'dtdr-social-share-frontend', DTDR_SOCIALSHARE_PLUGIN_URL . 'assets/social-share-frontend.css', array ( 'fontawesome', 'icon-moon', 'material-icon', 'dtdr-base', 'dtdr-common' ) );
-
 			wp_register_script ( 'dtdr-social-share-frontend', DTDR_SOCIALSHARE_PLUGIN_URL . 'assets/frontend.js', array ('jquery', 'dtdr-common'), false, true );
 
 		}
@@ -53,7 +52,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterSocialShareModule' )) {
 		function dtdr_enqueue_registered_files() {
 
 			wp_enqueue_style ( 'dtdr-social-share-frontend' );
-
 			wp_enqueue_script ( 'dtdr-social-share-frontend' );
 
 		}

@@ -25,7 +25,7 @@ function dtdr_settings_skin_content() {
 					$output .= '<label>'.esc_html__( 'Primary Color','dtdr-lite').'</label>';
 				$output .= '</div>';
 				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[primary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$primary_color.'" />';
+		            $output .= '<input name="dtdr-skin-settings[primary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.esc_attr( $primary_color ).'" />';
 		            $output .= '<div class="dtdr-note">'.esc_html__('Choose primary color module skin.','dtdr-lite').'</div>';
 				$output .= '</div>';
 			$output .= '</div>';
@@ -37,7 +37,7 @@ function dtdr_settings_skin_content() {
 					$output .= '<label>'.esc_html__( 'Secondary Color','dtdr-lite').'</label>';
 				$output .= '</div>';
 				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[secondary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$secondary_color.'" />';
+		            $output .= '<input name="dtdr-skin-settings[secondary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.esc_attr( $secondary_color ).'" />';
 		            $output .= '<div class="dtdr-note">'.esc_html__('Choose secondary color module skin.','dtdr-lite').'</div>';
 				$output .= '</div>';
 			$output .= '</div>';
@@ -49,51 +49,13 @@ function dtdr_settings_skin_content() {
 					$output .= '<label>'.esc_html__( 'Tertiary Color','dtdr-lite').'</label>';
 				$output .= '</div>';
 				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[tertiary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$tertiary_color.'" />';
+		            $output .= '<input name="dtdr-skin-settings[tertiary-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.esc_attr( $tertiary_color ).'" />';
 		            $output .= '<div class="dtdr-note">'.esc_html__('Choose tertiary color module skin.','dtdr-lite').'</div>';
 				$output .= '</div>';
 			$output .= '</div>';
 		$output .= '</div>';
 
 		$output .= '<div class="dtdr-hr-invisible"></div>';
-
-/* 		$output .= '<div class="dtdr-column dtdr-one-third first">';
-			$output .= '<div class="dtdr-settings-options-holder">';
-				$output .= '<div class="dtdr-column dtdr-one-fifth first">';
-					$output .= '<label>'.esc_html__( 'Primary Color - Alternate','dtdr-lite').'</label>';
-				$output .= '</div>';
-				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[primary-alternate-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$primary_alternate_color.'" />';
-		            $output .= '<div class="dtdr-note">'.esc_html__('Choose primary alternate color module skin.','dtdr-lite').'</div>';
-				$output .= '</div>';
-			$output .= '</div>';
-		$output .= '</div>';
-
-		$output .= '<div class="dtdr-column dtdr-one-third">';
-			$output .= '<div class="dtdr-settings-options-holder">';
-				$output .= '<div class="dtdr-column dtdr-one-fifth first">';
-					$output .= '<label>'.esc_html__( 'Secondary Color - Alternate','dtdr-lite').'</label>';
-				$output .= '</div>';
-				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[secondary-alternate-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$secondary_alternate_color.'" />';
-		            $output .= '<div class="dtdr-note">'.esc_html__('Choose secondary alternate color module skin.','dtdr-lite').'</div>';
-				$output .= '</div>';
-			$output .= '</div>';
-		$output .= '</div>';
-
-		$output .= '<div class="dtdr-column dtdr-one-third">';
-			$output .= '<div class="dtdr-settings-options-holder">';
-				$output .= '<div class="dtdr-column dtdr-one-fifth first">';
-					$output .= '<label>'.esc_html__( 'Tertiary Color - Alternate','dtdr-lite').'</label>';
-				$output .= '</div>';
-				$output .= '<div class="dtdr-column dtdr-four-fifth">';
-		            $output .= '<input name="dtdr-skin-settings[tertiary-alternate-color]" class="dtdr-color-field color-picker" data-alpha="true" type="text" value="'.$tertiary_alternate_color.'" />';
-		            $output .= '<div class="dtdr-note">'.esc_html__('Choose tertiary alternate color module skin.','dtdr-lite').'</div>';
-				$output .= '</div>';
-			$output .= '</div>';
-		$output .= '</div>';
-
-		$output .= '<div class="dtdr-hr-invisible"></div>'; */
 
 		$output .= '<div class="dtdr-skin-settings-response-holder"></div>';
 

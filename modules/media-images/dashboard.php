@@ -1,5 +1,4 @@
 <?php
-
 // Filter Listing Fields
 if(!function_exists('dtdr_add_listing_fields_from_mediaimages_module')) {
 	function dtdr_add_listing_fields_from_mediaimages_module($output = '', $edit_item_id) {

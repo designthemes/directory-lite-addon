@@ -48,8 +48,8 @@ if (!class_exists ( 'DTDirectoryLiteRegisterMediaAttachmentsModule' )) {
 
 			$tabs['media-attachments'] = array (
 				'label' => esc_html__('Media - Attachments','dtdr-lite'),
-				'icon' => 'fas fa-camera-retro',
-				'path' => DTDR_MATTACHMENTS_PLUGIN_PATH . 'metabox-tab-listing.php'
+				'icon'  => 'fas fa-camera-retro',
+				'path'  => DTDR_MATTACHMENTS_PLUGIN_PATH . 'metabox-tab-listing.php'
 			);
 
 			return $tabs;
@@ -83,7 +83,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterMediaAttachmentsModule' )) {
 		function dtdr_register_dependent_files() {
 
 			wp_register_style ( 'dtdr-media-attachments-frontend', DTDR_MATTACHMENTS_PLUGIN_URL . 'assets/media-attachments-frontend.css', array ( 'fontawesome', 'icon-moon', 'material-icon', 'dtdr-base', 'dtdr-common', 'swiper' ) );
-
 			wp_register_script ( 'dtdr-media-attachments-fields', DTDR_MATTACHMENTS_PLUGIN_URL . 'assets/fields.js', array ('jquery', 'dtdr-fields'), false, true );
 
 		}

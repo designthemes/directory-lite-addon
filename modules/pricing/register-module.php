@@ -71,7 +71,7 @@ if (!class_exists ( 'DTDirectoryLiteRegisterPricingModule' )) {
 
 			$tabs['price'] = array (
 				'label' => esc_html__('Price','dtdr-lite'),
-				'path' => DTDR_PRICING_PLUGIN_PATH . 'settings.php'
+				'path'  => DTDR_PRICING_PLUGIN_PATH . 'settings.php'
 			);
 
 			return $tabs;
@@ -88,12 +88,10 @@ if (!class_exists ( 'DTDirectoryLiteRegisterPricingModule' )) {
 		function dtdr_register_dependent_files() {
 
 			// CSS
-
 			wp_register_style ( 'dtdr-pricing-frontend', DTDR_PRICING_PLUGIN_URL . 'assets/pricing-frontend.css', array ( 'fontawesome', 'icon-moon', 'material-icon', 'dtdr-base', 'dtdr-common' ) );
 			wp_register_style ( 'dtdr-pricing-search', DTDR_PRICING_PLUGIN_URL . 'assets/pricing-search.css', array ( 'dtdr-search-frontend' ) );
 
 			// JS
-
 			wp_register_script ( 'dtdr-pricing-search', DTDR_PRICING_PLUGIN_URL . 'assets/search.js', array ('dtdr-search-frontend'), false, true );
 
 		}
@@ -106,7 +104,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterPricingModule' )) {
 
 			wp_enqueue_script ( 'jquery-ui-slider' );
 			wp_enqueue_script ( 'dtdr-pricing-search' );
-
 		}
 
 		function dtdr_addorupdate_listing_pricing_module($data, $listing_id) {
@@ -119,7 +116,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterPricingModule' )) {
 			update_post_meta($listing_id, '_sale_price', $_sale_price);
 			update_post_meta($listing_id, 'dtdr_before_price_label', $dtdr_before_price_label);
 			update_post_meta($listing_id, 'dtdr_after_price_label', $dtdr_after_price_label);
-
 		}
 
 	}
@@ -133,5 +129,4 @@ if( !function_exists('dtdrPricingModule') ) {
 }
 
 dtdrPricingModule();
-
 ?>

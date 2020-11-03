@@ -5,8 +5,6 @@ if(!function_exists('dtdr_add_listing_fields_from_pricing_modules')) {
 	function dtdr_add_listing_fields_from_pricing_modules($output = '', $edit_item_id) {
 
 		$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-
-
 		$dtdr_currency_symbol = $dtdr_currency_symbol_position = $_regular_price = $_sale_price = $dtdr_before_price_label = $dtdr_after_price_label = '';
 
 		if($edit_item_id > 0) {
@@ -30,7 +28,7 @@ if(!function_exists('dtdr_add_listing_fields_from_pricing_modules')) {
 
 			$output .= '<div class="dtdr-dashbord-section-holder-content">';
 
-				$output .= '<input type="hidden" name="dtdr_woocommerce_meta_nonce" value="'.wp_create_nonce('dtdr_woocommerce_nonce').'" />';
+				$output .= '<input type="hidden" name="dtdr_woocommerce_meta_nonce" value="'.esc_attr( wp_create_nonce('dtdr_woocommerce_nonce') ).'"/>';
 
 				$output .= '<div class="dtdr-column dtdr-one-half first">';
 					$output .= '<div class="dtdr-dashboard-option-item">
@@ -104,6 +102,4 @@ if(!function_exists('dtdr_add_listing_fields_from_pricing_modules')) {
 
 	}
 	add_filter( 'dtdr_add_listing_fields_from_modules', 'dtdr_add_listing_fields_from_pricing_modules', 10, 2 );
-}
-
-?>
+}?>

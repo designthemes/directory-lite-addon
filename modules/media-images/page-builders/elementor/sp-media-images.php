@@ -78,10 +78,10 @@ class DTDirectoryLiteSpMediaImages extends Widget_Base {
 			) );
 
 			$this->add_control( 'class', array(
-				'label'   => esc_html__( 'Class','dtdr-lite'),
-				'type'    => Controls_Manager::TEXT,
+				'label'       => esc_html__( 'Class','dtdr-lite'),
+				'type'        => Controls_Manager::TEXT,
 				'description' => esc_html__( 'If you wish you can add additional class name here.','dtdr-lite'),
-				'default' => ''
+				'default'     => ''
 			) );
 
 		$this->end_controls_section();
@@ -123,42 +123,42 @@ class DTDirectoryLiteSpMediaImages extends Widget_Base {
 			) );
 
 			$this->add_control( 'carousel_loopmode', array(
-				'label'       => esc_html__( 'Enable Loop Mode','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Enable Loop Mode','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'false' => esc_html__('False','dtdr-lite'),
 					'true'  => esc_html__('True','dtdr-lite'),
 				),
 				'description' => esc_html__( 'If you wish you can enable continous loop mode for your carousel.','dtdr-lite'),
-				'default'      => 'false'
+				'default'     => 'false'
 			) );
 
 			$this->add_control( 'carousel_mousewheelcontrol', array(
-				'label'       => esc_html__( 'Enable Mousewheel Control','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Enable Mousewheel Control','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'false' => esc_html__('False','dtdr-lite'),
 					'true'  => esc_html__('True','dtdr-lite'),
 				),
 				'description' => esc_html__( 'If you wish you can enable mouse wheel control for your carousel.','dtdr-lite'),
-				'default'      => 'false'
+				'default'     => 'false'
 			) );
 
 			$this->add_control( 'carousel_verticaldirection', array(
-				'label'       => esc_html__('Enable Vertical Direction','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__('Enable Vertical Direction','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'false' => esc_html__('False','dtdr-lite'),
 					'true'  => esc_html__('True','dtdr-lite'),
 				),
 				'description' => esc_html__( 'To make your slides to navigate vertically.','dtdr-lite'),
-				'default'      => 'false'
+				'default'     => 'false'
 			) );
 
 			$this->add_control( 'carousel_paginationtype', array(
-				'label'       => esc_html__( 'Pagination Type','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Pagination Type','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					''            => esc_html__('None','dtdr-lite'),
 					'bullets'     => esc_html__('Bullets','dtdr-lite'),
 					'fraction'    => esc_html__('Fraction','dtdr-lite'),
@@ -171,9 +171,9 @@ class DTDirectoryLiteSpMediaImages extends Widget_Base {
 			) );
 
 			$this->add_control( 'carousel_numberofthumbnails', array(
-				'label'       => esc_html__('Number of Thumbnails','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__('Number of Thumbnails','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					3 => 3,
 					4 => 4,
 					5 => 5,
@@ -181,36 +181,36 @@ class DTDirectoryLiteSpMediaImages extends Widget_Base {
 				),
 				'description' => esc_html__( 'Number of thumbnails to show.','dtdr-lite'),
 				'condition'   => array( 'carousel_paginationtype' => 'thumbnail' ),
-				'default'      => 3
+				'default'     => 3
 			) );
 
 			$this->add_control( 'carousel_arrowpagination', array(
-				'label'       => esc_html__( 'Enable Arrow Pagination','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Enable Arrow Pagination','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'false' => esc_html__('False','dtdr-lite'),
 					'true'  => esc_html__('True','dtdr-lite'),
 				),
 				'description' => esc_html__( 'To enable arrow pagination.','dtdr-lite'),
-				'default'      => 'false'
+				'default'     => 'false'
 			) );
 
 			$this->add_control( 'carousel_arrowpagination_type', array(
-				'label'       => esc_html__( 'Arrow Type','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Arrow Type','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'type1' => esc_html__('Type 1','dtdr-lite'),
 					'type2' => esc_html__('Type 2','dtdr-lite'),
 				),
 				'description' => esc_html__( 'Choose arrow pagination type for your carousel.','dtdr-lite'),
-				'default'      => 'type1'
+				'default'     => 'type1'
 			) );
 
 			$this->add_control( 'carousel_spacebetween', array(
-				'label'   => esc_html__( 'Space Between Sliders','dtdr-lite'),
-				'type'    => Controls_Manager::TEXT,
+				'label'       => esc_html__( 'Space Between Sliders','dtdr-lite'),
+				'type'        => Controls_Manager::TEXT,
 				'description' => esc_html__( 'Space between sliders can be given here.','dtdr-lite'),
-				'default' => ''
+				'default'     => ''
 			) );
 
 		$this->end_controls_section();

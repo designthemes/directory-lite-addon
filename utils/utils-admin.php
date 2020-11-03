@@ -10,9 +10,9 @@ if( !function_exists( 'dtdr_adminpanel_image_preview' ) ){
 
 		$output .= '<div class="dtdr-image-preview-holder">';
 			$output .= '<a href="#" class="dtdr-image-preview" onclick="return false;">';
-				$output .= '<img src="'.DTDR_LITE_PLUGIN_URL.'assets/images/backend/image-preview.png" alt="'.esc_html__('Image Preview','dtdr-lite').'" title="'.esc_html__('Image Preview','dtdr-lite').'" />';
+				$output .= '<img src="'.DTDR_LITE_PLUGIN_URL.'assets/images/backend/image-preview.png" alt="'.esc_attr__('Image Preview','dtdr-lite').'" title="'.esc_attr__('Image Preview','dtdr-lite').'" />';
 				$output .= '<div class="dtdr-image-preview-tooltip">';
-					$output .= '<img src="'.$src.'" data-default="'.$default.'"  alt="'.esc_html__('Image Preview Tooltip','dtdr-lite').'" title="'.esc_html__('Image Preview Tooltip','dtdr-lite').'" />';
+					$output .= '<img src="'.esc_url( $src ).'" data-default="'.esc_url( $default ).'"  alt="'.esc_attr__('Image Preview Tooltip','dtdr-lite').'" title="'.esc_attr__('Image Preview Tooltip','dtdr-lite').'" />';
 				$output .= '</div>';
 			$output .= '</a>';
 		$output .= '</div>';
@@ -31,8 +31,8 @@ if( !function_exists( 'dtdr_adminpanel_image_holder' ) ){
 		$output = '';
 
 		$output .= '<div class="dtdr-image-holder">
-						<img src="'.$src.'" data-default="'.$default.'"  alt="'.esc_html__('Image Preview','dtdr-lite').'" title="'.esc_html__('Image Preview','dtdr-lite').'" />
-					</div>';
+			<img src="'.esc_url( $src ).'" data-default="'.esc_url( $default ).'"  alt="'.esc_attr__('Image Preview','dtdr-lite').'" title="'.esc_attr__('Image Preview','dtdr-lite').'" />
+		</div>';
 
 		return $output;
 

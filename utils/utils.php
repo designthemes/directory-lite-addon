@@ -1,84 +1,81 @@
 <?php
-
 // Plugin default settings
 if(!function_exists('dtdr_plugins_default_settings')) {
 	function dtdr_plugins_default_settings() {
 
 		$general_settings = array (
-								'container-width'                => 1230,
-								'single-page-template'           => 'default-template-1',
-								'backend-postperpage'            => 10,
-								'frontend-postperpage'           => 10,
-								'restrict-counter-overuserip'    => 'true',
-								'should-admin-approve-listings'  => 'true',
-								'should-admin-approve-incharges' => 'true',
-								'allow-incharge-add-listing'     => 'true'
-					        );
+			'container-width'                => 1230,
+			'single-page-template'           => 'default-template-1',
+			'backend-postperpage'            => 10,
+			'frontend-postperpage'           => 10,
+			'restrict-counter-overuserip'    => 'true',
+			'should-admin-approve-listings'  => 'true',
+			'should-admin-approve-incharges' => 'true',
+			'allow-incharge-add-listing'     => 'true'
+        );
 
 		$label_settings = array (
-								'listing-singular-label'      => esc_html__('Property','dtdr-lite'),
-								'listing-plural-label'        => esc_html__('Properties','dtdr-lite'),
-								'contracttype-singular-label' => esc_html__('Contract Type','dtdr-lite'),
-								'contracttype-plural-label'   => esc_html__('Contract Types','dtdr-lite'),
-								'amenity-singular-label'      => esc_html__('Amenity','dtdr-lite'),
-								'amenity-plural-label'        => esc_html__('Amenities','dtdr-lite'),
-								'seller-singular-label'       => esc_html__('Agency','dtdr-lite'),
-								'seller-plural-label'         => esc_html__('Agencies','dtdr-lite'),
-								'incharge-singular-label'     => esc_html__('Agent','dtdr-lite'),
-								'incharge-plural-label'       => esc_html__('Agents','dtdr-lite')
-					        );
+			'listing-singular-label'      => esc_html__('Property','dtdr-lite'),
+			'listing-plural-label'        => esc_html__('Properties','dtdr-lite'),
+			'contracttype-singular-label' => esc_html__('Contract Type','dtdr-lite'),
+			'contracttype-plural-label'   => esc_html__('Contract Types','dtdr-lite'),
+			'amenity-singular-label'      => esc_html__('Amenity','dtdr-lite'),
+			'amenity-plural-label'        => esc_html__('Amenities','dtdr-lite'),
+			'seller-singular-label'       => esc_html__('Agency','dtdr-lite'),
+			'seller-plural-label'         => esc_html__('Agencies','dtdr-lite'),
+			'incharge-singular-label'     => esc_html__('Agent','dtdr-lite'),
+			'incharge-plural-label'       => esc_html__('Agents','dtdr-lite')
+        );
 
 		$login_settings = array (
-								'seller-login-redirect-page' => 'homeurl',
-								'incharge-login-redirect-page'  => 'homeurl'
-					        );
+			'seller-login-redirect-page'   => 'homeurl',
+			'incharge-login-redirect-page' => 'homeurl'
+        );
 
 		$permalink_settings = array (
-								'listing-slug' => 'listings',
-								'listing-category-slug'  => 'listing-category',
-								'listing-contracttype-slug'  => 'listing-contracttype',
-								'listing-amenity-slug'  => 'listing-amenity'
-					        );
+			'listing-slug'              => 'listings',
+			'listing-category-slug'     => 'listing-category',
+			'listing-contracttype-slug' => 'listing-contracttype',
+			'listing-amenity-slug'      => 'listing-amenity'
+        );
 
 		$archives_settings = array (
-								'archive-page-type'                   => 'type1',
-								'archive-page-gallery'                => 'featured_image',
-								'archive-page-column'                 => 3,
-								'archive-page-apply-isotope'          => 'true',
-								'archive-page-excerpt-length'         => 20,
-								'archive-page-features-image-or-icon' => 'image',
-								'archive-page-features-include'       => '0,1,2',
-								'archive-page-noofcat-to-display'     => 2
-					        );
+			'archive-page-type'                   => 'type1',
+			'archive-page-gallery'                => 'featured_image',
+			'archive-page-column'                 => 3,
+			'archive-page-apply-isotope'          => 'true',
+			'archive-page-excerpt-length'         => 20,
+			'archive-page-features-image-or-icon' => 'image',
+			'archive-page-features-include'       => '0,1,2',
+			'archive-page-noofcat-to-display'     => 2
+		);
 
 		$price_settings = array (
-								'currency-symbol' => '',
-								'currency-symbol-position'  => 'left'
-					        );
-
-
+			'currency-symbol'          => '',
+			'currency-symbol-position' => 'left'
+		);
+		
 		$map_settings = array (
-								'default-zoom-level'        => 10,
-								'default-map-type'          => 'ROADMAP',
-								'enable-zoom-control'       => 'true',
-								'enable-fullscreen-control' => 'true',
-								'listing-city-slug'         => 'listing-city',
-								'listing-neighborhood-slug' => 'listing-neighborhood',
-								'listing-countystate-slug'  => 'listing-countystate'
-					        );
+			'default-zoom-level'        => 10,
+			'default-map-type'          => 'ROADMAP',
+			'enable-zoom-control'       => 'true',
+			'enable-fullscreen-control' => 'true',
+			'listing-city-slug'         => 'listing-city',
+			'listing-neighborhood-slug' => 'listing-neighborhood',
+			'listing-countystate-slug'  => 'listing-countystate'
+	    );
 
 		$dtdr_settings = array (
-				'general'       => $general_settings,
-				'label'         => $label_settings,
-				'login'         => $login_settings,
-				'permalink'     => $permalink_settings,
-				'archives'      => $archives_settings,
-				'price'         => $price_settings,
-				'map'           => $map_settings
-			);
+			'general'       => $general_settings,
+			'label'         => $label_settings,
+			'login'         => $login_settings,
+			'permalink'     => $permalink_settings,
+			'archives'      => $archives_settings,
+			'price'         => $price_settings,
+			'map'           => $map_settings
+		);
 
 		return $dtdr_settings;
-
 	}
 }
 
@@ -274,25 +271,25 @@ function dtdr_ajax_pagination($max_num_pages, $current_page, $function_call, $ou
 			$post_per_page = $item_ids['post_per_page'];
 		}
 
-		$output .= '<div class="dtdr-pagination dtdr-default-pagination dtdr-ajax-pagination" data-postperpage="'.$post_per_page.'" data-functioncall="'.$function_call.'" data-outputdiv="'.$output_div.'" data-userid="'.$user_id.'" data-dashboardpageid="'.$dashboard_page_id.'" data-loader="'.$loader.'" data-loaderparent="'.$loader_parent.'" data-sellerid="'.$seller_id.'">';
+		$output .= '<div class="dtdr-pagination dtdr-default-pagination dtdr-ajax-pagination" data-postperpage="'.esc_attr( $post_per_page ).'" data-functioncall="'.esc_attr( $function_call ).'" data-outputdiv="'.esc_attr( $output_div ).'" data-userid="'.esc_attr( $user_id ).'" data-dashboardpageid="'.esc_attr( $dashboard_page_id ).'" data-loader="'.esc_attr( $loader ).'" data-loaderparent="'.esc_attr( $loader_parent ).'" data-sellerid="'.esc_attr( $seller_id ).'">';
 
 			if($current_page > 1) {
-				$output .= '<div class="prev-post"><a href="#" data-currentpage="'.$current_page.'"><span class="fa fa-caret-left"></span>&nbsp;'.esc_html__('Prev','dtdr-lite').'</a></div>';
+				$output .= '<div class="prev-post"><a href="#" data-currentpage="'.esc_attr( $current_page ).'"><span class="fa fa-caret-left"></span>&nbsp;'.esc_html__('Prev','dtdr-lite').'</a></div>';
 			}
 
 			$output .= paginate_links ( array (
-						  'base' 		 => '#',
-						  'format' 		 => '',
-						  'current' 	 => $current_page,
-						  'type'     	 => 'list',
-						  'end_size'     => 2,
-						  'mid_size'     => 3,
-						  'prev_next'    => false,
-						  'total' 		 => $max_num_pages
-					  ) );
+				'base' 		 => '#',
+				'format' 		 => '',
+				'current' 	 => $current_page,
+				'type'     	 => 'list',
+				'end_size'     => 2,
+				'mid_size'     => 3,
+				'prev_next'    => false,
+				'total' 		 => $max_num_pages
+			) );
 
 			if ($current_page < $max_num_pages) {
-				$output .= '<div class="next-post"><a href="#" data-currentpage="'.$current_page.'">'.esc_html__('Next','dtdr-lite').'&nbsp;<span class="fa fa-caret-right"></span></a></div>';
+				$output .= '<div class="next-post"><a href="#" data-currentpage="'.esc_attr( $current_page ).'">'.esc_html__('Next','dtdr-lite').'&nbsp;<span class="fa fa-caret-right"></span></a></div>';
 			}
 
 		$output .= '</div>';
@@ -300,7 +297,6 @@ function dtdr_ajax_pagination($max_num_pages, $current_page, $function_call, $ou
     }
 
     return $output;
-
 }
 
 function dtdr_generate_loader_html($add_first_class = true) {
@@ -310,10 +306,10 @@ function dtdr_generate_loader_html($add_first_class = true) {
 		$add_first_class_item .= 'first';
 	}
 
-	$output = '<div class="dtdr-ajax-load-image '.$add_first_class_item.'" style="display:none;">
-					<div class="dtdr-loader-inner">
-					</div>
-				</div>';
+	$output = '<div class="dtdr-ajax-load-image '.esc_attr( $add_first_class_item ).'" style="display:none;">
+		<div class="dtdr-loader-inner">
+		</div>
+	</div>';
 
     return $output;
 
@@ -431,4 +427,30 @@ if(!function_exists('dtdr_custom_excerpt')) {
 	}
 }
 
-?>
+// Add Capabilities for Administrator
+if(!function_exists('dtdr_add_admin_caps')) {
+
+    function dtdr_add_admin_caps() {
+
+        $role = get_role('administrator');
+        $role->add_cap('create_dtdr_listings');
+        $role->add_cap('publish_dtdr_listings');
+        $role->add_cap('read_dtdr_listing');
+        $role->add_cap('delete_dtdr_listing');
+        $role->add_cap('edit_dtdr_listing');
+        $role->add_cap('edit_dtdr_listings');
+        $role->add_cap('delete_dtdr_listings');
+        $role->add_cap('edit_published_dtdr_listings');
+        $role->add_cap('delete_published_dtdr_listings');
+        $role->add_cap('read_private_dtdr_listings');
+        $role->add_cap('delete_private_dtdr_listings');
+        $role->add_cap('edit_others_dtdr_listings');
+        $role->add_cap('delete_others_dtdr_listings');
+        $role->add_cap('edit_private_dtdr_listings');
+        $role->add_cap('delete_private_dtdr_listings');
+        $role->add_cap('edit_published_dtdr_listings');
+
+    }
+
+    add_action('admin_init', 'dtdr_add_admin_caps');
+}

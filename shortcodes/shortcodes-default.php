@@ -57,20 +57,15 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 				}
 
 				$output .= '<ul class="dtdr-custom-login '.esc_attr($attrs['class']).'">';
-
-					$output .= '<li><a href="'.$redirect_link.'">'.get_avatar( $current_user->ID, 150).'<span>'.'&nbsp;'.$current_user->display_name.' </span></a></li>';
-
+					$output .= '<li><a href="'.esc_url( $redirect_link ).'">'.get_avatar( $current_user->ID, 150).'<span>'.'&nbsp;'.escc_html( $current_user->display_name ).' </span></a></li>';
 					$output .= '<li><a href="'.wp_logout_url(home_url('/')).'" title="'.esc_html__('Logout','dtdr-lite').'">'.esc_html__('Logout','dtdr-lite').'</a></li>';
-
 				$output .= '</ul>';
 
 			} else {
 
 				$output .= '<ul class="dtdr-custom-login '.esc_attr($attrs['class']).'">';
-
 					$output .= '<li><a href="#" title="'.esc_html__('Login','dtdr-lite').'" class="dtdr-login-link" onclick="return false">'.esc_html__('Login','dtdr-lite').'</a></li>';
-
-					$output .= '<li><a href="'.wp_registration_url().'" title="'.esc_html__('Register','dtdr-lite').'">'.esc_html__('Register','dtdr-lite').'</a></li>';
+					$output .= '<li><a href="'.wp_registration_url().'" title="'.esc_attr__('Register','dtdr-lite').'">'.esc_html__('Register','dtdr-lite').'</a></li>';
 
 				$output .= '</ul>';
 
@@ -85,49 +80,48 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 		function dtdr_listings_listing($attrs, $content = null) {
 
 			$attrs = shortcode_atts ( array (
+				'type'                       => 'type1',
+				'gallery'                    => 'featured_image',
+				'post_per_page'              => -1,
+				'columns'                    => 1,
+				'apply_isotope'              => 'true',
+				'isotope_filter'             => '',
+				'apply_child_of'             => 'false',
+				'featured_items'             => '',
+				'features_image_or_icon'     => '',
+				'features_include'           => '',
+				'no_of_cat_to_display'       => 2,
+				'excerpt_length'             => 20,
+				'apply_equal_height'         => 'false',
+				'apply_custom_height'        => 'false',
+				'height'                     => '',
+				'vc_height'                  => '',
+				'sidebar_widget'             => 'false',
 
-						'type'                       => 'type1',
-						'gallery'                    => 'featured_image',
-						'post_per_page'              => -1,
-						'columns'                    => 1,
-						'apply_isotope'              => 'true',
-						'isotope_filter'             => '',
-						'apply_child_of'             => 'false',
-						'featured_items'             => '',
-						'features_image_or_icon'     => '',
-						'features_include'           => '',
-						'no_of_cat_to_display'       => 2,
-						'excerpt_length'             => 20,
-						'apply_equal_height'         => 'false',
-						'apply_custom_height'        => 'false',
-						'height'                     => '',
-						'vc_height'                  => '',
-						'sidebar_widget'             => 'false',
+				'list_item_ids'              => '',
+				'category_ids'               => '',
+				'cities_ids'                 => '',
+				'neighborhoods_ids'          => '',
+				'countiesstates_ids'         => '',
+				'contracttypes_ids'          => '',
+				'tag_ids'                    => '',
+				'country_id'                 => '',
+				'seller_ids'                 => '',
+				'incharge_ids'               => '',
 
-						'list_item_ids'              => '',
-						'category_ids'               => '',
-						'cities_ids'                 => '',
-						'neighborhoods_ids'          => '',
-						'countiesstates_ids'         => '',
-						'contracttypes_ids'          => '',
-						'tag_ids'                    => '',
-						'country_id'                 => '',
-						'seller_ids'                 => '',
-						'incharge_ids'               => '',
+				'enable_carousel'            => '',
+				'carousel_effect'            => '',
+				'carousel_autoplay'          => 0,
+				'carousel_slidesperview'     => 2,
+				'carousel_loopmode'          => '',
+				'carousel_mousewheelcontrol' => '',
+				'carousel_bulletpagination'  => 'true',
+				'carousel_arrowpagination'   => '',
+				'carousel_spacebetween'      => 30,
 
-						'enable_carousel'            => '',
-						'carousel_effect'            => '',
-						'carousel_autoplay'          => 0,
-						'carousel_slidesperview'     => 2,
-						'carousel_loopmode'          => '',
-						'carousel_mousewheelcontrol' => '',
-						'carousel_bulletpagination'  => 'true',
-						'carousel_arrowpagination'   => '',
-						'carousel_spacebetween'      => 30,
+				'class'                      => '',
 
-						'class'                      => '',
-
-					), $attrs, 'dtdr_listings_listing' );
+			), $attrs, 'dtdr_listings_listing' );
 
 
 			if($attrs['enable_carousel'] == 'true') {
@@ -219,12 +213,11 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 			$height_attr = '';
 			if($attrs['vc_height'] != '') {
-				$height_attr = 'style="height:'.$attrs['vc_height'].'px;"';
+				$height_attr = 'style="height:'.esc_attr( $attrs['vc_height'] ).'px;"';
 			}
 
 			$output = '';
-
-			$output .= '<div class="dtdr-listing-output-data-container dtdr-direct-list-items dtdr-listing-no-map '.$attrs['class'].'" '.$listing_carousel_attributes_string.' '.$height_attr.'>';
+			$output .= '<div class="dtdr-listing-output-data-container dtdr-direct-list-items dtdr-listing-no-map '.esc_attr( $attrs['class'] ).'" '.$listing_carousel_attributes_string.' '.$height_attr.'>';
 
 				$output .= '<div class="dtdr-listing-output-data-holder" '.$data_attributes_string.'></div>';
 
@@ -260,23 +253,20 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 		function dtdr_listings_taxonomy($attrs, $content = null) {
 
 			$attrs = shortcode_atts ( array (
-
-							'taxonomy'                => 'dtdr_listings_category',
-							'type'                    => 'type1',
-							'media_type'              => 'image',
-							'columns'                 => '',
-							'include'                 => '',
-							'show_parent_items_alone' => 'false',
-							'child_of'                => '',
-							'class'                   => '',
-
-					), $attrs, 'dtdr_listings_taxonomy' );
-
+				'taxonomy'                => 'dtdr_listings_category',
+				'type'                    => 'type1',
+				'media_type'              => 'image',
+				'columns'                 => '',
+				'include'                 => '',
+				'show_parent_items_alone' => 'false',
+				'child_of'                => '',
+				'class'                   => '',
+			), $attrs, 'dtdr_listings_taxonomy' );
 
 			$output = '';
 
 			$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-			$listing_plural_label = apply_filters( 'listing_label', 'plural' );
+			$listing_plural_label   = apply_filters( 'listing_label', 'plural' );
 
 			$column_class = '';
 			if($attrs['columns'] == 1) {
@@ -288,9 +278,10 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 			}
 
 			$cat_args = array (
-							'taxonomy'   => $attrs['taxonomy'],
-							'hide_empty' => 1
-						);
+				'taxonomy'   => $attrs['taxonomy'],
+				'hide_empty' => 1
+			);
+
 			if($attrs['include'] != '') {
 				$cat_args['include'] = $attrs['include'];
 			}
@@ -337,9 +328,7 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 						}
 					$background_icon_style .= '"';
 
-
 					// Category Starting Price
-
 					$starting_price_html = '';
 					if(function_exists('dtdr_generate_price_html') && ($attrs['type'] == 'type4' || $attrs['type'] == 'type7')) {
 
@@ -353,8 +342,8 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 						$listing_args['tax_query'][] = array (
 							'taxonomy' => 'dtdr_listings_category',
-							'field' => 'id',
-							'terms' => $category,
+							'field'    => 'id',
+							'terms'    => $category,
 							'operator' => 'IN'
 						);
 
@@ -371,7 +360,7 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 							$price_label = dtdr_generate_price_html($cat_listings_id);
 
 							if(isset($price_label['sale_price']) && !empty($price_label['sale_price'])) {
-								$_sale_price_label_html = '<div class="dtdr-listing-taxonomy-starting-price-html">'.$price_label['sale_price'].'</div>';
+								$_sale_price_label_html = '<div class="dtdr-listing-taxonomy-starting-price-html">'.esc_html( $price_label['sale_price'] ).'</div>';
 								$starting_price_html .= '<div class="dtdr-listing-taxonomy-starting-price">';
 									$starting_price_html .= sprintf(esc_html__('Starts from %1$s','dtdr-lite'), $_sale_price_label_html);
 								$starting_price_html .= '</div>';
@@ -383,19 +372,19 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type1') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type1 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type1 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
 								if($attrs['media_type'] == 'icon') {
-									$output .= '<span class="'.$icon.'" '.$icon_style.'></span>';
+									$output .= '<span class="'.esc_attr( $icon ).'" '.$icon_style.'></span>';
 								} else if($attrs['media_type'] == 'icon_image') {
-									$output .= '<img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
 								} else {
-									$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 								}
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items"><span>'.esc_html( $category->count ).'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -403,19 +392,19 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type2') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type2 '.$column_class.' '.$first_class.' '.$attrs['class'].'" >';
+						$output .= '<div class="dtdr-listing-taxonomy-item type2 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'" >';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
 								if($attrs['media_type'] == 'icon') {
-									$output .= '<span class="'.$icon.'"></span>';
+									$output .= '<span class="'.esc_attr( $icon ).'"></span>';
 								} else if($attrs['media_type'] == 'icon_image') {
-									$output .= '<img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
 								} else {
-									$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 								}
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items"><span>'.esc_attr( $category->count ).'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -423,19 +412,19 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type3') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type3 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type3 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
 								if($attrs['media_type'] == 'icon') {
-									$output .= '<span class="'.$icon.'" '.$icon_style.'></span>';
+									$output .= '<span class="'.esc_attr( $icon ).'" '.$icon_style.'></span>';
 								} else if($attrs['media_type'] == 'icon_image') {
-									$output .= '<img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
 								} else {
-									$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 								}
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items"><span>'.esc_html( $category->count ).'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -443,19 +432,19 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type4') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type4 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type4 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
 								if($attrs['media_type'] == 'icon') {
-									$output .= '<span class="'.$icon.'" '.$icon_style.'></span>';
+									$output .= '<span class="'.esc_attr( $icon ).'" '.$icon_style.'></span>';
 								} else if($attrs['media_type'] == 'icon_image') {
-									$output .= '<img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Icon Image','dtdr-lite'), $listing_singular_label ).'" />';
 								} else {
-									$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+									$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 								}
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items"><span>'.esc_html( $category->count ).'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</div>';
 							$output .= '</div>';
 							$output .= $starting_price_html;
 						$output .= '</div>';
@@ -464,13 +453,13 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type5') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type5 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type5 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
-								$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+								$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items" '.$background_style.'><a href="'.get_term_link($category->term_id).'"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items" '.$background_style.'><a href="'.esc_url( get_term_link($category->term_id) ).'"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -478,14 +467,14 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type6') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type6 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type6 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
-								$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+								$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<span class="'.$icon.'" '.$background_style.'></span>';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items"><a href="'.get_term_link($category->term_id).'"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
+								$output .= '<span class="'.esc_attr( $icon ).'" '.$background_style.'></span>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items"><a href="'.esc_url( get_term_link($category->term_id) ).'"><span>'.esc_html( $category->count ).'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -493,14 +482,14 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 					if($attrs['type'] == 'type7') {
 
-						$output .= '<div class="dtdr-listing-taxonomy-item type7 '.$column_class.' '.$first_class.' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listing-taxonomy-item type7 '.esc_attr( $column_class ).' '.esc_attr( $first_class ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<div class="dtdr-listing-taxonomy-icon-image">';
-								$output .= '<img src="'.$image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
-								$output .= '<span class="'.$icon.'" '.$background_style.'></span>';
+								$output .= '<img src="'.esc_url( $image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" />';
+								$output .= '<span class="'.esc_attr( $icon ).'" '.$background_style.'></span>';
 							$output .= '</div>';
 							$output .= '<div class="dtdr-listing-taxonomy-meta-data">';
-								$output .= '<h3><a href="'.get_term_link($category->term_id).'">'.esc_html($category->cat_name).'</a></h3>';
-								$output .= '<div class="dtdr-category-total-items" '.$background_style.'><a href="'.get_term_link($category->term_id).'"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
+								$output .= '<h3><a href="'.esc_url( get_term_link($category->term_id) ).'">'.esc_html($category->cat_name).'</a></h3>';
+								$output .= '<div class="dtdr-category-total-items" '.$background_style.'><a href="'.esc_url( get_term_link($category->term_id) ).'"><span>'.$category->count.'</span> '.sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ).'</a></div>';
 							$output .= '</div>';
 							$output .= $starting_price_html;
 						$output .= '</div>';

@@ -26,8 +26,8 @@ function dtdr_settings_login_content() {
 
 					if(is_array($seller_login_redirectpages) && !empty($seller_login_redirectpages)) {
 						foreach($seller_login_redirectpages as $key => $seller_login_redirectpage) {
-							$output .= '<option value="'.$key.'" '.selected($key, $seller_login_redirect_page, false ).'>';
-								$output .= $seller_login_redirectpage;
+							$output .= '<option value="'.esc_attr( $key ).'" '.selected($key, $seller_login_redirect_page, false ).'>';
+								$output .= esc_html( $seller_login_redirectpage );
 							$output .= '</option>';
 						}
 					}
@@ -55,8 +55,8 @@ function dtdr_settings_login_content() {
 
 					if(is_array($incharge_login_redirectpages) && !empty($incharge_login_redirectpages)) {
 						foreach($incharge_login_redirectpages as $key => $incharge_login_redirectpage) {
-							$output .= '<option value="'.$key.'" '.selected($key, $incharge_login_redirect_page, false ).'>';
-								$output .= $incharge_login_redirectpage;
+							$output .= '<option value="'.esc_attr( $key ).'" '.selected($key, $incharge_login_redirect_page, false ).'>';
+								$output .= esc_html( $incharge_login_redirectpage );
 							$output .= '</option>';
 						}
 					}

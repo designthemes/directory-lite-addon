@@ -8,11 +8,11 @@ function dtdr_sf_output_data_container_vc_map() {
 	$dtdr_sf_output_data_container_vc_map_module_args = apply_filters('dtdr_sf_output_data_container_vc_map_module_args', array ());
 
 	vc_map( array (
-		"name" => esc_html__( 'Output Data Container','dtdr-lite'),
-		"base" => "dtdr_sf_output_data_container",
-		"icon" => "dtdr_sf_output_data_container",
+		"name"     => esc_html__( 'Output Data Container','dtdr-lite'),
+		"base"     => "dtdr_sf_output_data_container",
+		"icon"     => "dtdr_sf_output_data_container",
 		"category" => DTDR_PB_MODULE_SEARCHFORM_TITLE,
-		"params" => array (
+		"params"   => array (
 
 						// Default Options
 

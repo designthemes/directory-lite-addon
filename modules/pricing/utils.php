@@ -4,10 +4,10 @@
 if(!function_exists('dtdr_generate_price_html')) {
 	function dtdr_generate_price_html($listing_id) {
 
-		$dtdr_currency_symbol = get_post_meta($listing_id, 'dtdr_currency_symbol', true);
+		$dtdr_currency_symbol          = get_post_meta($listing_id, 'dtdr_currency_symbol', true);
 		$dtdr_currency_symbol_position = get_post_meta($listing_id, 'dtdr_currency_symbol_position', true);
 
-		$currency_symbol = dtdr_option('price','currency-symbol');
+		$currency_symbol          = dtdr_option('price','currency-symbol');
 		$currency_symbol_position = dtdr_option('price','currency-symbol-position');
 
 		if($dtdr_currency_symbol == '') {
@@ -22,38 +22,38 @@ if(!function_exists('dtdr_generate_price_html')) {
 		$_sale_price = get_post_meta($listing_id, '_sale_price', true);
 
 		if($dtdr_currency_symbol != '') {
-			$dtdr_currency_symbol = '<span class="dtdr-price-currency-symbol">'.$dtdr_currency_symbol.'</span>';
+			$dtdr_currency_symbol = '<span class="dtdr-price-currency-symbol">'.esc_html( $dtdr_currency_symbol ).'</span>';
 		}
 
 		$_regular_price_label = $_sale_price_label = '';
 
 		if($dtdr_currency_symbol_position == 'right_space') {
 			if($_regular_price != '') {
-				$_regular_price_label = '<del><span class="dtdr-price-amount">'.$_regular_price.' '.$dtdr_currency_symbol.'</span></del>';
+				$_regular_price_label = '<del><span class="dtdr-price-amount">'.esc_html( $_regular_price ).' '.esc_html( $dtdr_currency_symbol ).'</span></del>';
 			}
 			if($_sale_price != '') {
-				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.$_sale_price.' '.$dtdr_currency_symbol.'</span></ins>';
+				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.esc_html( $_sale_price ).' '.esc_html( $dtdr_currency_symbol ).'</span></ins>';
 			}
 		} else if($dtdr_currency_symbol_position == 'left_space') {
 			if($_regular_price != '') {
-				$_regular_price_label = '<del><span class="dtdr-price-amount">'.$dtdr_currency_symbol.' '.$_regular_price.'</span></del>';
+				$_regular_price_label = '<del><span class="dtdr-price-amount">'.esc_html( $dtdr_currency_symbol ).' '.esc_html( $_regular_price ).'</span></del>';
 			}
 			if($_sale_price != '') {
-				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.$dtdr_currency_symbol.' '.$_sale_price.'</span></ins>';
+				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.esc_html( $dtdr_currency_symbol ).' '.esc_html( $_sale_price ).'</span></ins>';
 			}
 		} else if($dtdr_currency_symbol_position == 'right') {
 			if($_regular_price != '') {
-				$_regular_price_label = '<del><span class="dtdr-price-amount">'.$_regular_price.$dtdr_currency_symbol.'</span></del>';
+				$_regular_price_label = '<del><span class="dtdr-price-amount">'.esc_html( $_regular_price . $dtdr_currency_symbol ).'</span></del>';
 			}
 			if($_sale_price != '') {
-				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.$_sale_price.$dtdr_currency_symbol.'</span></ins>';
+				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.esc_html( $_sale_price . $dtdr_currency_symbol ).'</span></ins>';
 			}
 		} else {
 			if($_regular_price != '') {
-				$_regular_price_label = '<del><span class="dtdr-price-amount">'.$dtdr_currency_symbol.$_regular_price.'</span></del>';
+				$_regular_price_label = '<del><span class="dtdr-price-amount">'.esc_html( $dtdr_currency_symbol . $_regular_price ).'</span></del>';
 			}
 			if($_sale_price != '') {
-				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.$dtdr_currency_symbol.$_sale_price.'</span></ins>';
+				$_sale_price_label = '<ins><span class="dtdr-price-amount">'.esc_html( $dtdr_currency_symbol . $_sale_price ).'</span></ins>';
 			}
 		}
 

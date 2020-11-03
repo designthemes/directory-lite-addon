@@ -1,11 +1,9 @@
 <?php
-
 // Login form
-
 if(!function_exists('dtdr_login_form')) {
 	function dtdr_login_form() {
 
-		$redirect_url = (isset($_REQUEST['redirect_url']) && $_REQUEST['redirect_url'] != '') ? $_REQUEST['redirect_url'] : home_url('/');
+		$redirect_url = (isset($_REQUEST['redirect_url']) && $_REQUEST['redirect_url'] != '') ? sanitize_text_field($_REQUEST['redirect_url']) : home_url('/');
 
 		$output = '<div class="dtdr-login-form-container">';
 
@@ -30,9 +28,7 @@ if(!function_exists('dtdr_login_form')) {
 
 		$output .= '<div class="dtdr-login-form-overlay"></div>';
 
-
 		return $output;
-
 	}
 }
 
@@ -42,10 +38,7 @@ if(!function_exists('dtdr_show_login_form_popup')) {
 		echo dtdr_login_form();
 
 		die();
-
 	}
 	add_action( 'wp_ajax_dtdr_show_login_form_popup', 'dtdr_show_login_form_popup' );
 	add_action( 'wp_ajax_nopriv_dtdr_show_login_form_popup', 'dtdr_show_login_form_popup' );
-}
-
-?>
+}?>

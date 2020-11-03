@@ -31,11 +31,11 @@ class DTDirectoryLiteDfListingsMap extends Widget_Base {
 
 	protected function _register_controls() {
 
-		$listing_singular_label = apply_filters( 'listing_label', 'singular' );
+		$listing_singular_label      = apply_filters( 'listing_label', 'singular' );
 		$contracttype_singular_label = apply_filters( 'contracttype_label', 'singular' );
-		$contracttype_plural_label = apply_filters( 'contracttype_label', 'plural' );
-		$seller_singular_label = apply_filters( 'seller_label', 'singular' );
-		$incharge_singular_label = apply_filters( 'incharge_label', 'singular' );
+		$contracttype_plural_label   = apply_filters( 'contracttype_label', 'plural' );
+		$seller_singular_label       = apply_filters( 'seller_label', 'singular' );
+		$incharge_singular_label     = apply_filters( 'incharge_label', 'singular' );
 
 		$countries_list = dtdr_countries_list(false);
 		$countries_list = array('' => esc_html__('All','dtdr-lite')) + $countries_list;
@@ -202,12 +202,10 @@ class DTDirectoryLiteDfListingsMap extends Widget_Base {
 
 	protected function render() {
 
-		$settings = $this->get_settings();
+		$settings   = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_listings_map '.$attributes.' /]');
 
-		echo $output;
-
+		echo do_shortcode('[dtdr_listings_map '.$attributes.' /]');
 	}
 
 }

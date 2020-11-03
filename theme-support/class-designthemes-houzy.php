@@ -93,7 +93,7 @@ if ( ! class_exists( 'DTDirectoryLiteDesignThemes' ) ) {
 
 			                    while( $parent_id ) {
 			                        $page = get_page( $parent_id );
-			                        $parents[] = '<a href="' . get_permalink( $page->ID ) . '">' . get_the_title( $page->ID ) . '</a>';
+			                        $parents[] = '<a href="' . esc_url( get_permalink( $page->ID ) ). '">' . esc_html( get_the_title( $page->ID ) ) . '</a>';
 			                        $parent_id  = $page->post_parent;
 			                    }
 
@@ -104,7 +104,7 @@ if ( ! class_exists( 'DTDirectoryLiteDesignThemes' ) ) {
 
 			                if(is_singular( 'dtdr_listings' )) {
 			                	$listing_plural_label = apply_filters( 'listing_label', 'plural' );
-			                	$breadcrumbs[] = '<a href="'.esc_url(get_post_type_archive_link('dtdr_listings')).'">'.$listing_plural_label.'</a>';
+			                	$breadcrumbs[] = '<a href="'.esc_url(get_post_type_archive_link('dtdr_listings')).'">'.esc_html( $listing_plural_label ).'</a>';
 			                }
 
 			                $breadcrumbs[] = the_title( '<span class="current">', '</span>', false );
@@ -146,24 +146,24 @@ if ( ! class_exists( 'DTDirectoryLiteDesignThemes' ) ) {
 				        $breadcrumbs =  array ();
 
 				        if ( is_category() ) {
-				            $breadcrumbs[] = '<a href="'. get_category_link( get_query_var('cat') ) .'">' . single_cat_title('', false) . '</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_category_link( get_query_var('cat') ) ) .'">' . single_cat_title('', false) . '</a>';
 				        } elseif ( is_tag() ) {
-				            $breadcrumbs[] = '<a href="'. get_tag_link( get_query_var('tag_id') ) .'">' . single_tag_title('', false) . '</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_tag_link( get_query_var('tag_id') ) ) .'">' . single_tag_title('', false) . '</a>';
 				        } elseif( is_author() ) {
 
 				        	$author_id = get_queried_object_id();
-				            $breadcrumbs[] = '<a href="'.get_the_author_meta( 'user_url', $author_id ).'">' . get_the_author_meta('display_name', $author_id) . '</a>';
+				            $breadcrumbs[] = '<a href="'.esc_url( get_the_author_meta( 'user_url', $author_id ) ).'">' . esc_html( get_the_author_meta('display_name', $author_id) ). '</a>';
 				            $title = '<h1>'.get_the_author_meta('display_name', $author_id).'</h1>';
 
 				        } elseif( is_day() || is_time() ){
-				            $breadcrumbs[] = '<a href="'. get_year_link( get_the_time('Y') ) . '">'. get_the_time('Y') .'</a>';
-				            $breadcrumbs[] = '<a href="'. get_month_link( get_the_time('Y'), get_the_time('m') ) .'">'. get_the_time('F') .'</a>';
-				            $breadcrumbs[] = '<a href="'. get_day_link( get_the_time('Y'), get_the_time('m'), get_the_time('d') ) .'">'. get_the_time('d') .'</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_year_link( get_the_time('Y') ) ). '">'. get_the_time('Y') .'</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_month_link( get_the_time('Y'), get_the_time('m') ) ).'">'. get_the_time('F') .'</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_day_link( get_the_time('Y'), get_the_time('m'), get_the_time('d') ) ).'">'. get_the_time('d') .'</a>';
 				        } elseif( is_month() ){
-				            $breadcrumbs[] = '<a href="'. get_year_link( get_the_time('Y') ) . '">' . get_the_time('Y') . '</a>';
-				            $breadcrumbs[] = '<a href="'. get_month_link( get_the_time('Y'), get_the_time('m') ) .'">'. get_the_time('F') .'</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_year_link( get_the_time('Y') ) ). '">' . get_the_time('Y') . '</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_month_link( get_the_time('Y'), get_the_time('m') ) ) .'">'. get_the_time('F') .'</a>';
 				        } elseif( is_year() ){
-				            $breadcrumbs[] = '<a href="'. get_year_link( get_the_time('Y') ) .'">'. get_the_time('Y') .'</a>';
+				            $breadcrumbs[] = '<a href="'. esc_url( get_year_link( get_the_time('Y') ) ) .'">'. get_the_time('Y') .'</a>';
 				        }
 
 				        houzy_breadcrumb_output ( $title, $breadcrumbs, $bstyle, $style );
@@ -219,7 +219,8 @@ if ( ! class_exists( 'DTDirectoryLiteDesignThemes' ) ) {
 
 			if(!is_author()) {
 				global $post;
-				echo '<article id="post-'.$post->ID.'" class="'.implode(' ', get_post_class()).'">';
+				$classes = implode(' ', get_post_class());
+				echo '<article id="post-'.esc_attr( $post->ID ).'" class="'.esc_attr( $classes ).'">';
 			}
 
 		}

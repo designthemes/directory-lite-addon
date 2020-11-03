@@ -34,11 +34,11 @@ if(!function_exists('dtdr_listing_upload_media_field')) {
                                     $featured_item_class = 'fa fa-user';
                                 }
                                 $output .= '<li>
-                                                <img src="'.esc_url($thumbnail_url[0]).'" title="'.esc_html__('Media Title','dtdr-lite').'" all="'.esc_html__('Media Title','dtdr-lite').'" />
-                                                <input name="dtdr_media_attachment_ids[]" type="hidden" class="uploadfieldid hidden" readonly value="'.$dtdr_media_attachments_id.'"/>
-                                                <input name="dtdr_media_attachment_titles[]" type="text" class="media-attachment-titles" value="'.$dtdr_media_title.'"/>
+                                                <img src="'.esc_url($thumbnail_url[0]).'" title="'.esc_attr__('Media Title','dtdr-lite').'" all="'.esc_attr__('Media Title','dtdr-lite').'" />
+                                                <input name="dtdr_media_attachment_ids[]" type="hidden" class="uploadfieldid hidden" readonly value="'.esc_attr( $dtdr_media_attachments_id ).'"/>
+                                                <input name="dtdr_media_attachment_titles[]" type="text" class="media-attachment-titles" value="'.esc_attr( $dtdr_media_title ).'"/>
                                                 <span class="dtdr-remove-media-item"><span class="fas fa-times"></span></span>
-                                                <span class="dtdr-featured-media-item"><span class="'.$featured_item_class.'"></span></span>
+                                                <span class="dtdr-featured-media-item"><span class="'.esc_attr( $featured_item_class ).'"></span></span>
                                             </li>';
                                 $i++;
                             }

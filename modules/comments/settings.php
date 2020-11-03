@@ -5,7 +5,7 @@ function dtdr_settings_comments_content() {
 	$output = '';
 
 	$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-	$listing_plural_label = apply_filters( 'listing_label', 'plural' );
+	$listing_plural_label   = apply_filters( 'listing_label', 'plural' );
 
 	$output .= '<form name="formOptionSettings" class="formOptionSettings" method="post">';
 
@@ -16,8 +16,8 @@ function dtdr_settings_comments_content() {
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 				$checked = ( 'true' ==  dtdr_option('comments','comment-requires-package') ) ? ' checked="checked"' : '';
 				$switchclass = ( 'true' ==  dtdr_option('comments','comment-requires-package') ) ? 'checkbox-switch-on' :'checkbox-switch-off';
-				$output .= '<div data-for="comment-requires-package" class="dtdr-checkbox-switch '.$switchclass.'"></div>';
-				$output .= '<input id="comment-requires-package" class="hidden" type="checkbox" name="dtdr[comments][comment-requires-package]" value="true" '.$checked.' />';
+				$output .= '<div data-for="comment-requires-package" class="dtdr-checkbox-switch '.esc_attr( $switchclass ).'"></div>';
+				$output .= '<input id="comment-requires-package" class="hidden" type="checkbox" name="dtdr[comments][comment-requires-package]" value="true" '.esc_attr( $checked ).' />';
 			$output .= '</div>';
 		$output .= '</div>';
 
@@ -32,5 +32,4 @@ function dtdr_settings_comments_content() {
 }
 
 echo dtdr_settings_comments_content();
-
 ?>

@@ -454,10 +454,7 @@ class DTDirectoryLiteDfListingsListing extends Widget_Base {
 
 		$settings = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_listings_listing '.$attributes.' /]');
-
-		echo $output;
-
+		echo do_shortcode('[dtdr_listings_listing '.$attributes.' /]');
 	}
 
 }

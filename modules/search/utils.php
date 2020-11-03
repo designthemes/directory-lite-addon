@@ -3,19 +3,13 @@
 // Search Listing - Default Content
 if(!function_exists('dtdr_search_listings_content')) {
 	function dtdr_search_listings_content() {
-
 		$output = '';
 
 		$output .= '<div class="dtdr-search-container dtdr-search-listings-container">';
-
 			$seller_singular_label = apply_filters( 'seller_label', 'singular' );
-
 			$output .= '<span>'.sprintf( esc_html__('%1$s','dtdr-lite'), $seller_singular_label ).'</span>';
-
 			$output .= '<select class="dtdr-search-listings-seller dtdr-chosen-select" name="dtdr-search-listings-seller" data-placeholder="'.sprintf( esc_html__('Choose %1$s ...','dtdr-lite'), $seller_singular_label ).'" class="dtdr-chosen-select">';
-
 				$output .= '<option value="-1">'.esc_html__('All','dtdr-lite').'</option>';
-
 				$sellers = get_users ( array ('role' => 'seller') );
 				if ( count( $sellers ) > 0 ) {
 					foreach ($sellers as $seller) {
@@ -23,19 +17,13 @@ if(!function_exists('dtdr_search_listings_content')) {
 						$output .= '<option value="' . esc_attr( $seller_id ) . '">' . esc_html( $seller->data->display_name ) . '</option>';
 					}
 				}
-
 			$output .= '</select>';
-
 			$output .= '<div class="dtdr-hr-invisible"></div>';
-
 			$output .= dtdr_generate_loader_html(true);
-
 			$output .= '<div class="dtdr-search-listings-data-container"></div>';
-
 		$output .= '</div>';
 
 		echo $output;
-
 	}
 }
 
@@ -44,41 +32,34 @@ if(!function_exists('dtdr_search_sellerwise_listings')) {
 	function dtdr_search_sellerwise_listings() {
 
 		// Pagination script Start
-
-		$current_page = isset($_REQUEST['current_page']) ? $_REQUEST['current_page'] : 1;
-		$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+		$current_page = isset($_REQUEST['current_page']) ? sanitize_text_field($_REQUEST['current_page']) : 1;
+		$offset = isset($_REQUEST['offset']) ? sanitize_text_field($_REQUEST['offset']) : 0;
 		$backend_postperpage = dtdr_option('general','backend-postperpage');
-		$post_per_page = isset($_REQUEST['post_per_page']) ? $_REQUEST['post_per_page'] : $backend_postperpage;
+		$post_per_page = isset($_REQUEST['post_per_page']) ? sanitize_text_field($_REQUEST['post_per_page']) : $backend_postperpage;
 
 		// Pagination script End
-
-		$seller_id = isset($_REQUEST['seller_id']) ? $_REQUEST['seller_id'] : -1;
-
+		$seller_id = isset($_REQUEST['seller_id']) ? sanitize_text_field($_REQUEST['seller_id']) : -1;
 
 		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
 
 		$args = array (
-					'post_type' => 'dtdr_listings',
-					'offset' => $offset,
-					'paged' => $current_page,
-					'posts_per_page' => $post_per_page,
-				);
+			'post_type'      => 'dtdr_listings',
+			'offset'         => $offset,
+			'paged'          => $current_page,
+			'posts_per_page' => $post_per_page,
+		);
 
 		if($seller_id > 0) {
-
-			$author_ids = array ($seller_id);
+			$author_ids       = array ($seller_id);
 			$seller_incharges = get_users ( array ('role' => 'incharge', 'meta_key' => 'user_seller', 'meta_value' => $seller_id, 'fields' => 'ID') );
-			$author_ids = array_merge($author_ids, $seller_incharges);
+			$author_ids       = array_merge($author_ids, $seller_incharges);
 
 			$args['author__in'] = $author_ids;
-
 		}
-
 
 		$output = '';
 
 		$output .= '<div class="dtdr-column dtdr-one-half first">';
-
 			$output .= '<div class="dtdr-custom-table-wrapper">';
 				$output .= '<table border="0" cellpadding="0" cellspacing="0" class="dtdr-custom-table">
 								<thead>
@@ -114,8 +95,8 @@ if(!function_exists('dtdr_search_sellerwise_listings')) {
 											$user_roles = (array) $current_user->roles;
 
 											$output .= '<tr>
-															<td>'.$i.'</td>
-															<td>'.get_the_title($listing_id).'</td>
+															<td>'.esc_html( $i ).'</td>
+															<td>'.esc_html( get_the_title($listing_id) ).'</td>
 															<td>'.get_the_author_meta( 'display_name' , $author_id ).' ( '.implode(', ', $user_roles).' ) '.'</td>
 															<td>'.esc_html($total_views).'</td>
 															<td>'.esc_html($average_ratings).'</td>
@@ -129,9 +110,8 @@ if(!function_exists('dtdr_search_sellerwise_listings')) {
 									else:
 
 										$output .= '<tr>
-														<td colspan="5">'.esc_html__('No Records Found!','dtdr-lite').'</td>
-													</tr>';
-
+											<td colspan="5">'.esc_html__('No Records Found!','dtdr-lite').'</td>
+										</tr>';
 									endif;
 
 				$output .= '</tbody></table>';
@@ -151,9 +131,7 @@ if(!function_exists('dtdr_search_sellerwise_listings')) {
 
 		$output .= '</div>';
 		$output .= '<div class="dtdr-column dtdr-one-half">';
-
 			$output .= '<div class="dtdr-search-listings-inner-data-container"></div>';
-
 		$output .= '</div>';
 
 		echo $output;
@@ -170,17 +148,12 @@ if(!function_exists('dtdr_search_sellers_content')) {
 	function dtdr_search_sellers_content() {
 
 		$output = '';
-
 		$output .= '<div class="dtdr-search-container dtdr-search-sellers-container">';
-
 			$output .= dtdr_generate_loader_html(true);
-
 			$output .= '<div class="dtdr-search-sellers-data-container"></div>';
-
 		$output .= '</div>';
 
 		echo $output;
-
 	}
 }
 
@@ -189,18 +162,15 @@ if(!function_exists('dtdr_search_sellers')) {
 	function dtdr_search_sellers() {
 
 		// Pagination script Start
-
-		$ajax_call = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-		$current_page = isset($_REQUEST['current_page']) ? $_REQUEST['current_page'] : 1;
-		$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+		$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
+		$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field($_REQUEST['current_page']) : 1;
+		$offset              = isset($_REQUEST['offset']) ? sanitize_text_field($_REQUEST['offset']) : 0;
 		$backend_postperpage = dtdr_option('general','backend-postperpage');
-		$post_per_page = isset($_REQUEST['post_per_page']) ? $_REQUEST['post_per_page'] : $backend_postperpage;
+		$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field($_REQUEST['post_per_page']) : $backend_postperpage;
 
 		// Pagination script End
-
-
-		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
-		$seller_plural_label = apply_filters( 'seller_label', 'plural' );
+		$listing_plural_label  = apply_filters( 'listing_label', 'plural' );
+		$seller_plural_label   = apply_filters( 'seller_label', 'plural' );
 		$seller_singular_label = apply_filters( 'seller_label', 'singular' );
 		$incharge_plural_label = apply_filters( 'incharge_label', 'plural' );
 
@@ -226,11 +196,11 @@ if(!function_exists('dtdr_search_sellers')) {
 								<tbody class="dtdr-custom-table-content">';
 
 									$sellers = get_users ( array (
-															'role' => 'seller',
-															'offset' => $offset,
-															'paged' => $current_page,
-															'number' => $post_per_page,
-														) );
+										'role' => 'seller',
+										'offset' => $offset,
+										'paged' => $current_page,
+										'number' => $post_per_page,
+									) );
 
 									$i = 1;
 									foreach ( $sellers as $seller ) {
@@ -282,11 +252,12 @@ if(!function_exists('dtdr_search_sellers')) {
 										foreach($author_ids as $author_id) {
 
 											$total_post_args = array (
-																	'posts_per_page' => -1,
-																	'post_type'=> 'dtdr_listings',
-																	'author'=> $author_id,
-																	'post_status' => array ( 'any' )
-																);
+												'posts_per_page' => -1,
+												'post_type'=> 'dtdr_listings',
+												'author'=> $author_id,
+												'post_status' => array ( 'any' )
+											);
+
 											$total_post_listings = get_posts( $total_post_args );
 											wp_reset_postdata();
 											$listings_post_count = count($total_post_listings);
@@ -295,7 +266,7 @@ if(!function_exists('dtdr_search_sellers')) {
 										}
 
 										$output .= '<tr>
-														<td>'.$i.'</td>
+														<td>'.esc_html( $i ).'</td>
 														<td>'.get_the_author_meta('display_name', $seller_id).'</td>
 														<td>'.$dtdr_user_status_html.'</td>
 														<td>'.$package_status.'</td>
@@ -329,8 +300,9 @@ if(!function_exists('dtdr_search_sellers')) {
 
 			// Pagination script Start
 			$total_users_args = array (
-									'role' => 'seller',
-								);
+				'role' => 'seller',
+			);
+
 			$total_users = get_users( $total_users_args );
 
 			$total_users_count = count($total_users);
@@ -362,7 +334,7 @@ if(!function_exists('dtdr_search_sellers')) {
 if(!function_exists('dtdr_search_seller_incharges')) {
 	function dtdr_search_seller_incharges() {
 
-		$seller_id = isset($_REQUEST['seller_id']) ? $_REQUEST['seller_id'] : -1;
+		$seller_id = isset($_REQUEST['seller_id']) ? sanitize_text_field($_REQUEST['seller_id']) : -1;
 		$seller_incharges = get_users ( array ('role' => 'incharge', 'meta_key' => 'user_seller', 'meta_value' => $seller_id, 'fields' => 'ID') );
 
 		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
@@ -386,9 +358,9 @@ if(!function_exists('dtdr_search_seller_incharges')) {
 							<tbody class="dtdr-custom-table-content">';
 
 								$incharges = get_users ( array (
-														'role' => 'incharge',
-														'include' => $seller_incharges,
-													) );
+									'role' => 'incharge',
+									'include' => $seller_incharges,
+								) );
 
 								$i = 1;
 								foreach ( $incharges as $incharge ) {
@@ -407,11 +379,12 @@ if(!function_exists('dtdr_search_seller_incharges')) {
 									}
 
 									$total_post_args = array (
-															'posts_per_page' => -1,
-															'post_type'=> 'dtdr_listings',
-															'author'=> $incharge_id,
-															'post_status' => array ( 'any' )
-														);
+										'posts_per_page' => -1,
+										'post_type'=> 'dtdr_listings',
+										'author'=> $incharge_id,
+										'post_status' => array ( 'any' )
+									);
+
 									$total_post_listings = get_posts( $total_post_args );
 									wp_reset_postdata();
 									$listings_post_count = count($total_post_listings);
@@ -445,15 +418,13 @@ if(!function_exists('dtdr_search_seller_incharges')) {
 if(!function_exists('dtdr_search_seller_listings')) {
 	function dtdr_search_seller_listings() {
 
-		$seller_id = isset($_REQUEST['seller_id']) ? $_REQUEST['seller_id'] : -1;
+		$seller_id = isset($_REQUEST['seller_id']) ? sanitize_text_field($_REQUEST['seller_id']) : -1;
 
 		$author_ids = array ($seller_id);
 		$seller_incharges = get_users ( array ('role' => 'incharge', 'meta_key' => 'user_seller', 'meta_value' => $seller_id, 'fields' => 'ID') );
 		$author_ids = array_merge($author_ids, $seller_incharges);
 
-
 		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
-
 
 		$output = '';
 
@@ -470,9 +441,9 @@ if(!function_exists('dtdr_search_seller_listings')) {
 							<tbody class="dtdr-custom-table-content">';
 
 								$args = array (
-											'post_type' => 'dtdr_listings',
-											'author__in' => $author_ids
-										);
+									'post_type' => 'dtdr_listings',
+									'author__in' => $author_ids
+								);
 
 								$seller_listings_query = new WP_Query( $args );
 
@@ -502,7 +473,7 @@ if(!function_exists('dtdr_search_seller_listings')) {
 										}
 
 										$output .= '<tr>
-														<td>'.$i.'</td>
+														<td>'.esc_html( $i ).'</td>
 														<td>'.get_the_title($listing_id).'</td>
 														<td>'.esc_html($listing_status).'</td>
 														<td>'.get_the_author_meta( 'display_name' , $author_id ).' ( '.implode(', ', $user_roles).' ) '.'</td>
@@ -532,13 +503,9 @@ if(!function_exists('dtdr_search_packages_content')) {
 	function dtdr_search_packages_content() {
 
 		$output = '';
-
 		$output .= '<div class="dtdr-search-container dtdr-search-packages-container">';
-
 			$output .= dtdr_generate_loader_html(true);
-
 			$output .= '<div class="dtdr-search-packages-data-container"></div>';
-
 		$output .= '</div>';
 
 		echo $output;
@@ -551,23 +518,19 @@ if(!function_exists('dtdr_search_packages')) {
 	function dtdr_search_packages() {
 
 		// Pagination script Start
-
-		$ajax_call = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
-		$current_page = isset($_REQUEST['current_page']) ? $_REQUEST['current_page'] : 1;
-		$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
+		$ajax_call           = (isset($_REQUEST['ajax_call']) && $_REQUEST['ajax_call'] == true) ? true : false;
+		$current_page        = isset($_REQUEST['current_page']) ? sanitize_text_field($_REQUEST['current_page']) : 1;
+		$offset              = isset($_REQUEST['offset']) ? sanitize_text_field($_REQUEST['offset']) : 0;
 		$backend_postperpage = dtdr_option('general','backend-postperpage');
-		$post_per_page = isset($_REQUEST['post_per_page']) ? $_REQUEST['post_per_page'] : $backend_postperpage;
+		$post_per_page       = isset($_REQUEST['post_per_page']) ? sanitize_text_field($_REQUEST['post_per_page']) : $backend_postperpage;
 
 		// Pagination script End
-
-
 		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
-		$seller_plural_label = apply_filters( 'seller_label', 'plural' );
+		$seller_plural_label  = apply_filters( 'seller_label', 'plural' );
 
 		$output = '';
 
 		$output .= '<div class="dtdr-custom-table-wrapper">';
-
 			$output .= '<table border="0" cellpadding="0" cellspacing="0" class="dtdr-custom-table">
 							<thead>
 								<tr>
@@ -579,11 +542,11 @@ if(!function_exists('dtdr_search_packages')) {
 							<tbody class="dtdr-custom-table-content">';
 
 								$args = array (
-											'post_type' => 'dtdr_packages',
-											'offset' => $offset,
-											'paged' => $current_page,
-											'posts_per_page' => $post_per_page,
-										);
+									'post_type'      => 'dtdr_packages',
+									'offset'         => $offset,
+									'paged'          => $current_page,
+									'posts_per_page' => $post_per_page,
+								);
 
 								$packages_query = new WP_Query( $args );
 
@@ -599,7 +562,7 @@ if(!function_exists('dtdr_search_packages')) {
 										$purchased_users = (is_array($purchased_users) && !empty($purchased_users)) ? $purchased_users : array ();
 
 										$output .= '<tr>
-														<td>'.$i.'</td>
+														<td>'.esc_html( $i ).'</td>
 														<td>'.get_the_title($package_id).'</td>
 														<td>';
 
@@ -654,8 +617,7 @@ if(!function_exists('dtdr_search_packages')) {
 if(!function_exists('dtdr_search_packages_purchases_user_details')) {
 	function dtdr_search_packages_purchases_user_details() {
 
-
-		$package_id = isset($_REQUEST['package_id']) ? $_REQUEST['package_id'] : -1;
+		$package_id = isset($_REQUEST['package_id']) ? sanitize_text_field($_REQUEST['package_id']) : -1;
 
 		$listing_plural_label = apply_filters( 'listing_label', 'plural' );
 		$seller_singular_label = apply_filters( 'seller_label', 'singular' );
@@ -689,9 +651,9 @@ if(!function_exists('dtdr_search_packages_purchases_user_details')) {
 											}
 
 											$output .= '<tr>
-															<td>'.$i.'</td>
+															<td>'.esc_html( $i ).'</td>
 															<td>'.get_the_author_meta('display_name', $purchased_user_key).'</td>
-															<td>'.$package_status.'</td>
+															<td>'.esc_html( $package_status ).'</td>
 														</tr>';
 
 											$i++;

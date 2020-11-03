@@ -3,7 +3,7 @@
 function dtdr_settings_permalink_content() {
 
 	$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-	$seller_singular_label = apply_filters( 'seller_label', 'singular' );
+	$seller_singular_label  = apply_filters( 'seller_label', 'singular' );
 
 	$output = '';
 
@@ -15,7 +15,7 @@ function dtdr_settings_permalink_content() {
 			$output .= '</div>';
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 	            $listing_slug = dtdr_option('permalink','listing-slug');
-	            $output .= '<input id="listing-slug" name="dtdr[permalink][listing-slug]" type="text" value="'.$listing_slug.'" />';
+	            $output .= '<input id="listing-slug" name="dtdr[permalink][listing-slug]" type="text" value="'.esc_attr( $listing_slug ).'" />';
 	            $output .= '<div class="dtdr-note">'.esc_html__('Do not use characters not allowed in links. Use, eg. listing After change go to Settings > Permalinks and click Save changes.','dtdr-lite').'</div>';
 			$output .= '</div>';
 		$output .= '</div>';
@@ -26,7 +26,7 @@ function dtdr_settings_permalink_content() {
 			$output .= '</div>';
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 	            $dtdr_listings_category_slug = dtdr_option('permalink','listing-category-slug');
-	            $output .= '<input id="listing-category-slug" name="dtdr[permalink][listing-category-slug]" type="text" value="'.$dtdr_listings_category_slug.'" />';
+	            $output .= '<input id="listing-category-slug" name="dtdr[permalink][listing-category-slug]" type="text" value="'.esc_attr( $dtdr_listings_category_slug ).'" />';
 	            $output .= '<div class="dtdr-note">'.esc_html__('Do not use characters not allowed in links. Use, eg. listing-category After change go to Settings > Permalinks and click Save changes.','dtdr-lite').'</div>';
 			$output .= '</div>';
 		$output .= '</div>';
@@ -37,7 +37,7 @@ function dtdr_settings_permalink_content() {
 			$output .= '</div>';
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 	            $dtdr_listings_contracttype_slug = dtdr_option('permalink','listing-contracttype-slug');
-	            $output .= '<input id="listing-contracttype-slug" name="dtdr[permalink][listing-contracttype-slug]" type="text" value="'.$dtdr_listings_contracttype_slug.'" />';
+	            $output .= '<input id="listing-contracttype-slug" name="dtdr[permalink][listing-contracttype-slug]" type="text" value="'.esc_attr( $dtdr_listings_contracttype_slug ).'" />';
 	            $output .= '<div class="dtdr-note">'.esc_html__('Do not use characters not allowed in links. Use, eg. listing-contracttype After change go to Settings > Permalinks and click Save changes.','dtdr-lite').'</div>';
 			$output .= '</div>';
 		$output .= '</div>';
@@ -48,7 +48,7 @@ function dtdr_settings_permalink_content() {
 			$output .= '</div>';
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 	            $dtdr_listings_amenity_slug = dtdr_option('permalink','listing-amenity-slug');
-	            $output .= '<input id="listing-amenity-slug" name="dtdr[permalink][listing-amenity-slug]" type="text" value="'.$dtdr_listings_amenity_slug.'" />';
+	            $output .= '<input id="listing-amenity-slug" name="dtdr[permalink][listing-amenity-slug]" type="text" value="'.esc_attr( $dtdr_listings_amenity_slug ).'" />';
 	            $output .= '<div class="dtdr-note">'.esc_html__('Do not use characters not allowed in links. Use, eg. listing-amenity After change go to Settings > Permalinks and click Save changes.','dtdr-lite').'</div>';
 			$output .= '</div>';
 		$output .= '</div>';

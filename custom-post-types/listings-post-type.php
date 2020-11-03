@@ -422,23 +422,22 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				$author_id = get_post_field( 'post_author', $post_id );
 				$user_id = get_current_user_id();
 
-
 				// General
 
 				if( isset( $_POST ['dtdr_page_template'] ) && $_POST ['dtdr_page_template'] != '') {
-					update_post_meta ( $post_id, 'dtdr_page_template', stripslashes ( $_POST ['dtdr_page_template'] ) );
+					update_post_meta ( $post_id, 'dtdr_page_template', sanitize_text_field ( $_POST ['dtdr_page_template'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_page_template' );
 				}
 
 				if( isset( $_POST ['dtdr_mls_number'] ) && $_POST ['dtdr_mls_number'] != '') {
-					update_post_meta ( $post_id, 'dtdr_mls_number', stripslashes ( $_POST ['dtdr_mls_number'] ) );
+					update_post_meta ( $post_id, 'dtdr_mls_number', sanitize_text_field ( $_POST ['dtdr_mls_number'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_mls_number' );
 				}
 
 				if( isset( $_POST ['dtdr_incharges'] ) && $_POST ['dtdr_incharges'] != '') {
-					update_post_meta ( $post_id, 'dtdr_incharges', array_filter( $_POST ['dtdr_incharges'] ) );
+					update_post_meta ( $post_id, 'dtdr_incharges', sanitize_text_field( $_POST ['dtdr_incharges'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_incharges' );
 				}
@@ -446,7 +445,7 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				if((int)$author_id == (int)$user_id) {
 
 					if( isset( $_POST ['dtdr_featured_item'] ) && $_POST ['dtdr_featured_item'] != '') {
-						update_post_meta ( $post_id, 'dtdr_featured_item', stripslashes ( $_POST ['dtdr_featured_item'] ) );
+						update_post_meta ( $post_id, 'dtdr_featured_item', sanitize_key ( $_POST ['dtdr_featured_item'] ) );
 					} else {
 						delete_post_meta ( $post_id, 'dtdr_featured_item' );
 					}
@@ -454,7 +453,7 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				}
 
 				if( isset( $_POST ['dtdr_excerpt_title'] ) && $_POST ['dtdr_excerpt_title'] != '') {
-					update_post_meta ( $post_id, 'dtdr_excerpt_title', stripslashes ( $_POST ['dtdr_excerpt_title'] ) );
+					update_post_meta ( $post_id, 'dtdr_excerpt_title', sanitize_text_field ( $_POST ['dtdr_excerpt_title'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_excerpt_title' );
 				}
@@ -462,37 +461,37 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				// Features
 
 				if( isset( $_POST ['dtdr_features_title'] ) && $_POST ['dtdr_features_title'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_title', $_POST ['dtdr_features_title'] );
+					update_post_meta ( $post_id, 'dtdr_features_title', sanitize_text_field( $_POST ['dtdr_features_title'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_title' );
 				}
 
 				if( isset( $_POST ['dtdr_features_subtitle'] ) && $_POST ['dtdr_features_subtitle'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_subtitle', $_POST ['dtdr_features_subtitle'] );
+					update_post_meta ( $post_id, 'dtdr_features_subtitle', sanitize_text_field( $_POST ['dtdr_features_subtitle'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_subtitle' );
 				}
 
 				if( isset( $_POST ['dtdr_features_value'] ) && $_POST ['dtdr_features_value'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_value', $_POST ['dtdr_features_value'] );
+					update_post_meta ( $post_id, 'dtdr_features_value', sanitize_text_field( $_POST ['dtdr_features_value'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_value' );
 				}
 
 				if( isset( $_POST ['dtdr_features_valueunit'] ) && $_POST ['dtdr_features_valueunit'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_valueunit', $_POST ['dtdr_features_valueunit'] );
+					update_post_meta ( $post_id, 'dtdr_features_valueunit', sanitize_text_field( $_POST ['dtdr_features_valueunit'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_valueunit' );
 				}
 
 				if( isset( $_POST ['dtdr_features_icon'] ) && $_POST ['dtdr_features_icon'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_icon', $_POST ['dtdr_features_icon'] );
+					update_post_meta ( $post_id, 'dtdr_features_icon', sanitize_text_field( $_POST ['dtdr_features_icon'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_icon' );
 				}
 
 				if( isset( $_POST ['dtdr_features_image'] ) && $_POST ['dtdr_features_image'] != '') {
-					update_post_meta ( $post_id, 'dtdr_features_image', $_POST ['dtdr_features_image'] );
+					update_post_meta ( $post_id, 'dtdr_features_image', sanitize_text_field( $_POST ['dtdr_features_image'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_features_image' );
 				}
@@ -501,43 +500,43 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				// Contact Information
 
 				if( isset( $_POST ['dtdr_email'] ) && $_POST ['dtdr_email'] != '') {
-					update_post_meta ( $post_id, 'dtdr_email', $_POST ['dtdr_email'] );
+					update_post_meta ( $post_id, 'dtdr_email', sanitize_email( $_POST ['dtdr_email'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_email' );
 				}
 
 				if( isset( $_POST ['dtdr_phone'] ) && $_POST ['dtdr_phone'] != '') {
-					update_post_meta ( $post_id, 'dtdr_phone', $_POST ['dtdr_phone'] );
+					update_post_meta ( $post_id, 'dtdr_phone', sanitize_text_field( $_POST ['dtdr_phone'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_phone' );
 				}
 
 				if( isset( $_POST ['dtdr_mobile'] ) && $_POST ['dtdr_mobile'] != '') {
-					update_post_meta ( $post_id, 'dtdr_mobile', $_POST ['dtdr_mobile'] );
+					update_post_meta ( $post_id, 'dtdr_mobile', sanitize_text_field( $_POST ['dtdr_mobile'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_mobile' );
 				}
 
 				if( isset( $_POST ['dtdr_skype'] ) && $_POST ['dtdr_skype'] != '') {
-					update_post_meta ( $post_id, 'dtdr_skype', $_POST ['dtdr_skype'] );
+					update_post_meta ( $post_id, 'dtdr_skype', sanitize_text_field( $_POST ['dtdr_skype'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_skype' );
 				}
 
 				if( isset( $_POST ['dtdr_website'] ) && $_POST ['dtdr_website'] != '') {
-					update_post_meta ( $post_id, 'dtdr_website', $_POST ['dtdr_website'] );
+					update_post_meta ( $post_id, 'dtdr_website', sanitize_text_field( $_POST ['dtdr_website'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_website' );
 				}
 
 				if( isset( $_POST ['dtdr_social_items'] ) && $_POST ['dtdr_social_items'] != '') {
-					update_post_meta ( $post_id, 'dtdr_social_items', $_POST ['dtdr_social_items'] );
+					update_post_meta ( $post_id, 'dtdr_social_items', sanitize_text_field( $_POST ['dtdr_social_items'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_social_items' );
 				}
 
 				if( isset( $_POST ['dtdr_social_items_value'] ) && $_POST ['dtdr_social_items_value'] != '') {
-					update_post_meta ( $post_id, 'dtdr_social_items_value', $_POST ['dtdr_social_items_value'] );
+					update_post_meta ( $post_id, 'dtdr_social_items_value', sanitize_text_field( $_POST ['dtdr_social_items_value'] ) );
 				} else {
 					delete_post_meta ( $post_id, 'dtdr_social_items_value' );
 				}

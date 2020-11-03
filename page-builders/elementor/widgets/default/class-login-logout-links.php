@@ -43,13 +43,10 @@ class DTDirectoryLiteDfLoginLogoutLinks extends Widget_Base {
 	}
 
 	protected function render() {
-
-		$settings = $this->get_settings();
+		$settings   = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_login_logout_links '.$attributes.' /]');
 
-		echo $output;
-
+		echo do_shortcode('[dtdr_login_logout_links '.$attributes.' /]');
 	}
 
 }

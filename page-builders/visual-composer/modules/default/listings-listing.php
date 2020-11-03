@@ -29,70 +29,69 @@ function dtdr_listings_listing_vc_map() {
 
 			// Cities Ids
 			$dtdr_location_city_args = array(
-				'type' => 'textfield',
-				'heading' => sprintf( esc_html__('%1$s Cities Ids','dtdr-lite'), $listing_singular_label ),
-				'param_name' => 'cities_ids',
-				'value' => '',
-				'description' => esc_html__( 'Enter cities ids separated by commas.','dtdr-lite'),
+				'type'             => 'textfield',
+				'heading'          => sprintf( esc_html__('%1$s Cities Ids','dtdr-lite'), $listing_singular_label ),
+				'param_name'       => 'cities_ids',
+				'value'            => '',
+				'description'      => esc_html__( 'Enter cities ids separated by commas.','dtdr-lite'),
 				'edit_field_class' => 'vc_column vc_col-sm-6',
-				'group' => 'Filters - Location',
-				'std' => ''
+				'group'            => 'Filters - Location',
+				'std'              => ''
 			);
 
 			// Neighborhoods Ids
 			$dtdr_location_neighborhoods_args = array(
-				'type' => 'textfield',
-				'heading' => sprintf( esc_html__('%1$s Neighborhoods Ids','dtdr-lite'), $listing_singular_label ),
-				'param_name' => 'neighborhoods_ids',
-				'value' => '',
-				'description' => esc_html__( 'Enter neighborhoods ids separated by commas.','dtdr-lite'),
+				'type'             => 'textfield',
+				'heading'          => sprintf( esc_html__('%1$s Neighborhoods Ids','dtdr-lite'), $listing_singular_label ),
+				'param_name'       => 'neighborhoods_ids',
+				'value'            => '',
+				'description'      => esc_html__( 'Enter neighborhoods ids separated by commas.','dtdr-lite'),
 				'edit_field_class' => 'vc_column vc_col-sm-6',
-				'group' => 'Filters - Location',
-				'std' => ''
+				'group'            => 'Filters - Location',
+				'std'              => ''
 			);
 
 			// Counties / States Ids
 			$dtdr_location_countiesstates_args = array(
-				'type' => 'textfield',
-				'heading' => sprintf( esc_html__('%1$s Counties / States Ids','dtdr-lite'), $listing_singular_label ),
-				'param_name' => 'countiesstates_ids',
-				'value' => '',
-				'description' => esc_html__( 'Enter counties / states ids separated by commas.','dtdr-lite'),
+				'type'             => 'textfield',
+				'heading'          => sprintf( esc_html__('%1$s Counties / States Ids','dtdr-lite'), $listing_singular_label ),
+				'param_name'       => 'countiesstates_ids',
+				'value'            => '',
+				'description'      => esc_html__( 'Enter counties / states ids separated by commas.','dtdr-lite'),
 				'edit_field_class' => 'vc_column vc_col-sm-6',
-				'group' => 'Filters - Location',
-				'std' => ''
+				'group'            => 'Filters - Location',
+				'std'              => ''
 			);
 
 			// Countries
 			$dtdr_location_countries_args = array(
-				'type' => 'dropdown',
-				'heading' => esc_html__('Countries','dtdr-lite'),
-				'param_name' => 'country_id',
-				'value' => $countries_list,
-				'description' => esc_html__( 'Choose countries for which you like to display items.','dtdr-lite'),
+				'type'             => 'dropdown',
+				'heading'          => esc_html__('Countries','dtdr-lite'),
+				'param_name'       => 'country_id',
+				'value'            => $countries_list,
+				'description'      => esc_html__( 'Choose countries for which you like to display items.','dtdr-lite'),
 				'edit_field_class' => 'vc_column vc_col-sm-6',
-				'group' => 'Filters - Location',
-				'std' => ''
+				'group'            => 'Filters - Location',
+				'std'              => ''
 			);
 
 		}
 	}
 
 	vc_map( array(
-		"name" => sprintf( esc_html__('%1$s Listing','dtdr-lite'), $listing_plural_label ),
-		"base" => "dtdr_listings_listing",
-		"icon" => "dtdr_listings_listing",
+		"name"     => sprintf( esc_html__('%1$s Listing','dtdr-lite'), $listing_plural_label ),
+		"base"     => "dtdr_listings_listing",
+		"icon"     => "dtdr_listings_listing",
 		"category" => DTDR_PB_MODULE_DEFAULT_TITLE,
-		"params" => array(
+		"params"   => array(
 
 						// Default Options
-
 							// Type
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Type','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Type','dtdr-lite'),
 								'param_name' => 'type',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'Type 1','dtdr-lite')  => 'type1',
 									esc_html__( 'Type 2','dtdr-lite')  => 'type2',
 									esc_html__( 'Type 3','dtdr-lite')  => 'type3',
@@ -104,190 +103,188 @@ function dtdr_listings_listing_vc_map() {
 									esc_html__( 'Type 9','dtdr-lite')  => 'type9',
 									esc_html__( 'Type 10','dtdr-lite') => 'type10'
 								),
-								'description' => esc_html__('Choose type of layout you like to display.','dtdr-lite'),
+								'description'      => esc_html__('Choose type of layout you like to display.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'std' => 'type1',
+								'std'              => 'type1',
 							),
 
 							// Gallery
 							array (
-								'type' => 'dropdown',
-								'heading' => esc_html__('Gallery','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Gallery','dtdr-lite'),
 								'param_name' => 'gallery',
-								'value' => array(
-									esc_html__('Featured Image','dtdr-lite') => 'featured_image',
-									esc_html__('Image Gallery','dtdr-lite') => 'image_gallery',
+								'value'      => array(
+									esc_html__('Featured Image','dtdr-lite')                    => 'featured_image',
+									esc_html__('Image Gallery','dtdr-lite')                     => 'image_gallery',
 									esc_html__('Image Gallery With Featured Image','dtdr-lite') => 'gallery_with_featured',
 								),
-								'description' => esc_html__( 'Choose how you like to display image gallery.','dtdr-lite'),
+								'description'      => esc_html__( 'Choose how you like to display image gallery.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'std' => 'featured_image',
+								'std'              => 'featured_image',
 							),
 
 							// Post Per Page
 							array(
-								'type' => 'textfield',
-								'heading' => esc_html__( 'Post Per Page','dtdr-lite'),
-								'param_name' => 'post_per_page',
-								'description' => esc_html__( 'Number of posts to show per page. Rest of the posts will be displayed in pagination.','dtdr-lite'),
+								'type'             => 'textfield',
+								'heading'          => esc_html__( 'Post Per Page','dtdr-lite'),
+								'param_name'       => 'post_per_page',
+								'description'      => esc_html__( 'Number of posts to show per page. Rest of the posts will be displayed in pagination.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Columns
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Columns','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Columns','dtdr-lite'),
 								'param_name' => 'columns',
-								'value' => array(
-											esc_html__('I Column','dtdr-lite') => 1 ,
-											esc_html__('II Columns','dtdr-lite') => 2 ,
-											esc_html__('III Columns','dtdr-lite') => 3,
-											esc_html__('IV Columns','dtdr-lite') => 4/* ,
-											esc_html__('V Columns','dtdr-lite') => 5,
-											esc_html__('VI Columns','dtdr-lite') => 6, */
-										),
-								'description' => esc_html__( 'Number of columns you like to display your items.','dtdr-lite'),
+								'value'      => array(
+									esc_html__('I Column','dtdr-lite')    => 1,
+									esc_html__('II Columns','dtdr-lite')  => 2,
+									esc_html__('III Columns','dtdr-lite') => 3,
+									esc_html__('IV Columns','dtdr-lite')  => 4
+								),
+								'description'      => esc_html__( 'Number of columns you like to display your items.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'dependency' => array( 'element' => 'type', 'value' => array( 'type1', 'type2', 'type4', 'type6', 'type8', 'type10')),
-								'std' => 1
+								'dependency'       => array( 'element' => 'type', 'value' => array( 'type1', 'type2', 'type4', 'type6', 'type8', 'type10')),
+								'std'              => 1
 							),
 
 							// Apply Isotope
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Apply Isotope','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Apply Isotope','dtdr-lite'),
 								'param_name' => 'apply_isotope',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'False','dtdr-lite') => 'false',
-									esc_html__( 'True','dtdr-lite') => 'true',
+									esc_html__( 'True','dtdr-lite')  => 'true',
 								),
-								'std' => 'true',
-								'description' => esc_html__('Choose true if you like to apply isotope for your items.','dtdr-lite'),
+								'std'              => 'true',
+								'description'      => esc_html__('Choose true if you like to apply isotope for your items.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Isotope Filter
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Isotope Filter','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Isotope Filter','dtdr-lite'),
 								'param_name' => 'isotope_filter',
-								'value' => array(
-									esc_html__( 'None','dtdr-lite') => '',
-									esc_html__( 'Category','dtdr-lite') => 'category',
-									sprintf( esc_html__('%1$s','dtdr-lite'), $contracttype_singular_label ) => 'contracttype',
+								'value'      => array(
+									esc_html__( 'None','dtdr-lite')                                            => '',
+									esc_html__( 'Category','dtdr-lite')                                        => 'category',
+									sprintf   ( esc_html__('%1$s','dtdr-lite'), $contracttype_singular_label ) => 'contracttype',
 								),
-								'std' => '',
-								'description' => esc_html__('Choose isotope filter you like to use.','dtdr-lite'),
-								'dependency' => array( 'element' => 'apply_isotope', 'value' =>'true' ),
+								'std'              => '',
+								'description'      => esc_html__('Choose isotope filter you like to use.','dtdr-lite'),
+								'dependency'       => array( 'element' => 'apply_isotope', 'value' =>'true' ),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Apply Child Of
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Apply Child Of','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Apply Child Of','dtdr-lite'),
 								'param_name' => 'apply_child_of',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'False','dtdr-lite') => 'false',
-									esc_html__( 'True','dtdr-lite') => 'true',
+									esc_html__( 'True','dtdr-lite')  => 'true',
 								),
-								'std' => 'false',
-								'description' => sprintf( esc_html__('If you wish to apply child of specified categories or %1$s in filters, choose "True". If no categories or %1$s specified in "Filter Options" this option won\'t work.','dtdr-lite'), strtolower($contracttype_plural_label) ),
-								'dependency' => array( 'element' => 'apply_isotope', 'value' =>'true' ),
+								'std'              => 'false',
+								'description'      => sprintf( esc_html__('If you wish to apply child of specified categories or %1$s in filters, choose "True". If no categories or %1$s specified in "Filter Options" this option won\'t work.','dtdr-lite'), strtolower($contracttype_plural_label) ),
+								'dependency'       => array( 'element' => 'apply_isotope', 'value' =>'true' ),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Featured Items
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Featured Items','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Featured Items','dtdr-lite'),
 								'param_name' => 'featured_items',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'False','dtdr-lite') => 'false',
-									esc_html__( 'True','dtdr-lite') => 'true',
+									esc_html__( 'True','dtdr-lite')  => 'true',
 								),
-								'description' => esc_html__('Choose true if you like to display featured items.','dtdr-lite'),
+								'description'      => esc_html__('Choose true if you like to display featured items.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Excerpt Length
 							array(
-								'type' => 'textfield',
-								'heading' => esc_html__( 'Excerpt Length','dtdr-lite'),
-								'param_name' => 'excerpt_length',
-								'description' => esc_html__( 'Provide excerpt length here.','dtdr-lite'),
-								'dependency' => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type7', 'type8', 'type9', 'type10' )),
+								'type'             => 'textfield',
+								'heading'          => esc_html__( 'Excerpt Length','dtdr-lite'),
+								'param_name'       => 'excerpt_length',
+								'description'      => esc_html__( 'Provide excerpt length here.','dtdr-lite'),
+								'dependency'       => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type7', 'type8', 'type9', 'type10' )),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'std' => 20
+								'std'              => 20
 							),
 
 							// Features Image or Icon
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Features Image or Icon','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Features Image or Icon','dtdr-lite'),
 								'param_name' => 'features_image_or_icon',
-								'value' => array(
-									esc_html__( 'None','dtdr-lite') => '',
+								'value'      => array(
+									esc_html__( 'None','dtdr-lite')  => '',
 									esc_html__( 'Image','dtdr-lite') => 'image',
-									esc_html__( 'Icon','dtdr-lite') => 'icon'
+									esc_html__( 'Icon','dtdr-lite')  => 'icon'
 								),
-								'description' => esc_html__('Choose any of the option available to display features.','dtdr-lite'),
-								'dependency' => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type8', 'type9' )),
+								'description'      => esc_html__('Choose any of the option available to display features.','dtdr-lite'),
+								'dependency'       => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type8', 'type9' )),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'std' => '',
+								'std'              => '',
 							),
 
 							// Features Include
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Features Include','dtdr-lite'),
-								'param_name' => 'features_include',
-								'description' => esc_html__('Give features id separated by comma. Only 4 maximum number of features allowed.','dtdr-lite'),
-								'std' => '',
-								'dependency' => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type8', 'type9' )),
+								'type'             => 'dropdown',
+								'heading'          => esc_html__('Features Include','dtdr-lite'),
+								'param_name'       => 'features_include',
+								'description'      => esc_html__('Give features id separated by comma. Only 4 maximum number of features allowed.','dtdr-lite'),
+								'std'              => '',
+								'dependency'       => array( 'element' => 'type', 'value' => array ( 'type1', 'type2', 'type3', 'type4', 'type5', 'type6', 'type8', 'type9' )),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// No. Of Categories to Display
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('No. Of Categories to Display','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('No. Of Categories to Display','dtdr-lite'),
 								'param_name' => 'no_of_cat_to_display',
-								'value' => array(
-									0  => 0,
-									1  => 1,
-									2  => 2,
-									3  => 3,
-									4  => 4
+								'value'      => array(
+									0 => 0,
+									1 => 1,
+									2 => 2,
+									3 => 3,
+									4 => 4
 								),
-								'description' => esc_html__( 'Number of categories you like to display on your items.','dtdr-lite'),
+								'description'      => esc_html__( 'Number of categories you like to display on your items.','dtdr-lite'),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
-								'std' => 2
+								'std'              => 2
 							),
 
 							// Apply Equal Height
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Apply Equal Height','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Apply Equal Height','dtdr-lite'),
 								'param_name' => 'apply_equal_height',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'False','dtdr-lite') => 'false',
-									esc_html__( 'True','dtdr-lite') => 'true',
+									esc_html__( 'True','dtdr-lite')  => 'true',
 								),
-								'description' => esc_html__('Apply equal height for you items.','dtdr-lite'),
-								'std' => 'false',
-								'dependency' => array( 'element' => 'apply_isotope', 'value' =>'false' ),
+								'description'      => esc_html__('Apply equal height for you items.','dtdr-lite'),
+								'std'              => 'false',
+								'dependency'       => array( 'element' => 'apply_isotope', 'value' =>'false' ),
 								'edit_field_class' => 'vc_column vc_col-sm-6',
 							),
 
 							// Apply Custom Height
 							array(
-								'type' => 'dropdown',
-								'heading' => esc_html__('Apply Custom Height','dtdr-lite'),
+								'type'       => 'dropdown',
+								'heading'    => esc_html__('Apply Custom Height','dtdr-lite'),
 								'param_name' => 'apply_custom_height',
-								'value' => array(
+								'value'      => array(
 									esc_html__( 'False','dtdr-lite') => 'false',
-									esc_html__( 'True','dtdr-lite') => 'true',
+									esc_html__( 'True','dtdr-lite')  => 'true',
 								),
 								'description' => esc_html__('Apply custom height for your entire section.','dtdr-lite'),
 								'std' => 'false',

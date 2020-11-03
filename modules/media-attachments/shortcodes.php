@@ -5,13 +5,10 @@ if(!function_exists('dtdr_sp_media_attachments')) {
 	function dtdr_sp_media_attachments( $attrs, $content = null ) {
 
 		$attrs = shortcode_atts ( array (
-
 			'listing_id' => '',
-			'type' => '',
-			'class' => '',
-
+			'type'       => '',
+			'class'      => '',
 		), $attrs, 'dtdr_sp_media_attachments' );
-
 
 		$output = '';
 
@@ -22,14 +19,13 @@ if(!function_exists('dtdr_sp_media_attachments')) {
 
 		if($attrs['listing_id'] != '') {
 
-			$output .= '<div class="dtdr-listings-attachment-holder '.$attrs['type'].' '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-listings-attachment-holder '.rsc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 				$dtdr_media_attachments_titles = $dtdr_media_attachments_items = '';
 				if($attrs['listing_id'] > 0) {
 
 					$dtdr_media_attachments_titles = get_post_meta($attrs['listing_id'], 'dtdr_media_attachments_titles', true);
 					$dtdr_media_attachments_items  = get_post_meta($attrs['listing_id'], 'dtdr_media_attachments_items', true);
-
 				}
 
 				$j = 0;

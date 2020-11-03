@@ -7,25 +7,25 @@ add_action( 'wp_ajax_nopriv_dtdr_generate_load_search_data_ouput', 'dtdr_generat
 function dtdr_generate_load_search_data_ouput() {
 
 	// Pagination script Start
-	$current_page = isset($_REQUEST['current_page']) ? $_REQUEST['current_page'] : 1;
-	$offset = isset($_REQUEST['offset']) ? $_REQUEST['offset'] : 0;
-	$post_per_page =  isset($_REQUEST['post_per_page']) ? $_REQUEST['post_per_page'] : -1;
+	$current_page = isset($_REQUEST['current_page']) ? sanitize_text_field($_REQUEST['current_page']) : 1;
+	$offset = isset($_REQUEST['offset']) ? sanitize_text_field($_REQUEST['offset']) : 0;
+	$post_per_page =  isset($_REQUEST['post_per_page']) ? sanitize_text_field($_REQUEST['post_per_page']) : -1;
 	// Pagination script End
 
 
 	// Default options
-	$type = (isset($_REQUEST['type']) && $_REQUEST['type'] != '') ? $_REQUEST['type'] : 'type1';
-	$gallery = (isset($_REQUEST['gallery']) && $_REQUEST['gallery'] != '') ? $_REQUEST['gallery'] : 'featured_image';
-	$columns =  isset($_REQUEST['columns']) ? $_REQUEST['columns'] : 1;
+	$type = (isset($_REQUEST['type']) && $_REQUEST['type'] != '') ? sanitize_text_field($_REQUEST['type']) : 'type1';
+	$gallery = (isset($_REQUEST['gallery']) && $_REQUEST['gallery'] != '') ? sanitize_text_field($_REQUEST['gallery']) : 'featured_image';
+	$columns =  isset($_REQUEST['columns']) ? sanitize_text_field($_REQUEST['columns']) : 1;
 
 	// Location options
-	$user_latitude = $_REQUEST['user_latitude'];
-	$user_longitude = $_REQUEST['user_longitude'];
+	$user_latitude = sanitize_text_field($_REQUEST['user_latitude']);
+	$user_longitude = sanitize_text_field($_REQUEST['user_longitude']);
 
 	// Radius options
-	$use_radius = $_REQUEST['use_radius'];
-	$radius = $_REQUEST['radius'];
-	$radius_unit = $_REQUEST['radius_unit'];
+	$use_radius = sanitize_text_field($_REQUEST['use_radius']);
+	$radius = sanitize_text_field($_REQUEST['radius']);
+	$radius_unit = sanitize_text_field($_REQUEST['radius_unit']);
 
 	// Carousel
 	$enable_carousel = (isset($_REQUEST['enable_carousel']) && $_REQUEST['enable_carousel'] == 'true') ? true: false;
@@ -34,159 +34,157 @@ function dtdr_generate_load_search_data_ouput() {
 	$featured_items = (isset($_REQUEST['featured_items']) && $_REQUEST['featured_items'] == 'true') ? true: false;
 
 	// Ad Items
-	$ad_items = (isset($_REQUEST['ad_items']) && $_REQUEST['ad_items'] != '') ? $_REQUEST['ad_items'] : '';
+	$ad_items = (isset($_REQUEST['ad_items']) && $_REQUEST['ad_items'] != '') ? sanitize_text_field($_REQUEST['ad_items']) : '';
 
 	// Ad Location
-	$ad_location = (isset($_REQUEST['ad_location']) && $_REQUEST['ad_location'] != '') ? $_REQUEST['ad_location']: '';
+	$ad_location = (isset($_REQUEST['ad_location']) && $_REQUEST['ad_location'] != '') ? sanitize_text_field($_REQUEST['ad_location']) : '';
 
 	// Single Post Id
-	$single_post_id = (isset($_REQUEST['single_post_id']) && $_REQUEST['single_post_id'] != '') ? $_REQUEST['single_post_id']: '';
+	$single_post_id = (isset($_REQUEST['single_post_id']) && $_REQUEST['single_post_id'] != '') ? sanitize_text_field($_REQUEST['single_post_id']) : '';
 
 	// Excerpt Length
-	$excerpt_length = (isset($_REQUEST['excerpt_length']) && !empty($_REQUEST['excerpt_length'])) ? $_REQUEST['excerpt_length'] : 20;
+	$excerpt_length = (isset($_REQUEST['excerpt_length']) && !empty($_REQUEST['excerpt_length'])) ? sanitize_text_field($_REQUEST['excerpt_length']) : 20;
 
 	// Features Image or Icon
-	$features_image_or_icon = (isset($_REQUEST['features_image_or_icon']) && !empty($_REQUEST['features_image_or_icon'])) ? $_REQUEST['features_image_or_icon']:'';
+	$features_image_or_icon = (isset($_REQUEST['features_image_or_icon']) && !empty($_REQUEST['features_image_or_icon'])) ? sanitize_text_field($_REQUEST['features_image_or_icon']) :'';
 
 	// Features Count
-	$features_include = (isset($_REQUEST['features_include']) && !empty($_REQUEST['features_include'])) ? $_REQUEST['features_include'] : '';
+	$features_include = (isset($_REQUEST['features_include']) && !empty($_REQUEST['features_include'])) ? sanitize_text_field($_REQUEST['features_include']) : '';
 
 	// Custom Options
-	$custom_options = json_decode(stripslashes($_REQUEST['custom_options']), true);
+	$custom_options = json_decode(stripslashes(sanitize_text_field($_REQUEST['custom_options'])), true);
 
 	// Updating Custom Options with Price fields
-	$pricerange_start = isset($_REQUEST['pricerange_start']) ? $_REQUEST['pricerange_start'] : '';
-	$pricerange_end = isset($_REQUEST['pricerange_end']) ? $_REQUEST['pricerange_end'] : '';
+	$pricerange_start = isset($_REQUEST['pricerange_start']) ? sanitize_text_field($_REQUEST['pricerange_start']) : '';
+	$pricerange_end = isset($_REQUEST['pricerange_end']) ? sanitize_text_field($_REQUEST['pricerange_end']) : '';
 
 	$custom_options['pricerange_start'] = $pricerange_start;
 	$custom_options['pricerange_end']   = $pricerange_end;
-
-	$_REQUEST['custom_options'] = $custom_options;
 
 
 	// Query to retrieve data based on filter options
 
 	$args = array (
-				'posts_per_page' => -1,
-				'post_type'      => 'dtdr_listings',
-				'meta_query'     => array (),
-				'tax_query'      => array (),
-				'post_status'    => 'publish'
-			);
+		'posts_per_page' => -1,
+		'post_type'      => 'dtdr_listings',
+		'meta_query'     => array (),
+		'tax_query'      => array (),
+		'post_status'    => 'publish'
+	);
 
 	// Keyword Filter
-	$keyword = isset($_REQUEST['keyword']) ? $_REQUEST['keyword'] : '';
+	$keyword = isset($_REQUEST['keyword']) ? sanitize_text_field($_REQUEST['keyword']) : '';
 	if($keyword != '') {
 		$args['s'] = $keyword;
 	}
 
 	// List Item Ids
-	$list_items = isset($_REQUEST['list_items']) ? $_REQUEST['list_items'] : '';
+	$list_items = isset($_REQUEST['list_items']) ? dtdr_sanitize_fields($_REQUEST['list_items']) : '';
 	if(!empty($list_items)) {
 		$args['post__in'] = $list_items;
 	}
 
 	// Category Filter
-	$categories = isset($_REQUEST['categories']) ? $_REQUEST['categories'] : '';
+	$categories = isset($_REQUEST['categories']) ? dtdr_sanitize_fields($_REQUEST['categories']) : '';
 	if(!empty($categories)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_category',
-									'field' => 'id',
-									'terms' => $categories,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_category',
+			'field'    => 'id',
+			'terms'    => $categories,
+			'operator' => 'IN'
+		);
 	}
 
 	// Tags Filter
-	$tags = isset($_REQUEST['tags']) ? $_REQUEST['tags'] : '';
+	$tags = isset($_REQUEST['tags']) ? dtdr_sanitize_fields($_REQUEST['tags']) : '';
 	if(!empty($tags)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_amenity',
-									'field' => 'id',
-									'terms' => $tags,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_amenity',
+			'field'    => 'id',
+			'terms'    => $tags,
+			'operator' => 'IN'
+		);
 	}
 
 	// Cities Filter
-	$cities = isset($_REQUEST['cities']) ? $_REQUEST['cities'] : '';
+	$cities = isset($_REQUEST['cities']) ? dtdr_sanitize_fields($_REQUEST['cities']) : '';
 	if(!empty($cities)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_city',
-									'field' => 'id',
-									'terms' => $cities,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_city',
+			'field'    => 'id',
+			'terms'    => $cities,
+			'operator' => 'IN'
+		);
 	}
 
 	// Neighborhood Filter
-	$neighborhood = isset($_REQUEST['neighborhood']) ? $_REQUEST['neighborhood'] : '';
+	$neighborhood = isset($_REQUEST['neighborhood']) ? dtdr_sanitize_fields($_REQUEST['neighborhood']) : '';
 	if(!empty($neighborhood)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_neighborhood',
-									'field' => 'id',
-									'terms' => $neighborhood,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_neighborhood',
+			'field'    => 'id',
+			'terms'    => $neighborhood,
+			'operator' => 'IN'
+		);
 	}
 
 	// Counties / States Filter
-	$countystate = isset($_REQUEST['countystate']) ? $_REQUEST['countystate'] : '';
+	$countystate = isset($_REQUEST['countystate']) ? dtdr_sanitize_fields($_REQUEST['countystate']) : '';
 	if(!empty($countystate)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_countystate',
-									'field' => 'id',
-									'terms' => $countystate,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_countystate',
+			'field' => 'id',
+			'terms' => $countystate,
+			'operator' => 'IN'
+		);
 	}
 
 	// Countries
-	$countries = isset($_REQUEST['countries']) ? $_REQUEST['countries'] : '';
+	$countries = isset($_REQUEST['countries']) ? dtdr_sanitize_fields($_REQUEST['countries']) : '';
 	if(!empty($countries)) {
 		$args['meta_query'][] = array (
-									'key'     => 'dtdr_country',
-									'value'   => $countries,
-									'compare' => 'IN'
-								);
+			'key'     => 'dtdr_country',
+			'value'   => $countries,
+			'compare' => 'IN'
+		);
 	}
 
 	// Contract Types
-	$ctype = isset($_REQUEST['ctype']) ? $_REQUEST['ctype'] : '';
+	$ctype = isset($_REQUEST['ctype']) ? dtdr_sanitize_fields($_REQUEST['ctype']) : '';
 	if(!empty($ctype)) {
 		$args['tax_query'][] = array (
-									'taxonomy' => 'dtdr_listings_ctype',
-									'field'    => 'id',
-									'terms'    => $ctype,
-									'operator' => 'IN'
-								);
+			'taxonomy' => 'dtdr_listings_ctype',
+			'field'    => 'id',
+			'terms'    => $ctype,
+			'operator' => 'IN'
+		);
 	}
 
 	// Start Date
-	$startdate = isset($_REQUEST['startdate']) ? $_REQUEST['startdate'] : '';
+	$startdate = isset($_REQUEST['startdate']) ? sanitize_text_field($_REQUEST['startdate']) : '';
 	if($startdate != '') {
 		$date_to_compare = date('Ymd', strtotime($startdate));
 		$args['meta_query'][] = array (
-									'key'     => 'dtdr_start_date_compare_format',
-									'value'   => $date_to_compare,
-									'compare' => '>=',
-								);
+			'key'     => 'dtdr_start_date_compare_format',
+			'value'   => $date_to_compare,
+			'compare' => '>=',
+		);
 	}
 
 	// Features
-	$use_features_query = '';
-	$features_compare_id = 0;
-	$features_start = 20;
-	$features_end = 60;
-	$features_query = isset($_REQUEST['features_query']) ? $_REQUEST['features_query'] : array ();
-	$features_total_query = isset($_REQUEST['features_total_query']) ? $_REQUEST['features_total_query'] : 0;
+	$use_features_query   = '';
+	$features_compare_id  = 0;
+	$features_start       = 20;
+	$features_end         = 60;
+	$features_query       = isset($_REQUEST['features_query']) ? dtdr_sanitize_fields($_REQUEST['features_query']) : array ();
+	$features_total_query = isset($_REQUEST['features_total_query']) ? sanitize_text_field($_REQUEST['features_total_query']) : 0;
 	if(is_array($features_query) && !empty($features_query)) {
 		$use_features_query = 'true';
 	}
 
 
 	// Sellers
-	$sellers = isset($_REQUEST['sellers']) ? $_REQUEST['sellers'] : array ();
+	$sellers = isset($_REQUEST['sellers']) ? dtdr_sanitize_fields($_REQUEST['sellers']) : array ();
 	if(!empty($sellers)) {
 
 		// Includes all sellers incharges post
@@ -198,7 +196,7 @@ function dtdr_generate_load_search_data_ouput() {
 	}
 
 	// Incharges
-	$incharges = isset($_REQUEST['incharges']) ? $_REQUEST['incharges'] : array ();
+	$incharges = isset($_REQUEST['incharges']) ? dtdr_sanitize_fields($_REQUEST['incharges']) : array ();
 
 	$authors_in = array ();
 	if(!empty($sellers) && !empty($incharges)) {
@@ -209,11 +207,11 @@ function dtdr_generate_load_search_data_ouput() {
 
 		$incharge_arg = array ();
 		foreach($incharges as $incharge) {
-			$incharge_arg[] = array ( 
-								'key' => 'dtdr_incharges', 
-								'value' => $incharge, 
-								'compare' => 'LIKE' 
-							);
+			$incharge_arg[] = array (
+				'key'     => 'dtdr_incharges',
+				'value'   => $incharge,
+				'compare' => 'LIKE'
+			);
 		}
 
 		if(count($incharges) > 1) {
@@ -234,7 +232,7 @@ function dtdr_generate_load_search_data_ouput() {
 
 
 	// Order By
-	$orderby = isset($_REQUEST['orderby']) ? $_REQUEST['orderby'] : '';
+	$orderby = isset($_REQUEST['orderby']) ? sanitize_text_field($_REQUEST['orderby']) : '';
 	if($orderby == 'alphabetical') {
 
 		$args['orderby'] = 'title';
@@ -259,20 +257,20 @@ function dtdr_generate_load_search_data_ouput() {
 	// Featured Items
 	if($featured_items) {
 		$args['meta_query'][] = array (
-									'key'     => 'dtdr_featured_item',
-									'value'   => 'true',
-									'compare' => '=',
-								);
+			'key'     => 'dtdr_featured_item',
+			'value'   => 'true',
+			'compare' => '=',
+		);
 	}
 
 	// MLS Number Filter
-	$mls_number = isset($_REQUEST['mls_number']) ? $_REQUEST['mls_number'] : '';
+	$mls_number = isset($_REQUEST['mls_number']) ? sanitize_text_field($_REQUEST['mls_number']) : '';
 	if($mls_number != '') {
 		$args['meta_query'][] = array (
-									'key'     => 'dtdr_mls_number',
-									'value'   => $mls_number,
-									'compare' => 'LIKE',
-								);
+			'key'     => 'dtdr_mls_number',
+			'value'   => $mls_number,
+			'compare' => 'LIKE',
+		);
 	}
 
 	// To modify arguments from modules
@@ -280,7 +278,7 @@ function dtdr_generate_load_search_data_ouput() {
 
 	// Others
 	$use_opennow_query = '';
-	$others = (isset($_REQUEST['others']) && !empty($_REQUEST['others'])) ? $_REQUEST['others'] : array ();
+	$others = (isset($_REQUEST['others']) && !empty($_REQUEST['others'])) ? dtdr_sanitize_fields($_REQUEST['others']) : array ();
 	if(in_array ('opennow', $others)) {
 		$use_opennow_query = 'true';
 	}
@@ -441,7 +439,7 @@ function dtdr_generate_load_search_data_ouput() {
 		$apply_isotope = (isset($_REQUEST['apply_isotope']) && $_REQUEST['apply_isotope'] == 'true') ? 'true' : '';
 		$isotope_filter = '';
 		if($apply_isotope == 'true') {
-			$isotope_filter = (isset($_REQUEST['isotope_filter']) && $_REQUEST['isotope_filter'] != '') ? $_REQUEST['isotope_filter'] : '';
+			$isotope_filter = (isset($_REQUEST['isotope_filter']) && $_REQUEST['isotope_filter'] != '') ? sanitize_text_field($_REQUEST['isotope_filter']) : '';
 		}
 
 		$data_result = dtdr_generate_listing_output_loop($filtered_item_ids, $_REQUEST);
@@ -453,14 +451,14 @@ function dtdr_generate_load_search_data_ouput() {
 		if(!empty($filtered_item_ids)) {
 
 			$args = array (
-						'offset'         => $offset,
-						'paged'          => $current_page ,
-						'posts_per_page' => $post_per_page,
-						'post__in'       => $filtered_item_ids,
-						'post_type'      => 'dtdr_listings',
-						'orderby'        => 'post__in',
-						'post_status'    => 'publish'
-					);
+				'offset'         => $offset,
+				'paged'          => $current_page ,
+				'posts_per_page' => $post_per_page,
+				'post__in'       => $filtered_item_ids,
+				'post_type'      => 'dtdr_listings',
+				'orderby'        => 'post__in',
+				'post_status'    => 'publish'
+			);
 
 			$listings_paginated_query = new WP_Query( $args );
 
@@ -482,19 +480,17 @@ function dtdr_generate_load_search_data_ouput() {
 		}
 
     	$data_result = array (
-			        'data' => '',
-			        'dataids' => $paginated_item_ids
-			    );
-
+			'data' => '',
+			'dataids' => $paginated_item_ids
+		);
 	}
 
 
     // Print Output
-
     echo json_encode(array(
-		        'data' => $data_result['data'],
-		        'dataids' => $data_result['dataids']
-		    ));
+		'data' => $data_result['data'],
+		'dataids' => $data_result['dataids']
+	));
 
 	die();
 
@@ -503,10 +499,8 @@ function dtdr_generate_load_search_data_ouput() {
 // Frontend Listing - Loop
 
 function dtdr_generate_listing_output_loop($filtered_item_ids, $output_options) {
-
 	// Options
 	extract($output_options);
-
 
 	$enable_carousel = $output_options['enable_carousel'];
 
@@ -532,14 +526,14 @@ function dtdr_generate_listing_output_loop($filtered_item_ids, $output_options) 
 
 
 		$args = array (
-					'offset'         => $offset,
-					'paged'          => $current_page,
-					'posts_per_page' => $post_per_page,
-					'post__in'       => $filtered_item_ids,
-					'post_type'      => 'dtdr_listings',
-					'orderby'        => 'post__in',
-					'post_status'    => 'publish'
-				);
+			'offset'         => $offset,
+			'paged'          => $current_page,
+			'posts_per_page' => $post_per_page,
+			'post__in'       => $filtered_item_ids,
+			'post_type'      => 'dtdr_listings',
+			'orderby'        => 'post__in',
+			'post_status'    => 'publish'
+		);
 
 		$output_options['column_class'] = $column_class;
 		if($enable_carousel) {
@@ -695,9 +689,9 @@ function dtdr_generate_listing_output_loop($filtered_item_ids, $output_options) 
 
 
     $output = array (
-			        'data' => $output,
-			        'dataids' => $paginated_item_ids
-			    );
+		'data' => $output,
+		'dataids' => $paginated_item_ids
+	);
 
 	return $output;
 
@@ -752,7 +746,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 	$dtdr_featured_item = get_post_meta($listing_id, 'dtdr_featured_item', true);
 	if($dtdr_featured_item == 'true') {
 		$dtdr_featured_item_html .= '<div class="dtdr-listings-featured-item-container">';
-			$dtdr_featured_item_html .= '<a href="'.get_permalink($listing_id).'">';
+			$dtdr_featured_item_html .= '<a href="'.esc_url( get_permalink($listing_id) ).'">';
 				$dtdr_featured_item_html .= '<span>'.esc_html__('Featured','dtdr-lite').'</span>';
 			$dtdr_featured_item_html .= '</a>';
 		$dtdr_featured_item_html .= '</div>';
@@ -762,11 +756,11 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 	$custom_excerpt = dtdr_custom_excerpt($excerpt_length, $listing_id);
 
 	if($apply_isotope == 'true') {
-		$output .= '<div class="'.implode(' ', $column_class).'">';
-			$output .= '<div class="'.implode(' ', get_post_class($item_classes, $listing_id)).'">';
+		$output .= '<div class="'.esc_attr( implode(' ', $column_class) ).'">';
+			$output .= '<div class="'.esc_attr( implode(' ', get_post_class($item_classes, $listing_id)) ).'">';
 	} else {
 		$item_classes = array_merge($item_classes, $column_class);
-		$output .= '<div class="'.implode(' ', get_post_class($item_classes, $listing_id)).'">';
+		$output .= '<div class="'.esc_attr( implode(' ', get_post_class($item_classes, $listing_id)) ).'">';
 	}
 
 		if($type == 'type1') {
@@ -819,7 +813,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-utils-item-holder">';
 						$output .= dtdr_favourite_marker_html($listing_id);
 						$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-totalimages">';
-							$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.get_permalink($listing_id).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
+							$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.esc_url( get_permalink($listing_id) ).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
 						$output .= '</div>';
 					$output .= '</div>';
 
@@ -834,7 +828,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-item-bottom-left-content">';
 
 						$output .= '<div class="dtdr-listings-item-title">';
-							$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+							$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 						$output .= '</div>';
 
 						if(shortcode_exists('dtdr_sp_price')) {
@@ -867,7 +861,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 						$output .= '</div>';
 					}
 
-					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.get_permalink($listing_id).'">'.esc_html__('View Details','dtdr-lite').'</a>';
+					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html__('View Details','dtdr-lite').'</a>';
 
 				$output .= '</div>';
 
@@ -909,7 +903,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$output .= '<div class="dtdr-listings-item-bottom-section-content">';
 
 					$output .= '<div class="dtdr-listings-item-title">';
-						$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+						$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= '</div>';
 
 					$output .= do_shortcode('[dtdr_sp_contact_details listing_id="'.esc_attr($listing_id).'" include_address="true" type="listing" /]');
@@ -937,7 +931,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 							$output .= do_shortcode('[dtdr_sp_price listing_id="'.esc_attr($listing_id).'" type="listing" /]');
 						}
 
-						$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.get_permalink($listing_id).'">'.esc_html__('View Details','dtdr-lite').'</a>';
+						$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html__('View Details','dtdr-lite').'</a>';
 
 					$output .= '</div>';
 
@@ -981,7 +975,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$output .= do_shortcode('[dtdr_sp_taxonomy listing_id="'.esc_attr($listing_id).'" taxonomy="dtdr_listings_category" type="type3" splice="'.esc_attr($no_of_cat_to_display).'" /]');
 
 					$output .= '<div class="dtdr-listings-item-title">';
-						$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+						$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= '</div>';
 
 					if(shortcode_exists('dtdr_sp_price')) {
@@ -998,7 +992,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 							$output .= '<p>';
 
 								if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-									$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+									$output .= '<span>'.esc_html( get_post_meta($listing_id, 'dtdr_excerpt_title', true) ).'</span>';
 								}
 
 								$output .= $custom_excerpt;
@@ -1009,7 +1003,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 					$output .= do_shortcode('[dtdr_sp_features listing_id="'.esc_attr($listing_id).'" columns="-1" include="'.esc_attr($features_include).'" type="listing" features_image_or_icon="'.esc_attr($features_image_or_icon).'" /]');
 
-					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.get_permalink($listing_id).'">'.esc_html__('View Details','dtdr-lite').'</a>';
+					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html__('View Details','dtdr-lite').'</a>';
 
 				$output .= '</div>';
 
@@ -1065,7 +1059,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-utils-item-holder">';
 						$output .= dtdr_favourite_marker_html($listing_id);
 						$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-totalimages">';
-							$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.get_permalink($listing_id).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
+							$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.esc_url( get_permalink($listing_id) ).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
 						$output .= '</div>';
 					$output .= '</div>';
 
@@ -1078,7 +1072,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$output .= '<div class="dtdr-listings-item-bottom-section-content">';
 
 					$output .= '<div class="dtdr-listings-item-title">';
-						$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+						$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= '</div>';
 
 					$output .= do_shortcode('[dtdr_sp_contact_details listing_id="'.esc_attr($listing_id).'" include_address="true" type="listing" /]');
@@ -1089,7 +1083,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 							$output .= '<p>';
 
 								if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-									$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+									$output .= '<span>'.esc_html( get_post_meta($listing_id, 'dtdr_excerpt_title', true) ).'</span>';
 								}
 
 								$output .= $custom_excerpt;
@@ -1108,7 +1102,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 						$output .= do_shortcode('[dtdr_sp_price listing_id="'.esc_attr($listing_id).'" type="listing" /]');
 					}
 
-					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.get_permalink($listing_id).'">'.esc_html__('View Details','dtdr-lite').'</a>';
+					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html__('View Details','dtdr-lite').'</a>';
 
 				$output .= '</div>';
 
@@ -1168,7 +1162,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-item-bottom-left-content">';
 
 						$output .= '<div class="dtdr-listings-item-title">';
-							$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+							$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 						$output .= '</div>';
 
 						if(shortcode_exists('dtdr_sp_price')) {
@@ -1184,7 +1178,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 						$output .= '<div class="dtdr-listings-utils-item-holder">';
 							$output .= dtdr_favourite_marker_html($listing_id);
 							$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-totalimages">';
-								$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.get_permalink($listing_id).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
+								$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.esc_url( get_permalink($listing_id) ).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -1200,7 +1194,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 						$output .= '<p>';
 
 							if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-								$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+								$output .= '<span>'.esc_html( get_post_meta($listing_id, 'dtdr_excerpt_title', true) ).'</span>';
 							}
 
 							$output .= $custom_excerpt;
@@ -1256,7 +1250,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-item-bottom-left-content">';
 
 						$output .= '<div class="dtdr-listings-item-title">';
-							$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+							$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 						$output .= '</div>';
 
 						if(shortcode_exists('dtdr_sp_price')) {
@@ -1329,7 +1323,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 			$output .= '<div class="dtdr-listings-item-bottom-section">';
 
 				$output .= '<div class="dtdr-listings-item-title">';
-					$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+					$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= do_shortcode('[dtdr_sp_taxonomy listing_id="'.esc_attr($listing_id).'" taxonomy="dtdr_listings_category" type="type7" splice="'.esc_attr($no_of_cat_to_display).'" /]');
 				$output .= '</div>';
 
@@ -1344,8 +1338,10 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 						$output .= '<p>';
 
-							if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-								$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+							$e_title = 	get_post_meta($listing_id, 'dtdr_excerpt_title', true);
+
+							if(  $e_title != '' ) {
+								$output .= '<span>'.esc_html( $e_title ).'</span>';
 							}
 
 							$output .= $custom_excerpt;
@@ -1368,7 +1364,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 						$output .= '<div class="dtdr-listings-utils-item-holder">';
 							$output .= dtdr_favourite_marker_html($listing_id);
 							$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-totalimages">';
-								$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.get_permalink($listing_id).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
+								$output .= '<div class="dtdr-listings-utils-totalimages-item"><a href="'.esc_url( get_permalink($listing_id) ).'"><span class="far fa-images"></span><p>'.esc_html($total_images_cnt).'</p></a></div>';
 							$output .= '</div>';
 						$output .= '</div>';
 
@@ -1416,7 +1412,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$output .= do_shortcode('[dtdr_sp_taxonomy listing_id="'.esc_attr($listing_id).'" taxonomy="dtdr_listings_category" type="type8" splice="'.esc_attr($no_of_cat_to_display).'" /]');
 
 					$output .= '<div class="dtdr-listings-item-title">';
-						$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+						$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= '</div>';
 
 					if(shortcode_exists('dtdr_sp_price')) {
@@ -1430,8 +1426,10 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 							$output .= '<p>';
 
-								if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-									$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+								$dtdr_excerpt_title = get_post_meta($listing_id, 'dtdr_excerpt_title', true);
+
+								if( $dtdr_excerpt_title != '' ) {
+									$output .= '<span>'.esc_html( $dtdr_excerpt_title ).'</span>';
 								}
 
 								$output .= $custom_excerpt;
@@ -1482,7 +1480,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$output .= do_shortcode('[dtdr_sp_taxonomy listing_id="'.esc_attr($listing_id).'" taxonomy="dtdr_listings_category" type="type3" splice="'.esc_attr($no_of_cat_to_display).'" /]');
 
 					$output .= '<div class="dtdr-listings-item-title">';
-						$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+						$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'. esc_html( get_the_title($listing_id) ).'</a>';
 					$output .= '</div>';
 
 					if(shortcode_exists('dtdr_sp_price')) {
@@ -1498,8 +1496,10 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 							$output .= '<p>';
 
-								if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-									$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+								$dtdr_excerpt_title = get_post_meta($listing_id, 'dtdr_excerpt_title', true);
+
+								if(  $dtdr_excerpt_title != '' ) {
+									$output .= '<span>'.$dtdr_excerpt_title.'</span>';
 								}
 
 								$output .= $custom_excerpt;
@@ -1510,7 +1510,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 					$output .= do_shortcode('[dtdr_sp_features listing_id="'.esc_attr($listing_id).'" columns="-1" include="'.esc_attr($features_include).'" type="listing" features_image_or_icon="'.esc_attr($features_image_or_icon).'" /]');
 
-					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.get_permalink($listing_id).'">'.esc_html__('View Details','dtdr-lite').'</a>';
+					$output .= '<a class="custom-button-style dtdr-listing-view-details" href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html__('View Details','dtdr-lite').'</a>';
 
 				$output .= '</div>';
 
@@ -1568,7 +1568,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 					$output .= '<div class="dtdr-listings-item-bottom-left-content">';
 
 						$output .= '<div class="dtdr-listings-item-title">';
-							$output .= '<a href="'.get_permalink($listing_id).'">'.get_the_title($listing_id).'</a>';
+							$output .= '<a href="'.esc_url( get_permalink($listing_id) ).'">'.esc_html( get_the_title($listing_id) ).'</a>';
 						$output .= '</div>';
 
 					$output .= '</div>';
@@ -1582,8 +1582,10 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 
 						$output .= '<p>';
 
-							if( get_post_meta($listing_id, 'dtdr_excerpt_title', true) != '' ) {
-								$output .= '<span>'.get_post_meta($listing_id, 'dtdr_excerpt_title', true).'</span>';
+							$dtdr_excerpt_title = get_post_meta($listing_id, 'dtdr_excerpt_title', true);
+
+							if(  $dtdr_excerpt_title != '' ) {
+								$output .= '<span>'.esc_html( $dtdr_excerpt_title ).'</span>';
 							}
 
 							$output .= $custom_excerpt;
@@ -1636,7 +1638,7 @@ function dtdr_favourite_marker_html($listing_id) {
 	}
 
 	$favourite_marker .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-favourite">';
-		$favourite_marker .= '<a class="dtdr-listings-utils-favourite-item '.$favourite_class.'" '.$favourite_attr.'><span class="'.$favourite_icon_class.'"></span></a>';
+		$favourite_marker .= '<a class="dtdr-listings-utils-favourite-item '.esc_attr( $favourite_class ).'" '.$favourite_attr.'><span class="'.esc_attr( $favourite_icon_class ).'"></span></a>';
 	$favourite_marker .= '</div>';
 
 	return $favourite_marker;
@@ -1664,25 +1666,25 @@ function dtdr_listing_ajax_pagination($max_num_pages, $current_page, $function_c
 
 		$listing_options = json_encode($item_ids);
 
-		$output .= '<div class="dtdr-pagination dtdr-listing-pagination dtdr-ajax-pagination"  data-functioncall="'.$function_call.'" data-outputdiv="'.$output_div.'" data-listing-options="'.esc_js($listing_options).'">';
+		$output .= '<div class="dtdr-pagination dtdr-listing-pagination dtdr-ajax-pagination"  data-functioncall="'.esc_attr( $function_call ).'" data-outputdiv="'.esc_attr( $output_div ).'" data-listing-options="'.esc_js($listing_options).'">';
 
 			if($current_page > 1) {
-				$output .= '<div class="prev-post"><a href="#" data-currentpage="'.$current_page.'"><span class="fa fa-caret-left"></span>&nbsp;'.esc_html__('Prev','dtdr-lite').'</a></div>';
+				$output .= '<div class="prev-post"><a href="#" data-currentpage="'.esc_attr( $current_page ).'"><span class="fa fa-caret-left"></span>&nbsp;'.esc_html__('Prev','dtdr-lite').'</a></div>';
 			}
 
 			$output .= paginate_links ( array (
-						  'base' 		 => '#',
-						  'format' 		 => '',
-						  'current' 	 => $current_page,
-						  'type'     	 => 'list',
-						  'end_size'     => 2,
-						  'mid_size'     => 3,
-						  'prev_next'    => false,
-						  'total' 		 => $max_num_pages
-					  ) );
+				'base' 		 => '#',
+				'format' 		 => '',
+				'current' 	 => $current_page,
+				'type'     	 => 'list',
+				'end_size'     => 2,
+				'mid_size'     => 3,
+				'prev_next'    => false,
+				'total' 		 => $max_num_pages
+			) );
 
 			if ($current_page < $max_num_pages) {
-				$output .= '<div class="next-post"><a href="#" data-currentpage="'.$current_page.'">'.esc_html__('Next','dtdr-lite').'&nbsp;<span class="fa fa-caret-right"></span></a></div>';
+				$output .= '<div class="next-post"><a href="#" data-currentpage="'.esc_attr( $current_page ).'">'.esc_html__('Next','dtdr-lite').'&nbsp;<span class="fa fa-caret-right"></span></a></div>';
 			}
 
 		$output .= '</div>';
@@ -1700,8 +1702,8 @@ add_action( 'wp_ajax_dtdr_listing_favourite_marker', 'dtdr_listing_favourite_mar
 add_action( 'wp_ajax_nopriv_dtdr_listing_favourite_marker', 'dtdr_listing_favourite_marker' );
 function dtdr_listing_favourite_marker() {
 
-	$listing_id = isset($_REQUEST['listing_id']) ? $_REQUEST['listing_id'] : -1;
-	$user_id = isset($_REQUEST['user_id']) ? $_REQUEST['user_id'] : -1;
+	$listing_id = isset($_REQUEST['listing_id']) ? sanitize_text_field($_REQUEST['listing_id']) : -1;
+	$user_id = isset($_REQUEST['user_id']) ? sanitize_text_field($_REQUEST['user_id']) : -1;
 
 	if($listing_id > 0 && $user_id > 0) {
 
@@ -1796,10 +1798,10 @@ add_action( 'wp_ajax_nopriv_dtdr_process_listing_contactform', 'dtdr_process_lis
 function dtdr_process_listing_contactform() {
 
 	$dtdr_contactform_nonce = $_POST['dtdr_contactform_nonce'];
-	$listing_id             = isset($_REQUEST['dtdr_contactform_listingid']) ? $_REQUEST['dtdr_contactform_listingid']      : -1;
-	$user_id                = isset($_REQUEST['dtdr_contactform_userid']) ? $_REQUEST['dtdr_contactform_userid']            : -1;
-	$contact_point          = isset($_REQUEST['dtdr_contactform_contactpoint']) ? $_REQUEST['dtdr_contactform_contactpoint']: '';
-	$include_admin          = isset($_REQUEST['dtdr_contactform_includeadmin']) ? $_REQUEST['dtdr_contactform_includeadmin'] : '';
+	$listing_id             = isset($_REQUEST['dtdr_contactform_listingid']) ? sanitize_text_field($_REQUEST['dtdr_contactform_listingid'])      : -1;
+	$user_id                = isset($_REQUEST['dtdr_contactform_userid']) ? sanitize_text_field($_REQUEST['dtdr_contactform_userid'])            : -1;
+	$contact_point          = isset($_REQUEST['dtdr_contactform_contactpoint']) ? sanitize_text_field($_REQUEST['dtdr_contactform_contactpoint']) : '';
+	$include_admin          = isset($_REQUEST['dtdr_contactform_includeadmin']) ? sanitize_text_field($_REQUEST['dtdr_contactform_includeadmin']) : '';
 
 	$errors = false;
 	$error_msg = $error_msg1 = array ();
@@ -1824,7 +1826,7 @@ function dtdr_process_listing_contactform() {
 			array_push($error_msg, esc_html__('Name','dtdr-lite'));
 		}
 
-		$contactform_email = sanitize_text_field($_REQUEST['dtdr_contactform_email']);
+		$contactform_email = sanitize_email($_REQUEST['dtdr_contactform_email']);
 		if(empty($contactform_email)) {
 			$errors = true; $flag = 1;
 			array_push($error_msg, esc_html__('Email','dtdr-lite'));
@@ -1968,20 +1970,16 @@ function dtdr_process_listing_contactform() {
 
 					$dtdr_lead_messages[$listing_id][$contactform_email]['leads'] = $leadData;
 					$dtdr_lead_messages[$listing_id][$contactform_email]['leads']['conversation'] = $prevConversation;
-
-
 				} else {
 
 					$dtdr_lead_messages[$listing_id][$contactform_email]['leads'] = $leadData;
 					$dtdr_lead_messages[$listing_id][$contactform_email]['leads']['conversation'][0] = $leadConversation;
-
 				}
 
 			} else {
 
 				$dtdr_lead_messages[$listing_id][$contactform_email]['leads'] = $leadData;
 				$dtdr_lead_messages[$listing_id][$contactform_email]['leads']['conversation'][0] = $leadConversation;
-
 			}
 
 		} else { // For first message
@@ -1989,7 +1987,6 @@ function dtdr_process_listing_contactform() {
 			$dtdr_lead_messages = array ();
 			$dtdr_lead_messages[$listing_id][$contactform_email]['leads'] = $leadData;
 			$dtdr_lead_messages[$listing_id][$contactform_email]['leads']['conversation'][0] = $leadConversation;
-
 		}
 
 		update_user_meta($author_id, 'dtdr_lead_messages', $dtdr_lead_messages);
@@ -2070,7 +2067,7 @@ add_action( 'wp_ajax_nopriv_dtdr_listing_contactdetails_request', 'dtdr_listing_
 function dtdr_listing_contactdetails_request() {
 
 
-    $listing_id = isset($_REQUEST['listing_id']) ? $_REQUEST['listing_id'] : -1;
+    $listing_id = isset($_REQUEST['listing_id']) ? sanitize_text_field($_REQUEST['listing_id']) : -1;
 
     $errors = false;
     $error_msg = array ();
@@ -2094,19 +2091,16 @@ function dtdr_listing_contactdetails_request() {
 
 
             // Available counts
-
             $dtdr_buyer_package_listings_count = get_user_meta($user_id, 'dtdr_buyer_package_listings_count', true);
             $dtdr_buyer_package_listings_count = (isset($dtdr_buyer_package_listings_count) && !empty($dtdr_buyer_package_listings_count)) ? $dtdr_buyer_package_listings_count : 0;
 
 
             // Used counts
-
             $dtdr_buyer_package_used_listings_count = get_user_meta($user_id, 'dtdr_buyer_package_used_listings_count', true);
             $dtdr_buyer_package_used_listings_count = (isset($dtdr_buyer_package_used_listings_count) && !empty($dtdr_buyer_package_used_listings_count)) ? $dtdr_buyer_package_used_listings_count : 0;
 
 
             // Remaining counts
-
             $dtdr_buyer_allow_listings = false;
             if($dtdr_buyer_package_listings_count == -1) {
                 $dtdr_buyer_allow_listings = true;
@@ -2160,7 +2154,6 @@ function dtdr_listing_contactdetails_request() {
                 )
             );
             wp_die();
-
         }
 
     }
@@ -2170,17 +2163,16 @@ function dtdr_listing_contactdetails_request() {
 }
 
 // Activity Tracker - Website Visit
-
 add_action( 'wp_ajax_dtdr_listing_activity_tracker_contactdetails', 'dtdr_listing_activity_tracker_contactdetails' );
 add_action( 'wp_ajax_nopriv_dtdr_listing_activity_tracker_contactdetails', 'dtdr_listing_activity_tracker_contactdetails' );
 function dtdr_listing_activity_tracker_contactdetails() {
 
-	$activity_type = isset($_REQUEST['activity_type']) ? $_REQUEST['activity_type']                  : '';
-	$listing_id    = isset($_REQUEST['listing_id']) ? $_REQUEST['listing_id']                        : -1;
-	$user_id       = (isset($_REQUEST['user_id']) && $_REQUEST['user_id'] > 0) ? $_REQUEST['user_id']: -1;
-	$country       = isset($_REQUEST['country']) ? $_REQUEST['country']                              : '';
-	$city          = isset($_REQUEST['city']) ? $_REQUEST['city']                                    : '';
-	$zip           = isset($_REQUEST['zip']) ? $_REQUEST['zip']                                      : '';
+	$activity_type = isset($_REQUEST['activity_type']) ? sanitize_text_field($_REQUEST['activity_type']) : '';
+	$listing_id    = isset($_REQUEST['listing_id']) ? sanitize_text_field($_REQUEST['listing_id']) : -1;
+	$user_id       = (isset($_REQUEST['user_id']) && $_REQUEST['user_id'] > 0) ? sanitize_text_field($_REQUEST['user_id']) : -1;
+	$country       = isset($_REQUEST['country']) ? sanitize_text_field($_REQUEST['country']) : '';
+	$city          = isset($_REQUEST['city']) ? sanitize_text_field($_REQUEST['city']) : '';
+	$zip           = isset($_REQUEST['zip']) ? sanitize_text_field($_REQUEST['zip']) : '';
 
 	$listing_post = get_post($listing_id);
 	$author_id = $listing_post->post_author;
@@ -2227,7 +2219,4 @@ function dtdr_listing_activity_tracker_contactdetails() {
 	}
 
 	wp_die();
-
-}
-
-?>
+}?>

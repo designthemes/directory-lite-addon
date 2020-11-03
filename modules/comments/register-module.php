@@ -47,12 +47,9 @@ if (!class_exists ( 'DTDirectoryLiteRegisterCommentsModule' )) {
 			if($current_screen->id == 'comment') {
 
 				// CSS
-
 				wp_enqueue_style ( 'dtdr-comments-backend' );
 
-
 				// JS
-
 				wp_enqueue_script ( 'dtdr-fields' );
 
 				wp_enqueue_script ( 'dtdr-common' );

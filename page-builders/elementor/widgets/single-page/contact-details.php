@@ -165,9 +165,7 @@ class DTDirectoryLiteSpContactDetails extends Widget_Base {
 
 		$settings = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_sp_contact_details '.$attributes.' /]');
-
-		echo $output;
+		echo do_shortcode('[dtdr_sp_contact_details '.$attributes.' /]');
 
 	}
 

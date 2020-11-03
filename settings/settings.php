@@ -30,7 +30,7 @@ function dtdr_settings_options() {
 
 	$tabs = apply_filters( 'dtdr_settings', $tabs );
 
-	$current = isset( $_GET['parenttab'] ) ? $_GET['parenttab'] : 'general';
+	$current = isset( $_GET['parenttab'] ) ? sanitize_text_field($_GET['parenttab']) : 'general';
 
 	dtdr_get_settings_submenus($current, $tabs);
 	dtdr_get_settings_tab($current, $tabs);
@@ -42,7 +42,7 @@ function dtdr_get_settings_submenus($current, $tabs) {
     echo '<h2 class="dtdr-custom-nav nav-tab-wrapper">';
 		foreach( $tabs as $key => $tab ) {
 			$class = ( $key == $current ) ? 'nav-tab-active' : '';
-			echo '<a class="nav-tab '.$class.'" href="?page=dtdr-settings-options&parenttab='.$key.'">'.$tab['label'].'</a>';
+			echo '<a class="nav-tab '.esc_attr( $class ).'" href="?page=dtdr-settings-options&parenttab='.esc_attr( $key ).'">'.esc_html( $tab['label'] ).'</a>';
 		}
     echo '</h2>';
 

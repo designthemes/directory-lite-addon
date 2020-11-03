@@ -9,11 +9,11 @@ function dtdr_sp_utils_vc_map() {
 	$amenity_singular_label      = apply_filters( 'amenity_label', 'singular' );
 
 	vc_map( array(
-		"name" => esc_html__( 'Utils','dtdr-lite'),
-		"base" => "dtdr_sp_utils",
-		"icon" => "dtdr_sp_utils",
+		"name"     => esc_html__( 'Utils','dtdr-lite'),
+		"base"     => "dtdr_sp_utils",
+		"icon"     => "dtdr_sp_utils",
 		"category" => DTDR_PB_MODULE_SINGLEPAGE_TITLE,
-		"params" => array(
+		"params"   => array(
 
 			// Listing Id
 			array(

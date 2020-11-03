@@ -90,7 +90,6 @@ if( !function_exists('dtdr_check_user_membership_status') ) {
 							}
 
 							// Disable incharge
-
 							update_user_meta( $incharge_id, 'dtdr_user_status', 'disabled' );
 
 						}
@@ -110,19 +109,13 @@ if( !function_exists('dtdr_check_user_membership_status') ) {
 	        foreach($buyers as $buyer) {
 
 				$buyer_id = $buyer->ID;
-
 		        if(function_exists('dtdr_check_user_buyer_package_is_active') && !dtdr_check_user_buyer_package_is_active($buyer_id, -1)) {
 
 					update_user_meta($buyer_id, 'dtdr_buyer_package_listings', array ());
 					update_user_meta($buyer_id, 'dtdr_buyer_package_used_listings_count', 0);
-
 				}
-
 		    }
-
 		}
-
     }
 }
-
 ?>

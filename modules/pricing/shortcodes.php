@@ -5,12 +5,10 @@ if(!function_exists('dtdr_sp_price')) {
 	function dtdr_sp_price( $attrs, $content = null ) {
 
 		$attrs = shortcode_atts ( array (
-
-					'listing_id' => '',
-					'type'       => 'type1',
-					'class'      => '',
-
-				), $attrs, 'dtdr_sp_price' );
+			'listing_id' => '',
+			'type'       => 'type1',
+			'class'      => '',
+		), $attrs, 'dtdr_sp_price' );
 
 		$output = '';
 
@@ -22,9 +20,8 @@ if(!function_exists('dtdr_sp_price')) {
 		if($attrs['listing_id'] != '') {
 
 			$dtdr_before_price_label = get_post_meta($attrs['listing_id'], 'dtdr_before_price_label', true);
-			$dtdr_after_price_label = get_post_meta($attrs['listing_id'], 'dtdr_after_price_label', true);
-
-			$price_label = dtdr_generate_price_html($attrs['listing_id']);
+			$dtdr_after_price_label  = get_post_meta($attrs['listing_id'], 'dtdr_after_price_label', true);
+			$price_label             = dtdr_generate_price_html($attrs['listing_id']);
 
 			if((isset($price_label['regular_price']) && !empty($price_label['regular_price'])) || (isset($price_label['sale_price']) && !empty($price_label['sale_price']))) {
 
@@ -32,18 +29,18 @@ if(!function_exists('dtdr_sp_price')) {
 					$attrs['type'] = '';
 				}
 
-				$output .= '<div class="dtdr-listings-price-container '.$attrs['type'].' '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-price-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 					$output .= '<div class="dtdr-listings-price-label-holder">';
 						if($dtdr_before_price_label != '') {
-							$output .= '<span class="dtdr-price-before-label">'.$dtdr_before_price_label.'</span>';
+							$output .= '<span class="dtdr-price-before-label">'.esc_html( $dtdr_before_price_label ).'</span>';
 						}
 						$output .= '<div class="dtdr-listings-price-item">';
 							$output .= $price_label['regular_price'];
 							$output .= $price_label['sale_price'];
 						$output .= '</div>';
 						if($dtdr_after_price_label != '') {
-							$output .= '<span class="dtdr-price-after-label">'.$dtdr_after_price_label.'</span>';
+							$output .= '<span class="dtdr-price-after-label">'.esc_html( $dtdr_after_price_label ).'</span>';
 						}
 					$output .= '</div>';
 
@@ -70,11 +67,9 @@ if(!function_exists('dtdr_sp_add_to_cart')) {
 	function dtdr_sp_add_to_cart( $attrs, $content = null ) {
 
 		$attrs = shortcode_atts ( array (
-
-					'listing_id' => '',
-					'class'      => '',
-
-				), $attrs, 'dtdr_sp_add_to_cart' );
+			'listing_id' => '',
+			'class'      => '',
+		), $attrs, 'dtdr_sp_add_to_cart' );
 
 		$output = '';
 
@@ -100,7 +95,7 @@ if(!function_exists('dtdr_sp_add_to_cart')) {
 					$purchased_listings = get_user_meta($user_id, 'purchased_listings', true);
 					$purchased_listings = (is_array($purchased_listings) && !empty($purchased_listings)) ? $purchased_listings : array();
 
-					$output .= '<div class="dtdr-listings-addtocart-container '.$attrs['class'].'">';
+					$output .= '<div class="dtdr-listings-addtocart-container '.esc_attr( $attrs['class'] ).'">';
 
 						$product = dtdr_get_product_object($attrs['listing_id']);
 
@@ -113,7 +108,7 @@ if(!function_exists('dtdr_sp_add_to_cart')) {
 						} else if(dtdr_check_item_is_in_cart($attrs['listing_id'])) {
 
 							$output .= '<div class="dtdr-proceed-button">';
-								$output .= '<a href="'.wc_get_cart_url().'" target="_self" class="custom-button-style dtdr-cart-link"><span class="fa fa-cart-plus"></span>'.esc_html__('View Cart','dtdr-lite').'</a>';
+								$output .= '<a href="'.esc_url( wc_get_cart_url() ).'" target="_self" class="custom-button-style dtdr-cart-link"><span class="fa fa-cart-plus"></span>'.esc_html__('View Cart','dtdr-lite').'</a>';
 							$output .= '</div>';
 
 						} else {
@@ -151,18 +146,14 @@ if(!function_exists('dtdr_sf_price_range_field')) {
 	function dtdr_sf_price_range_field( $attrs, $content = null ) {
 
 		$attrs = shortcode_atts ( array (
-
-					'min_price' => 1,
-					'max_price' => 100,
-					'ajax_load' => '',
-					'class' => '',
-
-				), $attrs, 'dtdr_sf_price_range_field' );
-
+			'min_price' => 1,
+			'max_price' => 100,
+			'ajax_load' => '',
+			'class'     => '',
+		), $attrs, 'dtdr_sf_price_range_field' );
 
 		$output = '';
-
-		$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-pricerange-field-holder '.$attrs['class'].'">';
+		$output .= '<div class="dtdr-sf-fields-holder dtdr-sf-pricerange-field-holder '.esc_attr( $attrs['class'] ).'">';
 
 			$additional_class = '';
 			if($attrs['ajax_load'] == 'true') {
@@ -174,12 +165,12 @@ if(!function_exists('dtdr_sf_price_range_field')) {
 
 			$dtdr_sf_pricerange_start = $attrs['min_price'];
 			if(isset($_REQUEST['dtdr_sf_pricerange_start']) && $_REQUEST['dtdr_sf_pricerange_start'] != '') {
-				$dtdr_sf_pricerange_start = $_REQUEST['dtdr_sf_pricerange_start'];
+				$dtdr_sf_pricerange_start = sanitize_text_field($_REQUEST['dtdr_sf_pricerange_start']);
 			}
 
 			$dtdr_sf_pricerange_end = $attrs['max_price'];
 			if(isset($_REQUEST['dtdr_sf_pricerange_end']) && $_REQUEST['dtdr_sf_pricerange_end'] != '') {
-				$dtdr_sf_pricerange_end = $_REQUEST['dtdr_sf_pricerange_end'];
+				$dtdr_sf_pricerange_end = sanitize_text_field($_REQUEST['dtdr_sf_pricerange_end']);
 			}
 
 			if($currency_symbol_position == 'left') {
@@ -251,17 +242,14 @@ if(!function_exists('dtdr_modify_listings_args_from_pricing_module')) {
 
 		if($pricerange_start != '' && $pricerange_end != '') {
 			$args['meta_query'][] = array (
-										'key'     => '_sale_price',
-										'value'   => array( $pricerange_start, $pricerange_end ),
-										'type'    => 'numeric',
-										'compare' => 'BETWEEN',
-									);
+				'key'     => '_sale_price',
+				'value'   => array( $pricerange_start, $pricerange_end ),
+				'type'    => 'numeric',
+				'compare' => 'BETWEEN',
+			);
 		}
 
 		return $args;
-
 	}
 	add_filter( 'dtdr_modify_listings_args_from_modules', 'dtdr_modify_listings_args_from_pricing_module', 10, 2 );
-}
-
-?>
+}?>

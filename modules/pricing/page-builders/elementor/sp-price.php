@@ -42,22 +42,22 @@ class DTDirectoryLiteSpPrice extends Widget_Base {
 			) );
 
 			$this->add_control( 'type', array(
-				'label'       => esc_html__( 'Type','dtdr-lite'),
-				'type'        => Controls_Manager::SELECT,
-				'options'     => array(
+				'label'   => esc_html__( 'Type','dtdr-lite'),
+				'type'    => Controls_Manager::SELECT,
+				'options' => array(
 					'type1' => esc_html__('Type 1','dtdr-lite'),
 					'type2' => esc_html__('Type 2','dtdr-lite'),
 					'type3' => esc_html__('Type 3','dtdr-lite')
 				),
 				'description' => esc_html__( 'Choose any of the available type.','dtdr-lite'),
-				'default'      => 'type1',
+				'default'     => 'type1',
 			) );
 
 			$this->add_control( 'class', array(
-				'label'   => esc_html__( 'Class','dtdr-lite'),
-				'type'    => Controls_Manager::TEXT,
+				'label'       => esc_html__( 'Class','dtdr-lite'),
+				'type'        => Controls_Manager::TEXT,
 				'description' => esc_html__( 'If you wish you can add additional class name here.','dtdr-lite'),
-				'default' => ''
+				'default'     => ''
 			) );
 
 		$this->end_controls_section();
@@ -65,9 +65,9 @@ class DTDirectoryLiteSpPrice extends Widget_Base {
 
 	protected function render() {
 
-		$settings = $this->get_settings();
+		$settings   = $this->get_settings();
 		$attributes = dtdirectorylite_elementor_instance()->dtdr_parse_shortcode_attrs( $settings );
-		$output = do_shortcode('[dtdr_sp_price '.$attributes.' /]');
+		$output     = do_shortcode('[dtdr_sp_price '.$attributes.' /]');
 
 		echo $output;
 

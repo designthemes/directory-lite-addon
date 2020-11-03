@@ -52,15 +52,15 @@ if(!function_exists('dtdr_sp_opening_hours')) {
 
 							if($dtdr_business_hours_24hour_format == 'true') {
 								$time_label .= '<div class="dtdr-business-hours-time">';
-									$time_label .= '<span class="dtdr-business-hours-starttime">'.$dtdr_business_hours[$weekday_key]['start_time'][0].'</span>';
+									$time_label .= '<span class="dtdr-business-hours-starttime">'.esc_html( $dtdr_business_hours[$weekday_key]['start_time'][0] ).'</span>';
 									$time_label .= '<span class="dtdr-business-hours-separator"> - </span>';
-									$time_label .= '<span class="dtdr-business-hours-endtime">'.$dtdr_business_hours[$weekday_key]['end_time'][0].'</span>';
+									$time_label .= '<span class="dtdr-business-hours-endtime">'.esc_html( $dtdr_business_hours[$weekday_key]['end_time'][0] ).'</span>';
 								$time_label .= '</div>';
 							} else {
 								$time_label .= '<div class="dtdr-business-hours-time">';
-									$time_label .= '<span class="dtdr-business-hours-starttime">'.date('g:i A', strtotime($dtdr_business_hours[$weekday_key]['start_time'][0])).'</span>';
+									$time_label .= '<span class="dtdr-business-hours-starttime">'.esc_html( date('g:i A', strtotime($dtdr_business_hours[$weekday_key]['start_time'][0])) ).'</span>';
 									$time_label .= '<span class="dtdr-business-hours-separator"> - </span>';
-									$time_label .= '<span class="dtdr-business-hours-endtime">'.date('g:i A', strtotime($dtdr_business_hours[$weekday_key]['end_time'][0])).'</span>';
+									$time_label .= '<span class="dtdr-business-hours-endtime">'.esc_html( date('g:i A', strtotime($dtdr_business_hours[$weekday_key]['end_time'][0])) ).'</span>';
 								$time_label .= '</div>';
 							}
 
@@ -147,7 +147,7 @@ if(!function_exists('dtdr_sp_opening_hours_status')) {
 
 				$current_timestamp = current_time( 'timestamp' );
 
-				$output .= '<div class="dtdr-listings-business-hours-status-container '.$attrs['type'].' '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-business-hours-status-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 				if($attrs['type'] == 'type5') {
 

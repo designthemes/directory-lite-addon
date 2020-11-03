@@ -6,11 +6,11 @@ function dtdr_sf_features_field_vc_map() {
 	$listing_singular_label = apply_filters( 'listing_label', 'singular' );
 
 	vc_map( array(
-		"name" => esc_html__( 'Features','dtdr-lite'),
-		"base" => "dtdr_sf_features_field",
-		"icon" => "dtdr_sf_features_field",
+		"name"     => esc_html__( 'Features','dtdr-lite'),
+		"base"     => "dtdr_sf_features_field",
+		"icon"     => "dtdr_sf_features_field",
 		"category" => DTDR_PB_MODULE_SEARCHFORM_TITLE,
-		"params" => array(
+		"params"   => array(
 
 			// Tab Id
 			array(

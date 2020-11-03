@@ -49,7 +49,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterSearchModule' )) {
 		function dtdr_register_dependent_files() {
 
 			wp_register_style ( 'dtdr-search-frontend', DTDR_SEARCH_PLUGIN_URL . 'assets/search-frontend.css', array ( 'fontawesome', 'icon-moon', 'material-icon', 'dtdr-base', 'dtdr-common', 'dtdr-fields' ) );
-
 			wp_register_script ( 'dtdr-search-frontend', DTDR_SEARCH_PLUGIN_URL . 'assets/frontend.js', array ('jquery', 'dtdr-frontend'), false, true );
 
 		}
@@ -64,7 +63,6 @@ if (!class_exists ( 'DTDirectoryLiteRegisterSearchModule' )) {
 			wp_enqueue_script ( 'chosen' );
 			wp_enqueue_script ( 'jquery-ui-datepicker' );
 			wp_enqueue_script ( 'dtdr-search-frontend' );
-
 		}
 
 	}

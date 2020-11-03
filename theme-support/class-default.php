@@ -60,7 +60,8 @@ if ( ! class_exists( 'DTDirectoryLiteDefault' ) ) {
 
 			if(!is_author()) {
 				global $post;
-				echo '<article id="post-'.$post->ID.'" class="'.implode(' ', get_post_class()).'">';
+				$classes = implode(' ', get_post_class() );
+				echo '<article id="post-'.esc_attr( $post->ID ).'" class="'.esc_attr( $classes ).'">';
 			}
 
 		}

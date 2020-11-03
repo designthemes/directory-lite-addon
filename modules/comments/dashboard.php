@@ -5,10 +5,10 @@ if(!function_exists('dtdr_update_comments_dashboard_modules')) {
 	function dtdr_update_comments_dashboard_modules($modules) {
 
 	    $modules['comments'] = array (
-			'slug' => 'comments',
-			'label' => esc_html__('Comments','dtdr-lite'),
-			'icon' => 'fas fa-shield-alt',
-			'callback' => 'dtdr_dashboard_comments_page_content',
+			'slug'          => 'comments',
+			'label'         => esc_html__('Comments','dtdr-lite'),
+			'icon'          => 'fas fa-shield-alt',
+			'callback'      => 'dtdr_dashboard_comments_page_content',
 			'callback_args' => ''
 		);
 

@@ -88,11 +88,9 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 			add_filter ( 'theme_page_templates', array ( $this, 'dtdr_add_new_page_template' ) );
 			add_filter ( 'template_include', array ( $this, 'dtdr_view_project_template' ) );
 
-
 			add_action ( 'admin_menu', array ( $this, 'dtdr_configure_admin_menu_first_set' ), 10 );
 			add_action ( 'admin_menu', array ( $this, 'dtdr_configure_admin_menu_second_set' ), 30 );
 			add_action ( 'parent_file', array ( $this, 'dtdr_change_active_menu' ) );
-
 		}
 
 		/**
@@ -103,11 +101,9 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 			load_plugin_textdomain ( 'dtdr-lite', false, dirname ( plugin_basename ( __FILE__ ) ) . '/languages/' );
 
 			// Register Dependent Styles & Scripts
-
 				require_once DTDR_LITE_PLUGIN_PATH . 'script-and-styles.php';
 
 			// WooCommerce Payment Functionality
-
 				if ( class_exists( 'WooCommerce' ) ) {
 					require_once DTDR_LITE_PLUGIN_PATH . 'woocommerce/woocommerce.php';
 				}
@@ -120,7 +116,6 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 		function dtdr_plugins_loaded() {
 
 			// Page Builders
-
 				if( class_exists( 'Vc_Manager' ) || did_action( 'elementor/loaded' ) ) {
 
 					// Scan and Include all available page builders
@@ -150,7 +145,7 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 
 			echo '<div class="updated notice is-dismissible">';
 				echo '<p>';
-					echo sprintf(esc_html__('%1$s requires %2$s or %3$s plugin to be installed and activated on your site','dtdr-lite'), '<strong>'.DTDR_LITE_PLUGIN_NAME.'</strong>', '<strong><a href="https://codecanyon.net/item/visual-composer-page-builder-for-wordpress/242431" target="_blank">'.esc_html__('Visual Composer','dtdr-lite').'</a></strong>', '<strong><a href="https://wordpress.org/plugins/elementor/" target="_blank">'.esc_html__('Elementor Page Builder','dtdr-lite').'</a></strong>' );
+					echo sprintf(esc_html__('%1$s requires %2$s or %3$s plugin to be installed and activated on your site','dtdr-lite'), '<strong>'.esc_html( DTDR_LITE_PLUGIN_NAME ).'</strong>', '<strong><a href="https://codecanyon.net/item/visual-composer-page-builder-for-wordpress/242431" target="_blank">'.esc_html__('Visual Composer','dtdr-lite').'</a></strong>', '<strong><a href="https://wordpress.org/plugins/elementor/" target="_blank">'.esc_html__('Elementor Page Builder','dtdr-lite').'</a></strong>' );
 				echo '</p>';
 				echo '<button type="button" class="notice-dismiss">';
 					echo '<span class="screen-reader-text">'.esc_html__('Dismiss this notice.','dtdr-lite').'</span>';

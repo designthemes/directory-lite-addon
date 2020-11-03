@@ -1,7 +1,5 @@
 <?php
-
 // Modifying Comments Template
-
 if(!function_exists('dtdr_modifying_comment_template_from_module')) {
 	function dtdr_modifying_comment_template_from_module( $comment_template ) {
 
@@ -16,7 +14,6 @@ if(!function_exists('dtdr_modifying_comment_template_from_module')) {
 }
 
 // Comments Listing Html
-
 if(!function_exists('dtdr_modify_comments_html')) {
 	function dtdr_modify_comments_html($comment, $args, $depth) {
 
@@ -48,7 +45,7 @@ if(!function_exists('dtdr_modify_comments_html')) {
 						if($dtdr_rating != '') {
 							echo '<div class="dtdr-comment-rating">';
 								echo dtdr_comment_rating_display($dtdr_rating);
-								echo '<div class="dtdr-comment-rating-overall"><span>'.$dtdr_rating.'</span>/<span>5</span></div>';
+								echo '<div class="dtdr-comment-rating-overall"><span>'.esc_html( $dtdr_rating ).'</span>/<span>5</span></div>';
 							echo '</div>';
 						}
 
@@ -103,7 +100,7 @@ if(!function_exists('dtdr_modify_comments_html')) {
 					</div><!-- .comment-author -->
 
 					<?php if ( '0' == $comment->comment_approved ) : ?>
-					<em class="comment-awaiting-moderation"><?php echo $moderation_note; ?></em>
+					<em class="comment-awaiting-moderation"><?php echo esc_html( $moderation_note ); ?></em>
 					<?php endif; ?>
 				</footer><!-- .comment-meta -->
 
@@ -478,7 +475,7 @@ if(!function_exists('dtdr_comment_backend_edit_metafields')) {
 		// Update media
 
 			if (isset( $_POST['dtdr_media_attachment_ids']) && $_POST['dtdr_media_attachment_ids'] != '') {
-				update_comment_meta($comment_id, 'dtdr_media_ids', $_POST['dtdr_media_attachment_ids']);
+				update_comment_meta($comment_id, 'dtdr_media_ids', dtdr_sanitize_fields($_POST['dtdr_media_attachment_ids']));
 			} else {
 				delete_comment_meta($comment_id, 'dtdr_media_ids');
 			}
@@ -514,13 +511,13 @@ if(!function_exists('dtdr_comment_rating_display')) {
 
 		for($i = 1; $i <= 5; $i++) {
 			if($i <= $average_rating_floor) {
-				$output .= '<span class="zmdi zmdi-star">'.$i.'</span>';
+				$output .= '<span class="zmdi zmdi-star">'.esc_html( $i ).'</span>';
 			}
 			if($average_rating_half_empty != '' && $average_rating_half_empty == $i) {
-				$output .= '<span class="zmdi zmdi-star-half">'.$i.'</span>';
+				$output .= '<span class="zmdi zmdi-star-half">'.esc_html( $i ).'</span>';
 			}
 			if($i > $average_rating_ceil) {
-				$output .= '<span class="zmdi zmdi-star-outline">'.$i.'</span>';
+				$output .= '<span class="zmdi zmdi-star-outline">'.esc_html( $i ).'</span>';
 			}
 		}
 

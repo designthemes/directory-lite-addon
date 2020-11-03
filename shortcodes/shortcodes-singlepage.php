@@ -51,13 +51,11 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_featured_image( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'image_size' => 'full',
-						'with_link' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_featured_image' );
+				'listing_id' => '',
+				'image_size' => 'full',
+				'with_link'  => '',
+				'class'      => '',
+			), $attrs, 'dtdr_sp_featured_image' );
 
 
 			$output = '';
@@ -72,12 +70,12 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 				$featured_image_id = get_post_thumbnail_id($attrs['listing_id']);
 				$image_details = wp_get_attachment_image_src($featured_image_id, $attrs['image_size']);
 
-				$output .= '<div class="dtdr-listings-feature-image-holder '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-feature-image-holder '.esc_attr( $attrs['class'] ).'">';
 
 					if($attrs['with_link'] == 'true') {
-						$output .= '<a href="'.get_permalink($attrs['listing_id']).'">';
+						$output .= '<a href="'.esc_url( get_permalink($attrs['listing_id']) ).'">';
 					}
-						$output .= '<img src="'.esc_url($image_details[0]).'" title="'.esc_html__('Featured Image','dtdr-lite').'" all="'.esc_html__('Featured Image','dtdr-lite').'" />';
+						$output .= '<img src="'.esc_url($image_details[0]).'" title="'.esc_attr__('Featured Image','dtdr-lite').'" all="'.esc_attr__('Featured Image','dtdr-lite').'" />';
 					if($attrs['with_link'] == 'true') {
 						$output .= '</a>';
 					}
@@ -99,12 +97,10 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_featured_item( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'type' => 'type1',
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_featured_item' );
+				'listing_id' => '',
+				'type'       => 'type1',
+				'class'      => '',
+			), $attrs, 'dtdr_sp_featured_item' );
 
 			$output = '';
 
@@ -118,7 +114,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 				$dtdr_featured_item = get_post_meta($attrs['listing_id'], 'dtdr_featured_item', true);
 				if($dtdr_featured_item == 'true') {
 
-					$output .= '<div class="dtdr-listings-featured-item-container '.$attrs['class'].' '.$attrs['type'].'">';
+					$output .= '<div class="dtdr-listings-featured-item-container '.esc_attr( $attrs['class'] ).' '.esc_attr( $attrs['type'] ).'">';
 						$output .= '<span>'.esc_html__('Featured','dtdr-lite').'</span>';
 					$output .= '</div>';
 
@@ -138,16 +134,13 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_features( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id'             => '',
-						'type'                   => 'type1',
-						'include'                => '',
-						'columns'                => 4,
-						'features_image_or_icon' => '',
-						'class'                  => '',
-
-					), $attrs, 'dtdr_sp_features' );
-
+				'listing_id'             => '',
+				'type'                   => 'type1',
+				'include'                => '',
+				'columns'                => 4,
+				'features_image_or_icon' => '',
+				'class'                  => '',
+			), $attrs, 'dtdr_sp_features' );
 
 			$output = '';
 
@@ -175,7 +168,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 					}
 				}
 
-				$output .= '<div class="dtdr-listings-features-box-container '.$attrs['type'].' '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-features-box-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 					$dtdr_features_title = $dtdr_features_subtitle = $dtdr_features_value = $dtdr_features_valueunit = $dtdr_features_icon = $dtdr_features_image = '';
 					if($attrs['listing_id'] > 0) {
@@ -301,21 +294,19 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_contact_details( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id'              => '',
-						'type'                    => '',
-						'contact_details'         => 'list',
-						'include_address'         => '',
-						'include_email'           => '',
-						'include_phone'           => '',
-						'include_mobile'          => '',
-						'include_skype'           => '',
-						'include_website'         => '',
-						'requires_buyer_packages' => '',
-						'show_direction_link'     => '',
-						'class'                   => '',
-
-					), $attrs, 'dtdr_sp_contact_details' );
+				'listing_id'              => '',
+				'type'                    => '',
+				'contact_details'         => 'list',
+				'include_address'         => '',
+				'include_email'           => '',
+				'include_phone'           => '',
+				'include_mobile'          => '',
+				'include_skype'           => '',
+				'include_website'         => '',
+				'requires_buyer_packages' => '',
+				'show_direction_link'     => '',
+				'class'                   => '',
+			), $attrs, 'dtdr_sp_contact_details' );
 
 			$output = '';
 
@@ -340,7 +331,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 				if(($attrs['requires_buyer_packages'] != 'true') || ($attrs['requires_buyer_packages'] == 'true' && in_array($attrs['listing_id'], $dtdr_buyer_package_listings))) {
 
-					$output .= '<div class="dtdr-listings-contactdetails-container '.$attrs['type'].' '.$attrs['class'].'">';
+					$output .= '<div class="dtdr-listings-contactdetails-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 						$output .= '<ul class="dtdr-listings-contactdetails-list">';
 
@@ -349,12 +340,11 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 							if($attrs['include_address'] == 'true' && in_array('location', $dtdr_modules)) {
 
-								$dtdr_latitude                    = get_post_meta($attrs['listing_id'], 'dtdr_latitude', true);
-								$dtdr_longitude                   = get_post_meta($attrs['listing_id'], 'dtdr_longitude', true);
-
-								$dtdr_address                     = get_post_meta($attrs['listing_id'], 'dtdr_address', true);
-								$dtdr_zip                         = get_post_meta($attrs['listing_id'], 'dtdr_zip', true);
-								$dtdr_country                     = get_post_meta($attrs['listing_id'], 'dtdr_country', true);
+								$dtdr_latitude  = get_post_meta($attrs['listing_id'], 'dtdr_latitude', true);
+								$dtdr_longitude = get_post_meta($attrs['listing_id'], 'dtdr_longitude', true);
+								$dtdr_address   = get_post_meta($attrs['listing_id'], 'dtdr_address', true);
+								$dtdr_zip       = get_post_meta($attrs['listing_id'], 'dtdr_zip', true);
+								$dtdr_country   = get_post_meta($attrs['listing_id'], 'dtdr_country', true);
 
 								$contact_address = $dtdr_address;
 								if($dtdr_country != '') {
@@ -387,35 +377,35 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 								if($attrs['include_email'] == 'true') {
 									$dtdr_email = get_the_author_meta( 'user_email' , $author_id );
 									if($dtdr_email != '') {
-										$output .= '<li><span class="fa fa-envelope"></span><a href="mailto:'.esc_attr($dtdr_email).'">'.esc_attr($dtdr_email).'</a></li>';
+										$output .= '<li><span class="fa fa-envelope"></span><a href="mailto:'.sanitize_email($dtdr_email).'">'.esc_html($dtdr_email).'</a></li>';
 									}
 								}
 
 								if($attrs['include_phone'] == 'true') {
 									$dtdr_phone = get_the_author_meta( 'dtdr_user_phone' , $author_id );
 									if($dtdr_phone != '') {
-										$output .= '<li><span class="fa fa-phone"></span><a href="tel:'.esc_attr($dtdr_phone).'" class="phone" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_phone).'</a></li>';
+										$output .= '<li><span class="fa fa-phone"></span><a href="tel:'.esc_attr($dtdr_phone).'" class="phone" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_phone).'</a></li>';
 									}
 								}
 
 								if($attrs['include_mobile'] == 'true') {
 									$dtdr_mobile = get_the_author_meta( 'dtdr_user_mobile' , $author_id );
 									if($dtdr_mobile != '') {
-										$output .= '<li><span class="fa fa-mobile"></span><a href="tel:'.esc_attr($dtdr_mobile).'" class="mobile" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_mobile).'</a></li>';
+										$output .= '<li><span class="fa fa-mobile"></span><a href="tel:'.esc_attr($dtdr_mobile).'" class="mobile" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_mobile).'</a></li>';
 									}
 								}
 
 								if($attrs['include_skype'] == 'true') {
 									$dtdr_skype = get_the_author_meta( 'dtdr_user_skype' , $author_id );
 									if($dtdr_skype != '') {
-										$output .= '<li><span class="fab fa-skype"></span>'.esc_attr($dtdr_skype).'</li>';
+										$output .= '<li><span class="fab fa-skype"></span>'.esc_html($dtdr_skype).'</li>';
 									}
 								}
 
 								if($attrs['include_website'] == 'true') {
 									$dtdr_website = get_the_author_meta( 'dtdr_user_website' , $author_id );
 									if($dtdr_website != '') {
-										$output .= '<li><span class="fa fa-globe"></span><a href="'.esc_url($dtdr_website).'" class="web" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_website).'</a></li>';
+										$output .= '<li><span class="fa fa-globe"></span><a href="'.esc_url($dtdr_website).'" class="web" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_website).'</a></li>';
 									}
 								}
 
@@ -431,28 +421,28 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 								if($attrs['include_phone'] == 'true') {
 									$dtdr_phone = get_post_meta($attrs['listing_id'], 'dtdr_phone', true);
 									if($dtdr_phone != '') {
-										$output .= '<li><span class="fa fa-phone"></span><a href="tel:'.esc_attr($dtdr_phone).'" class="phone" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_phone).'</a></li>';
+										$output .= '<li><span class="fa fa-phone"></span><a href="tel:'.sanitize_email($dtdr_phone).'" class="phone" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_phone).'</a></li>';
 									}
 								}
 
 								if($attrs['include_mobile'] == 'true') {
 									$dtdr_mobile = get_post_meta($attrs['listing_id'], 'dtdr_mobile', true);
 									if($dtdr_mobile != '') {
-										$output .= '<li><span class="fa fa-mobile"></span><a href="tel:'.esc_attr($dtdr_mobile).'" class="mobile" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_mobile).'</a></li>';
+										$output .= '<li><span class="fa fa-mobile"></span><a href="tel:'.esc_attr($dtdr_mobile).'" class="mobile" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_mobile).'</a></li>';
 									}
 								}
 
 								if($attrs['include_skype'] == 'true') {
 									$dtdr_skype = get_post_meta($attrs['listing_id'], 'dtdr_skype', true);
 									if($dtdr_skype != '') {
-										$output .= '<li><span class="fab fa-skype"></span>'.esc_attr($dtdr_skype).'</li>';
+										$output .= '<li><span class="fab fa-skype"></span>'.esc_html($dtdr_skype).'</li>';
 									}
 								}
 
 								if($attrs['include_website'] == 'true') {
 									$dtdr_website = get_post_meta($attrs['listing_id'], 'dtdr_website', true);
 									if($dtdr_website != '') {
-										$output .= '<li><span class="fa fa-globe"></span><a href="'.esc_url($dtdr_website).'" class="web" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_attr($dtdr_website).'</a></li>';
+										$output .= '<li><span class="fa fa-globe"></span><a href="'.esc_url($dtdr_website).'" class="web" data-listingid="'.esc_attr($attrs['listing_id']).'"  data-userid="'.esc_attr($user_id).'" target="_blank">'.esc_html($dtdr_website).'</a></li>';
 									}
 								}
 
@@ -479,13 +469,11 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_contact_details_request_btn( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'type' => '',
-						'button_label' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_contact_details_request_btn' );
+				'listing_id'   => '',
+				'type'         => '',
+				'button_label' => '',
+				'class'        => '',
+			), $attrs, 'dtdr_sp_contact_details_request_btn' );
 
 			$output = '';
 
@@ -513,7 +501,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 					if(!in_array($attrs['listing_id'], $dtdr_buyer_package_listings)) {
 
-						$output .= '<div class="dtdr-listings-contactdetails-request-container '.$attrs['type'].' '.$attrs['class'].'">';
+						$output .= '<div class="dtdr-listings-contactdetails-request-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 							$output .= '<a class="dtdr-listings-contactdetails-request-button dtdr-listings-contactdetails-request" data-listingid="'.esc_attr($attrs['listing_id']).'" href="#">'.$button_label_str.'</a>';
 						$output .= '</div>';
 
@@ -521,7 +509,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 				} else {
 
-					$output .= '<div class="dtdr-listings-contactdetails-request-container '.$attrs['type'].' '.$attrs['class'].'">';
+					$output .= '<div class="dtdr-listings-contactdetails-request-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 						$output .= '<a class="dtdr-listings-contactdetails-request-button dtdr-login-link" data-listingid="'.esc_attr($attrs['listing_id']).'" href="#">'.$button_label_str.'</a>';
 					$output .= '</div>';
 
@@ -542,13 +530,11 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_social_links( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'social_links' => 'list',
-						'type' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_social_links' );
+				'listing_id'   => '',
+				'social_links' => 'list',
+				'type'         => '',
+				'class'        => '',
+			), $attrs, 'dtdr_sp_social_links' );
 
 			$output = '';
 
@@ -559,7 +545,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 			if($attrs['listing_id'] != '') {
 
-				$output .= '<div class="dtdr-listings-sociallinks-container '.$attrs['type'].' '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-sociallinks-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 					$output .= '<ul class="dtdr-listings-sociallinks-list">';
 
@@ -612,10 +598,8 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_comments( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_comments' );
+				'class' => '',
+			), $attrs, 'dtdr_sp_comments' );
 
 			$output = '';
 
@@ -626,7 +610,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 			ob_end_clean();
 
-			$output .= '<div class="dtdr-listings-comment-list-holder '.$attrs['class'].'">';
+			$output .= '<div class="dtdr-listings-comment-list-holder '.esc_attr( $attrs['class'] ).'">';
 				$output .= $comment_list_template;
 			$output .= '</div>';
 
@@ -637,32 +621,30 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_utils( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id'                    => '',
-						'show_title'                    => '',
-						'show_address'                  => '',
-						'show_contactdetails'           => '',
-						'show_contactdetails_onrequest' => '',
-						'show_favourite'                => '',
-						'show_pageview'                 => '',
-						'show_print'                    => '',
-						'show_socialshare'              => '',
-						'show_averagerating'            => '',
-						'show_featured'                 => '',
-						'show_categories'               => '',
-						'show_cities'                   => '',
-						'show_neighborhoods'            => '',
-						'show_countystate'              => '',
-						'show_contracttype'             => '',
-						'show_amenity'                  => '',
-						'show_price'                    => '',
-						'show_startdate'                => '',
-						'show_enddate'                  => '',
-						'show_posteddate'               => '',
-						'show_mergeddates'              => '',
-						'class'                         => '',
-
-					), $attrs, 'dtdr_sp_utils' );
+				'listing_id'                    => '',
+				'show_title'                    => '',
+				'show_address'                  => '',
+				'show_contactdetails'           => '',
+				'show_contactdetails_onrequest' => '',
+				'show_favourite'                => '',
+				'show_pageview'                 => '',
+				'show_print'                    => '',
+				'show_socialshare'              => '',
+				'show_averagerating'            => '',
+				'show_featured'                 => '',
+				'show_categories'               => '',
+				'show_cities'                   => '',
+				'show_neighborhoods'            => '',
+				'show_countystate'              => '',
+				'show_contracttype'             => '',
+				'show_amenity'                  => '',
+				'show_price'                    => '',
+				'show_startdate'                => '',
+				'show_enddate'                  => '',
+				'show_posteddate'               => '',
+				'show_mergeddates'              => '',
+				'class'                         => '',
+			), $attrs, 'dtdr_sp_utils' );
 
 			$output = '';
 
@@ -673,12 +655,12 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 			if($attrs['listing_id'] != '') {
 
-				$output .= '<div class="dtdr-listings-utils-container '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-utils-container '.esc_attr( $attrs['class'] ).'">';
 
 					if($attrs['show_title'] == 'true') {
 
 						$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-title">';
-							$output .= '<h3 class="dtdr-listings-utils-title-item"><a href="'.get_permalink($attrs['listing_id']).'">'.get_the_title($attrs['listing_id']).'</a></h3>';
+							$output .= '<h3 class="dtdr-listings-utils-title-item"><a href="'.esc_url( get_permalink($attrs['listing_id']) ).'">'.get_the_title($attrs['listing_id']).'</a></h3>';
 						$output .= '</div>';
 
 					}
@@ -760,7 +742,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 						}
 
 						$output .= '<div class="dtdr-listings-utils-item dtdr-listings-utils-favourite">';
-							$output .= '<a class="dtdr-listings-utils-favourite-item '.$favourite_class.'" '.$favourite_attr.'><span class="'.$favourite_icon_class.'"></span></a>';
+							$output .= '<a class="dtdr-listings-utils-favourite-item '.esc_attr( $favourite_class ).'" '.$favourite_attr.'><span class="'.$favourite_icon_class.'"></span></a>';
 						$output .= '</div>';
 
 					}
@@ -881,14 +863,12 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_taxonomy( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'taxonomy'   => 'dtdr_listings_category',
-						'type'       => '',
-						'splice'     => '',
-						'class'      => '',
-
-					), $attrs, 'dtdr_sp_taxonomy' );
+				'listing_id' => '',
+				'taxonomy'   => 'dtdr_listings_category',
+				'type'       => '',
+				'splice'     => '',
+				'class'      => '',
+			), $attrs, 'dtdr_sp_taxonomy' );
 
 			$output = '';
 
@@ -951,7 +931,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 										$output .= '<li>';
 											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
 												if($icon != '') {
-													$output .= '<span class="'.$icon.'"></span>';
+													$output .= '<span class="'.esc_attr( $icon ).'"></span>';
 												}
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
@@ -960,9 +940,9 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type3') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'">';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'">';
 												if($icon_image_url != '') {
-													$output .= '<span class="dtdr-listings-taxonomy-image" '.$tax_bg_color.'><img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" /></span>';
+													$output .= '<span class="dtdr-listings-taxonomy-image" '.$tax_bg_color.'><img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_attr__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" /></span>';
 												}
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
@@ -971,9 +951,9 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type4') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												if($icon != '') {
-													$output .= '<span class="'.$icon.'"></span>';
+													$output .= '<span class="'.esc_attr( $icon ).'"></span>';
 												}
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
@@ -982,9 +962,9 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type5') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												if($icon_image_url != '') {
-													$output .= '<span class="dtdr-listings-taxonomy-image"><img src="'.$icon_image_url.'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" /></span>';
+													$output .= '<span class="dtdr-listings-taxonomy-image"><img src="'.esc_url( $icon_image_url ).'" alt="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" title="'.sprintf( esc_html__('%1$s Taxonomy Image','dtdr-lite'), $listing_singular_label ).'" /></span>';
 												}
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
@@ -993,7 +973,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type6') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'">';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'">';
 												$output .= '<span '.$tax_text_color.'>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
 										$output .= '</li>';
@@ -1001,7 +981,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type7') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
 										$output .= '</li>';
@@ -1009,7 +989,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type8') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
 										$output .= '</li>';
@@ -1017,9 +997,9 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'utils') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'">';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'">';
 												if($icon != '') {
-													$output .= '<span class="'.$icon.'"></span>';
+													$output .= '<span class="'.esc_attr( $icon ).'"></span>';
 												}
 												$output .= '<span class="dtdr-listings-taxonomy-name">'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
@@ -1052,15 +1032,13 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_contact_form( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'textarea_placeholder' => '',
-						'submit_label' => '',
-						'contact_point' => '',
-						'include_admin' => '',
-						'class' => '',
-
-					), $attrs, 'dtdr_sp_contact_form' );
+				'listing_id' => '',
+				'textarea_placeholder' => '',
+				'submit_label' => '',
+				'contact_point' => '',
+				'include_admin' => '',
+				'class' => '',
+			), $attrs, 'dtdr_sp_contact_form' );
 
 			$output = '';
 
@@ -1081,19 +1059,19 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 						if(!is_user_logged_in()) {
 
 							$output .= '<div class="dtdr-column dtdr-one-column first">
-											<input class="dtdr-contactform-name" name="dtdr_contactform_name" type="text" placeholder="'.esc_html__('Name','dtdr-lite').'" required />
+											<input class="dtdr-contactform-name" name="dtdr_contactform_name" type="text" placeholder="'.esc_attr__('Name','dtdr-lite').'" required />
 											<span></span>
 										</div>';
 
 							$output .= '<div class="dtdr-listings-contactform-item">';
 
 								$output .= '<div class="dtdr-column dtdr-one-column first">
-												<input class="dtdr-contactform-email" name="dtdr_contactform_email" type="text" placeholder="'.esc_html__('Email','dtdr-lite').'" required />
+												<input class="dtdr-contactform-email" name="dtdr_contactform_email" type="text" placeholder="'.esc_attr__('Email','dtdr-lite').'" required />
 												<span></span>
 											</div>';
 
 								$output .= '<div class="dtdr-column dtdr-one-column first">
-												<input class="dtdr-contactform-phone" name="dtdr_contactform_phone" type="text" placeholder="'.esc_html__('Phone','dtdr-lite').'" required />
+												<input class="dtdr-contactform-phone" name="dtdr_contactform_phone" type="text" placeholder="'.esc_attr__('Phone','dtdr-lite').'" required />
 												<span></span>
 											</div>';
 
@@ -1148,15 +1126,13 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_post_date( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id'       => '',
-						'type'             => 'type1',
-						'include_posttime' => '',
-						'with_label'       => '',
-						'with_icon'        => '',
-						'class'            => ''
-
-					), $attrs, 'dtdr_sp_post_date' );
+				'listing_id'       => '',
+				'type'             => 'type1',
+				'include_posttime' => '',
+				'with_label'       => '',
+				'with_icon'        => '',
+				'class'            => ''
+			), $attrs, 'dtdr_sp_post_date' );
 
 			$output = '';
 
@@ -1171,7 +1147,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 					$attrs['type'] = '';
 				}
 
-				$output .= '<div class="dtdr-listings-post-dates-container '.$attrs['type'].' '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-post-dates-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 					$dtdr_post_date = get_the_date( get_option('date_format'), $attrs['listing_id'] );
 
@@ -1231,13 +1207,11 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_mls_number( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-
-						'listing_id' => '',
-						'type'       => 'type1',
-						'with_label' => '',
-						'class'      => '',
-
-					), $attrs, 'dtdr_sp_mls_number' );
+				'listing_id' => '',
+				'type'       => 'type1',
+				'with_label' => '',
+				'class'      => '',
+			), $attrs, 'dtdr_sp_mls_number' );
 
 			$output = '';
 
@@ -1255,7 +1229,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 						$attrs['type'] = '';
 					}
 
-					$output .= '<div class="dtdr-listings-mls-number-container '.$attrs['type'].' '.$attrs['class'].'">';
+					$output .= '<div class="dtdr-listings-mls-number-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 						if($attrs['with_label'] == 'true') {
 							$output .= '<label class="dtdr-listings-mls-number-label">'.esc_html__('MLS Number: ','dtdr-lite').'</label>';
 						}
@@ -1263,23 +1237,15 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 					$output .= '</div>';
 
 				}
-
 			} else {
 
 				$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-
 				$output .= sprintf( esc_html__('Please provide %1$s id to display corresponding data!','dtdr-lite'), strtolower($listing_singular_label) );
-
 			}
 
 			return $output;
-
 		}
-
 	}
 
 	DTDirectoryLiteSinglePageShortcodes::instance();
-
-}
-
-?>
+}?>

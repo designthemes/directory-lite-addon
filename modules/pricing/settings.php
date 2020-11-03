@@ -1,5 +1,4 @@
 <?php
-
 function dtdr_settings_price_content() {
 
 	$output = '';
@@ -15,7 +14,7 @@ function dtdr_settings_price_content() {
 			$output .= '</div>';
 			$output .= '<div class="dtdr-column dtdr-four-fifth">';
 	            $currency_symbol = dtdr_option('price','currency-symbol');
-	            $output .= '<input id="currency-symbol" name="dtdr[price][currency-symbol]" type="text" value="'.$currency_symbol.'" />';
+	            $output .= '<input id="currency-symbol" name="dtdr[price][currency-symbol]" type="text" value="'.esc_attr( $currency_symbol ).'" />';
 	            $output .= '<div class="dtdr-note">'.esc_html__('Add currency symbol here. This option will be used for search form - price range shorcode and single page - price shortcode.','dtdr-lite').'</div>';
 			$output .= '</div>';
 		$output .= '</div>';
@@ -31,8 +30,8 @@ function dtdr_settings_price_content() {
 
 	            $output .= '<select id="currency-symbol-position" name="dtdr[price][currency-symbol-position]" class="dtdr-chosen-select">';
 				foreach($currency_symbol_positions as $currency_symbol_position_key => $currency_symbol_position_item) {
-					$output .= '<option value="'.$currency_symbol_position_key.'" '.selected($currency_symbol_position_key, $currency_symbol_position, false ).'>';
-						$output .= $currency_symbol_position_item;
+					$output .= '<option value="'.esc_attr( $currency_symbol_position_key ).'" '.selected($currency_symbol_position_key, $currency_symbol_position, false ).'>';
+						$output .= esc_html( $currency_symbol_position_item );
 					$output .= '</option>';
 				}
 				$output .= '</select>';

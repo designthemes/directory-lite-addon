@@ -240,19 +240,19 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 					'hierarchical' => false,
 					'description' => sprintf( esc_html__('This is custom post type %1$s','dtdr-lite'), strtolower($listing_plural_label) ),
 					'supports' => array (
-							'title',
-							'editor',
-							'excerpt',
-							'author',
-							'comments',
-							'page-attributes',
-							'thumbnail',
-							'revisions'
+						'title',
+						'editor',
+						'excerpt',
+						'author',
+						'comments',
+						'page-attributes',
+						'thumbnail',
+						'revisions'
 					),
 
 					'public' => true,
 					'show_ui' => true,
-					'show_in_menu' => 'dtdr',
+					'show_in_menu' => 'edit.php?post_type=dtdr_listings',
 					'show_in_nav_menus' => true,
 					'publicly_queryable' => true,
 					'exclude_from_search' => false,

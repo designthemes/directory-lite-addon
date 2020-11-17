@@ -200,14 +200,11 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 		function dtdr_configure_admin_menu_first_set() {
 
 			$listing_singular_label = apply_filters( 'listing_label', 'singular' );
-			$listing_plural_label = apply_filters( 'listing_label', 'plural' );
+			$listing_plural_label   = apply_filters( 'listing_label', 'plural' );
+			$category_title         = sprintf( esc_html__('%1$s Category','dtdr-lite'), $listing_singular_label );
 
-			$category_title = sprintf( esc_html__('%1$s Category','dtdr-lite'), $listing_singular_label );
-
-			add_menu_page( sprintf( esc_html__('Directory %1$s','dtdr-lite'), $listing_plural_label ), esc_html__('Directory','dtdr-lite'), 'edit_posts', 'dtdr', '', 'dashicons-index-card', 6 );
-			add_submenu_page( 'dtdr', $category_title, $category_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_category&post_type=dtdr_listings' );
-
-
+			add_menu_page( sprintf( esc_html__('Directory %1$s','dtdr-lite'), $listing_plural_label ), esc_html__('Directory','dtdr-lite'), 'edit_posts', 'edit.php?post_type=dtdr_listings', '', 'dashicons-index-card', 6 );
+			add_submenu_page( 'edit.php?post_type=dtdr_listings', $category_title, $category_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_category&post_type=dtdr_listings' );
 		}
 
 		/**
@@ -223,11 +220,9 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 			$amenity_title = sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label );
 			$contracttype_title = sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label );
 
-			add_submenu_page( 'dtdr', $contracttype_title, $contracttype_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_ctype&post_type=dtdr_listings' );
-			add_submenu_page( 'dtdr', $amenity_title, $amenity_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_amenity&post_type=dtdr_listings' );
-
-			add_submenu_page( 'dtdr', 'Settings', 'Settings', 'edit_posts', 'dtdr-settings-options', 'dtdr_settings_options' );
-
+			add_submenu_page( 'edit.php?post_type=dtdr_listings', $contracttype_title, $contracttype_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_ctype&post_type=dtdr_listings' );
+			add_submenu_page( 'edit.php?post_type=dtdr_listings', $amenity_title, $amenity_title, 'edit_posts', 'edit-tags.php?taxonomy=dtdr_listings_amenity&post_type=dtdr_listings' );
+			add_submenu_page( 'edit.php?post_type=dtdr_listings', 'Settings', 'Settings', 'edit_posts', 'dtdr-settings-options', 'dtdr_settings_options' );
 		}
 
 		/**
@@ -239,13 +234,13 @@ if (! class_exists ( 'DTDirectoryLiteAddon' )) {
 			$taxonomy = $current_screen->taxonomy;
 			if ($taxonomy == 'dtdr_listings_category') {
 				$submenu_file = 'edit-tags.php?taxonomy=dtdr_listings_category&post_type=dtdr_listings';
-				$parent_file = 'dtdr';
+				$parent_file = 'edit.php?post_type=dtdr_listings';
 			} else if ($taxonomy == 'dtdr_listings_ctype') {
 				$submenu_file = 'edit-tags.php?taxonomy=dtdr_listings_ctype&post_type=dtdr_listings';
-				$parent_file = 'dtdr';
+				$parent_file = 'edit.php?post_type=dtdr_listings';
 			} else if ($taxonomy == 'dtdr_listings_amenity') {
 				$submenu_file = 'edit-tags.php?taxonomy=dtdr_listings_amenity&post_type=dtdr_listings';
-				$parent_file = 'dtdr';
+				$parent_file = 'edit.php?post_type=dtdr_listings';
 			}
 			return $parent_file;
 
@@ -328,4 +323,3 @@ if( !function_exists('dtdirectorylite_instance') ) {
 }
 
 dtdirectorylite_instance();
-?>

@@ -122,7 +122,7 @@ if( !class_exists('DTDirectoryLiteTaxonomyCustomFields') ) {
 
 			if( isset( $_POST['dtdr-taxonomy-icon-image-id'] ) ){
 				$image_id = sanitize_text_field( $_POST['dtdr-taxonomy-icon-image-id'] );
-				add_term_meta( $term_id, 'dtdr-taxonomy-icon-image-id', $image_url, true );
+				add_term_meta( $term_id, 'dtdr-taxonomy-icon-image-id', $image_id, true );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-icon'] ) ){
@@ -241,57 +241,57 @@ if( !class_exists('DTDirectoryLiteTaxonomyCustomFields') ) {
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-image-url'] ) && '' !== $_POST['dtdr-taxonomy-image-url'] ){
-				$image_url = $_POST['dtdr-taxonomy-image-url'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-image-url', sanitize_text_field( $image_url ) );
+				$image_url = sanitize_text_field( $_POST['dtdr-taxonomy-image-url'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-image-url', $image_url );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-image-url', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-image-id'] ) && '' !== $_POST['dtdr-taxonomy-image-id'] ){
-				$image_id = $_POST['dtdr-taxonomy-image-id'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-image-id', sanitize_text_field( $image_id ) );
+				$image_id = sanitize_text_field( $_POST['dtdr-taxonomy-image-id'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-image-id', $image_id );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-image-id', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-icon-image-url'] ) && '' !== $_POST['dtdr-taxonomy-icon-image-url'] ){
-				$image_url = $_POST['dtdr-taxonomy-icon-image-url'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-url', sanitize_text_field( $image_url ) );
+				$image_url = sanitize_text_field( $_POST['dtdr-taxonomy-icon-image-url'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-url', $image_url );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-url', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-icon-image-id'] ) && '' !== $_POST['dtdr-taxonomy-icon-image-id'] ){
-				$image_id = $_POST['dtdr-taxonomy-icon-image-id'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-id', sanitize_text_field( $image_id ) );
+				$image_id = sanitize_text_field( $_POST['dtdr-taxonomy-icon-image-id'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-id', $image_id );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-image-id', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-icon'] ) && '' !== $_POST['dtdr-taxonomy-icon'] ){
-				$icon = $_POST['dtdr-taxonomy-icon'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-icon', sanitize_text_field( $icon ) );
+				$icon = sanitize_text_field( $_POST['dtdr-taxonomy-icon'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-icon',  $icon );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-icon', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-icon-color'] ) && '' !== $_POST['dtdr-taxonomy-icon-color'] ){
-				$icon_color = $_POST['dtdr-taxonomy-icon-color'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-color', sanitize_text_field( $icon_color ) );
+				$icon_color = sanitize_text_field( $_POST['dtdr-taxonomy-icon-color'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-color',  $icon_color );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-icon-color', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-background-color'] ) && '' !== $_POST['dtdr-taxonomy-background-color'] ){
-				$background_color = $_POST['dtdr-taxonomy-background-color'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-background-color', sanitize_text_field( $background_color ) );
+				$background_color = sanitize_text_field( $_POST['dtdr-taxonomy-background-color'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-background-color',  $background_color );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-background-color', '' );
 			}
 
 			if( isset( $_POST['dtdr-taxonomy-text-color'] ) && '' !== $_POST['dtdr-taxonomy-text-color'] ){
-				$text_color = $_POST['dtdr-taxonomy-text-color'];
-				update_term_meta ( $term_id, 'dtdr-taxonomy-text-color', sanitize_text_field( $text_color ) );
+				$text_color = sanitize_text_field( $_POST['dtdr-taxonomy-text-color'] );
+				update_term_meta ( $term_id, 'dtdr-taxonomy-text-color',  $text_color );
 			} else {
 				update_term_meta ( $term_id, 'dtdr-taxonomy-text-color', '' );
 			}
@@ -303,6 +303,4 @@ if( !class_exists('DTDirectoryLiteTaxonomyCustomFields') ) {
 
 	DTDirectoryLiteTaxonomyCustomFields::instance();
 
-}
-
-?>
+}?>

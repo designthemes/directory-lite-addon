@@ -27,14 +27,12 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 
 			add_action ( 'init', array ( $this, 'dtdr_init' ) );
 			add_action ( 'admin_init', array ( $this, 'dtdr_admin_init' ) );
-
 		}
 
 		function dtdr_init() {
 
 			$this->createPostType();
 			add_action ( 'save_post', array ( $this, 'dtdr_save_post_meta' ) );
-
 		}
 
 		function createPostType() {
@@ -58,11 +56,11 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 			$args = array (
 				'labels'              => $labels,
 				'hierarchical'        => true,
-				'description'         => 'This is custom post type comments',
+				'description'         => esc_html__( 'This is custom post type comments','dtdr-lite'),
 				'supports'            => array ( 'title' ),
 				'public'              => true,
 				'show_ui'             => true,
-				'show_in_menu'        => 'dtdr',
+				'show_in_menu'        => 'edit.php?post_type=dtdr_listings',
 				'show_in_nav_menus'   => false,
 				'publicly_queryable'  => true,
 				'exclude_from_search' => false,
@@ -81,7 +79,6 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 			//If calling wp_update_post, unhook this function so it doesn't loop infinitely
 			remove_action('save_post', array ( $this, 'dtdr_save_post_meta' ));
 
-
 			if( key_exists ( '_inline_edit', $_POST )) :
 				if ( wp_verify_nonce($_POST['_inline_edit'], 'inlineeditnonce')) return;
 			endif;
@@ -98,18 +95,19 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 
 			if ( (key_exists('post_type', $_POST)) && ('dtdr_comments' == $_POST['post_type']) ) :
 
-				$dtdr_approved_commenter_id = $_POST ['dtdr_approved_commenter_id'];
-				$dtdr_approved_old_commenter_id = $_POST ['dtdr_approved_old_commenter_id'];
+				$dtdr_approved_commenter_id     = sanitize_text_field( $_POST['dtdr_approved_commenter_id'] );
+				$dtdr_approved_old_commenter_id = sanitize_text_field( $_POST['dtdr_approved_old_commenter_id'] );
 
-				$dtdr_package_used_listings_updated = $_POST ['dtdr-package-used-listings-updated'];
+				$dtdr_package_used_listings_updated = sanitize_text_field( $_POST ['dtdr-package-used-listings-updated'] );
 				$dtdr_package_used_listings_updated = (isset($dtdr_package_used_listings_updated) && !empty($dtdr_package_used_listings_updated)) ? $dtdr_package_used_listings_updated : array ();
-				$dtdr_user_id = $_POST ['dtdr-user-id'];
+
+				$dtdr_user_id = sanitize_text_field( $_POST ['dtdr-user-id'] );
 				$dtdr_user_id = (isset($dtdr_user_id) && !empty($dtdr_user_id)) ? $dtdr_user_id : array ();
 
 				if( isset( $dtdr_approved_commenter_id ) && $dtdr_approved_commenter_id != '' ) {
 
 					update_post_meta ( $post_id, 'dtdr_approved_commenter_id', $dtdr_approved_commenter_id );
-					update_post_meta($_POST ['dtdr_listing_id'], 'dtdr_verified_listing', 'true');
+					update_post_meta(sanitize_text_field( $_POST['dtdr_listing_id'] ), 'dtdr_verified_listing', 'true');
 
 					$i = 0;
 					if(is_array($dtdr_user_id) && !empty($dtdr_user_id)) {
@@ -120,7 +118,7 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 					}
 
 					$listingPost = array(
-						'ID'          => $_POST ['dtdr_listing_id'],
+						'ID'          => sanitize_text_field( $_POST['dtdr_listing_id'] ),
 						'post_author' => $dtdr_approved_commenter_id
 					);
 					wp_update_post( $listingPost );
@@ -128,7 +126,7 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 				} else {
 
 					delete_post_meta ( $post_id, 'dtdr_approved_commenter_id' );
-					delete_post_meta ( $_POST ['dtdr_listing_id'], 'dtdr_verified_listing' );
+					delete_post_meta ( sanitize_text_field( $_POST['dtdr_listing_id'] ), 'dtdr_verified_listing' );
 
 					$i = 0;
 					if(is_array($dtdr_user_id) && !empty($dtdr_user_id)) {
@@ -197,7 +195,4 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 	}
 
 	DTDirectoryLiteCommentsPostType::instance();
-
 }
-
-?>

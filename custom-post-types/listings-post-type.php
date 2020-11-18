@@ -220,65 +220,67 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 			$contracttype_plural_label = apply_filters( 'contracttype_label', 'plural' );
 
 			$labels = array (
-					'name' => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ),
-					'all_items' => sprintf( esc_html__('All %1$s','dtdr-lite'), $listing_plural_label ),
-					'singular_name' => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_singular_label ),
-					'add_new' => esc_html__( 'Add New','dtdr-lite'),
-					'add_new_item' => sprintf( esc_html__('Add New %1$s','dtdr-lite'), $listing_singular_label ),
-					'edit_item' => sprintf( esc_html__('Edit %1$s','dtdr-lite'), $listing_singular_label ),
-					'new_item' => sprintf( esc_html__('New %1$s','dtdr-lite'), $listing_singular_label ),
-					'view_item' => sprintf( esc_html__('View %1$s','dtdr-lite'), $listing_singular_label ),
-					'search_items' => sprintf( esc_html__('Search %1$s','dtdr-lite'), $listing_plural_label ),
-					'not_found' => sprintf( esc_html__('No %1$s found','dtdr-lite'), $listing_plural_label ),
-					'not_found_in_trash' => sprintf( esc_html__('No %1$s found in Trash','dtdr-lite'), $listing_plural_label ),
-					'parent_item_colon' => sprintf( esc_html__('Parent %1$s:','dtdr-lite'), $listing_singular_label ),
-					'menu_name' => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ),
+				'name'               => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ),
+				'all_items'          => sprintf( esc_html__('All %1$s','dtdr-lite'), $listing_plural_label ),
+				'singular_name'      => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_singular_label ),
+				'add_new'            => esc_html__( 'Add New','dtdr-lite'),
+				'add_new_item'       => sprintf( esc_html__('Add New %1$s','dtdr-lite'), $listing_singular_label ),
+				'edit_item'          => sprintf( esc_html__('Edit %1$s','dtdr-lite'), $listing_singular_label ),
+				'new_item'           => sprintf( esc_html__('New %1$s','dtdr-lite'), $listing_singular_label ),
+				'view_item'          => sprintf( esc_html__('View %1$s','dtdr-lite'), $listing_singular_label ),
+				'search_items'       => sprintf( esc_html__('Search %1$s','dtdr-lite'), $listing_plural_label ),
+				'not_found'          => sprintf( esc_html__('No %1$s found','dtdr-lite'), $listing_plural_label ),
+				'not_found_in_trash' => sprintf( esc_html__('No %1$s found in Trash','dtdr-lite'), $listing_plural_label ),
+				'parent_item_colon'  => sprintf( esc_html__('Parent %1$s:','dtdr-lite'), $listing_singular_label ),
+				'menu_name'          => sprintf( esc_html__('%1$s','dtdr-lite'), $listing_plural_label ),
 			);
 
 			$args = array (
-					'labels' => $labels,
-					'hierarchical' => false,
-					'description' => sprintf( esc_html__('This is custom post type %1$s','dtdr-lite'), strtolower($listing_plural_label) ),
-					'supports' => array (
-						'title',
-						'editor',
-						'excerpt',
-						'author',
-						'comments',
-						'page-attributes',
-						'thumbnail',
-						'revisions'
-					),
+				'labels'       => $labels,
+				'hierarchical' => false,
+				'description'  => sprintf( esc_html__('This is custom post type %1$s','dtdr-lite'), strtolower($listing_plural_label) ),
+				'supports'     => array (
+					'title',
+					'editor',
+					'excerpt',
+					'author',
+					'comments',
+					'page-attributes',
+					'thumbnail',
+					'revisions'
+				),
+				'public'              => true,
+				'show_ui'             => true,
+				'show_in_menu'        => 'edit.php?post_type=dtdr_listings',
+				'show_in_nav_menus'   => true,
+				'publicly_queryable'  => true,
+				'exclude_from_search' => false,
+				'has_archive'         => true,
+				'query_var'           => true,
+				'can_export'          => true,
+				'rewrite'             => array (
+					'slug'         => $listing_slug,
+					'hierarchical' => true,
+					'with_front'   => false
+				),
+				'capability_type' => 'post',
+				'map_meta_cap'    => true,
+				'capabilities'    => array (
+					// meta caps (don't assign these to roles)
+					'edit_post'   => 'edit_dtdr_listing',
+					'read_post'   => 'read_dtdr_listing',
+					'delete_post' => 'delete_dtdr_listing',
 
-					'public' => true,
-					'show_ui' => true,
-					'show_in_menu' => 'edit.php?post_type=dtdr_listings',
-					'show_in_nav_menus' => true,
-					'publicly_queryable' => true,
-					'exclude_from_search' => false,
-					'has_archive' => true,
-					'query_var' => true,
-					'can_export' => true,
-					'rewrite' => array ( 'slug' => $listing_slug, 'hierarchical' => true, 'with_front' => false ),
-					'capability_type' => 'post',
-					'map_meta_cap'        => true,
-					'capabilities'        => array (
+					// primitive/meta caps
+					'create_posts' => 'create_dtdr_listings',
 
-						// meta caps (don't assign these to roles)
-						'edit_post'              => 'edit_dtdr_listing',
-						'read_post'              => 'read_dtdr_listing',
-						'delete_post'            => 'delete_dtdr_listing',
+					// primitive caps used outside of map_meta_cap()
+					'edit_posts'         => 'edit_dtdr_listings',
+					'edit_others_posts'  => 'edit_others_dtdr_listings',
+					'publish_post'       => 'publish_dtdr_listings',
+					'read_private_posts' => 'read_private_dtdr_listings',
 
-						// primitive/meta caps
-						'create_posts'           => 'create_dtdr_listings',
-
-						// primitive caps used outside of map_meta_cap()
-						'edit_posts'             => 'edit_dtdr_listings',
-						'edit_others_posts'      => 'edit_others_dtdr_listings',
-						'publish_post'           => 'publish_dtdr_listings',
-						'read_private_posts'     => 'read_private_dtdr_listings',
-
-						// primitive caps used inside of map_meta_cap()
+					// primitive caps used inside of map_meta_cap()
 						'read'                   => 'read',
 						'delete_posts'           => 'delete_dtdr_listings',
 						'delete_private_posts'   => 'delete_private_dtdr_listings',
@@ -286,90 +288,91 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 						'delete_others_posts'    => 'delete_others_dtdr_listings',
 						'edit_private_posts'     => 'edit_private_dtdr_listings',
 						'edit_published_posts'   => 'edit_published_dtdr_listings'
-					)
-
+				)
 			);
 
 			register_post_type ( 'dtdr_listings', $args );
 
+			register_taxonomy ( 'dtdr_listings_category', array ( 'dtdr_listings' ), array (
+				'hierarchical' => true,
+				'labels'       => array(
+					'name' 					=> sprintf( esc_html__('%1$s Categories','dtdr-lite'), $listing_singular_label ),
+					'singular_name' 		=> sprintf( esc_html__('%1$s Category','dtdr-lite'), $listing_singular_label ),
+					'search_items'			=> sprintf( esc_html__('Search %1$s Categories','dtdr-lite'), $listing_singular_label ),
+					'popular_items'			=> sprintf( esc_html__('Popular %1$s Categories','dtdr-lite'), $listing_singular_label ),
+					'all_items'				=> sprintf( esc_html__('All %1$s Categories','dtdr-lite'), $listing_singular_label ),
+					'parent_item'			=> sprintf( esc_html__('Parent %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'edit_item'				=> sprintf( esc_html__('Edit %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'update_item'			=> sprintf( esc_html__('Update %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'add_new_item'			=> sprintf( esc_html__('Add New %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'new_item_name'			=> sprintf( esc_html__('New %1$s Category','dtdr-lite'), $listing_singular_label ),
+					'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label ),
+					'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label ),
+					'menu_name'				=> sprintf( esc_html__('%1$s Categories','dtdr-lite'), $listing_singular_label ),
+				),
+				'show_admin_column' => true,
+				'rewrite'           => array( 
+					'slug'         => $listing_category_slug,
+					'hierarchical' => true,
+					'with_front'   => false
+				),
+				'query_var'         => true
+			) );
 
-			register_taxonomy ( 'dtdr_listings_category', array (
-						'dtdr_listings'
-				), array (
-						'hierarchical' => true,
-						'labels' => array(
-							'name' 					=> sprintf( esc_html__('%1$s Categories','dtdr-lite'), $listing_singular_label ),
-							'singular_name' 		=> sprintf( esc_html__('%1$s Category','dtdr-lite'), $listing_singular_label ),
-							'search_items'			=> sprintf( esc_html__('Search %1$s Categories','dtdr-lite'), $listing_singular_label ),
-							'popular_items'			=> sprintf( esc_html__('Popular %1$s Categories','dtdr-lite'), $listing_singular_label ),
-							'all_items'				=> sprintf( esc_html__('All %1$s Categories','dtdr-lite'), $listing_singular_label ),
-							'parent_item'			=> sprintf( esc_html__('Parent %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'edit_item'				=> sprintf( esc_html__('Edit %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'update_item'			=> sprintf( esc_html__('Update %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'add_new_item'			=> sprintf( esc_html__('Add New %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'new_item_name'			=> sprintf( esc_html__('New %1$s Category','dtdr-lite'), $listing_singular_label ),
-							'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label ),
-							'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label ),
-							'menu_name'				=> sprintf( esc_html__('%1$s Categories','dtdr-lite'), $listing_singular_label ),
-						),
-						'show_admin_column' => true,
-						'rewrite' => array( 'slug' => $listing_category_slug, 'hierarchical' => true, 'with_front' => false ),
-						'query_var' => true
-				)
-			);
+			register_taxonomy ( 'dtdr_listings_ctype', array ( 'dtdr_listings'), array (
+				'hierarchical' => true,
+				'labels'       => array(
+					'name' 					=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
+					'singular_name' 		=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'search_items'			=> sprintf( esc_html__('Search %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
+					'popular_items'			=> sprintf( esc_html__('Popular %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
+					'all_items'				=> sprintf( esc_html__('All %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
+					'parent_item'			=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'edit_item'				=> sprintf( esc_html__('Edit %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'update_item'			=> sprintf( esc_html__('Update %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'add_new_item'			=> sprintf( esc_html__('Add New %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'new_item_name'			=> sprintf( esc_html__('New %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
+					'menu_name'				=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
+				),
+				'show_admin_column' => true,
+				'rewrite'           => array(
+					'slug'         => $listing_contracttype_slug,
+					'hierarchical' => true,
+					'with_front'   => false
+				),
+				'query_var'         => true
+			) );
 
-			register_taxonomy ( 'dtdr_listings_ctype', array (
-						'dtdr_listings'
-				), array (
-						'hierarchical' => true,
-						'labels' => array(
-							'name' 					=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
-							'singular_name' 		=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'search_items'			=> sprintf( esc_html__('Search %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
-							'popular_items'			=> sprintf( esc_html__('Popular %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
-							'all_items'				=> sprintf( esc_html__('All %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
-							'parent_item'			=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'edit_item'				=> sprintf( esc_html__('Edit %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'update_item'			=> sprintf( esc_html__('Update %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'add_new_item'			=> sprintf( esc_html__('Add New %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'new_item_name'			=> sprintf( esc_html__('New %1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label, $contracttype_singular_label ),
-							'menu_name'				=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $contracttype_plural_label ),
-						),
-						'show_admin_column' => true,
-						'rewrite' => array( 'slug' => $listing_contracttype_slug, 'hierarchical' => true, 'with_front' => false ),
-						'query_var' => true
-				)
-			);
-
-			register_taxonomy ( 'dtdr_listings_amenity', array (
-						'dtdr_listings'
-				), array (
-						'hierarchical' => false,
-						'labels' => array(
-							'name' 					=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
-							'singular_name' 		=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'search_items'			=> sprintf( esc_html__('Search %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
-							'popular_items'			=> sprintf( esc_html__('Popular %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
-							'all_items'				=> sprintf( esc_html__('All %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
-							'parent_item'			=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'edit_item'				=> sprintf( esc_html__('Edit %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'update_item'			=> sprintf( esc_html__('Update %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'add_new_item'			=> sprintf( esc_html__('Add New %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'new_item_name'			=> sprintf( esc_html__('New %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
-							'menu_name'				=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
-						),
-						'show_admin_column' => true,
-						'rewrite' => array( 'slug' => $listing_amenity_slug, 'hierarchical' => true, 'with_front' => false ),
-						'query_var' => true
-				)
-			);
+			register_taxonomy ( 'dtdr_listings_amenity', array ( 'dtdr_listings' ), array (
+				'hierarchical' => false,
+				'labels'       => array(
+					'name' 					=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
+					'singular_name' 		=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'search_items'			=> sprintf( esc_html__('Search %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
+					'popular_items'			=> sprintf( esc_html__('Popular %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
+					'all_items'				=> sprintf( esc_html__('All %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
+					'parent_item'			=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'parent_item_colon'		=> sprintf( esc_html__('Parent %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'edit_item'				=> sprintf( esc_html__('Edit %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'update_item'			=> sprintf( esc_html__('Update %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'add_new_item'			=> sprintf( esc_html__('Add New %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'new_item_name'			=> sprintf( esc_html__('New %1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'add_or_remove_items'	=> sprintf( esc_html__('Add or remove','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'choose_from_most_used'	=> sprintf( esc_html__('Choose from most used','dtdr-lite'), $listing_singular_label, $amenity_singular_label ),
+					'menu_name'				=> sprintf( esc_html__('%1$s %2$s','dtdr-lite'), $listing_singular_label, $amenity_plural_label ),
+				),
+				'show_admin_column' => true,
+				'rewrite'           => array(
+					'slug'         => $listing_amenity_slug,
+					'hierarchical' => true,
+					'with_front'   => false
+				),
+				'query_var'         => true
+			) );
 
 		}
 
@@ -394,18 +397,18 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 				if( isset( $_POST ['dtdr_mls_number'] ) && $_POST ['dtdr_mls_number'] != '') {
 
 					$args = array (
-								'posts_per_page' => -1,
-								'post_type'      => 'dtdr_listings',
-								'meta_query'     => array (),
-								'post_status'    => array ( 'any' ),
-								'post__not_in'   => array ($post_id)
-							);
+						'posts_per_page' => -1,
+						'post_type'      => 'dtdr_listings',
+						'meta_query'     => array (),
+						'post_status'    => array ( 'any' ),
+						'post__not_in'   => array ($post_id)
+					);
 
 					$args['meta_query'][] = array (
-												'key'     => 'dtdr_mls_number',
-												'value'   => $_POST ['dtdr_mls_number'],
-												'compare' => 'LIKE',
-											);
+						'key'     => 'dtdr_mls_number',
+						'value'   => sanitize_text_field( $_POST['dtdr_mls_number'] ),
+						'compare' => 'LIKE'
+					);
 
 					$listings_query = new WP_Query( $args );
 					$post_count = $listings_query->found_posts;
@@ -418,12 +421,10 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 
 				}
 
-
 				$author_id = get_post_field( 'post_author', $post_id );
-				$user_id = get_current_user_id();
+				$user_id   = get_current_user_id();
 
 				// General
-
 				if( isset( $_POST ['dtdr_page_template'] ) && $_POST ['dtdr_page_template'] != '') {
 					update_post_meta ( $post_id, 'dtdr_page_template', sanitize_text_field ( $_POST ['dtdr_page_template'] ) );
 				} else {
@@ -568,11 +569,11 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 		function set_custom_edit_dtdr_listings_columns($columns) {
 
 			$newcolumns = array (
-				'cb' => '<input type="checkbox" />',
+				'cb'                  => '<input type="checkbox" />',
 				'dtdr_listings_thumb' => esc_html__('Image','dtdr-lite'),
-				'title' => esc_html__('Title','dtdr-lite'),
-				'author' => esc_html__('Author','dtdr-lite'),
-				'status' => esc_html__('Status','dtdr-lite')
+				'title'               => esc_html__('Title','dtdr-lite'),
+				'author'              => esc_html__('Author','dtdr-lite'),
+				'status'              => esc_html__('Status','dtdr-lite')
 			);
 
 			$columns = array_merge ( $newcolumns, $columns );
@@ -598,11 +599,9 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 
 				case 'status':
 
-					$author_id = get_the_author_meta('ID');
-
-					$current_user = get_userdata($author_id);
-
-					$seller_id = -1;
+					$author_id      = get_the_author_meta('ID');
+					$current_user   = get_userdata($author_id);
+					$seller_id      = -1;
 					$process_seller = false;
 
 					if(in_array('seller', (array) $current_user->roles)) {
@@ -665,6 +664,4 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 	}
 
 	DTDirectoryLiteListingsPostType::instance();
-
 }
-?>

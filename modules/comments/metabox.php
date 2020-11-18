@@ -126,7 +126,7 @@ if(dtdr_option('comments','comment-requires-package') == 'true') {
                         ?>
                         <tr>
                             <td><?php echo esc_html($i); ?></td>
-                            <td><?php echo sprintf(esc_html__('%1$s ( ID - %2$s )','dtdr-lite'), $dtdr_commenter['commenter_name'], '<a href="'.get_edit_user_link($dtdr_commenter['user_id']).'">'.$dtdr_commenter['user_id'].'</a>'); ?></td>
+                            <td><?php echo sprintf(esc_html__('%1$s ( ID - %2$s )','dtdr-lite'), $dtdr_commenter['commenter_name'], '<a href="'.get_edit_user_link($dtdr_commenter['user_id']).'">'.esc_html( $dtdr_commenter['user_id'] ).'</a>'); ?></td>
                             <td><?php echo esc_html($dtdr_commenter['commenter_email']); ?></td>
                             <td><?php echo sprintf(esc_html__('Phone - %1$s %2$s Mobile - %3$s','dtdr-lite'), $dtdr_commenter['commenter_phone'], "<br>", $dtdr_commenter['commenter_mobile']); ?></td>
                             <td><?php echo esc_html($dtdr_commenter['commenter_message']); ?></td>
@@ -154,8 +154,8 @@ if(dtdr_option('comments','comment-requires-package') == 'true') {
                                 if($package_required_n_active || $package_not_required) {
                                     $checked = ( $dtdr_commenter['user_id'] ==  $dtdr_approved_commenter_id ) ? ' checked="checked"' : '';
                                     $switchclass = ( $dtdr_commenter['user_id'] ==  $dtdr_approved_commenter_id ) ? 'radio-switch-on' :'radio-switch-off';
-                                    echo '<div data-for="approve-comment-'.$dtdr_commenter['user_id'].'" class="dtdr-radio-switch '.$switchclass.'" '.$checkbox_attr.'></div>';
-                                    echo '<input id="approve-comment-'.$dtdr_commenter['user_id'].'" class="dtdr-radio-switch-field hidden" type="checkbox" name="dtdr-approve-commenter" value="'.$dtdr_commenter['user_id'].'" '.$checked.' />';
+                                    echo '<div data-for="approve-comment-'.esc_attr( $dtdr_commenter['user_id'] ).'" class="dtdr-radio-switch '.esc_attr( $switchclass ).'" '.$checkbox_attr.'></div>';
+                                    echo '<input id="approve-comment-'.esc_attr( $dtdr_commenter['user_id'] ).'" class="dtdr-radio-switch-field hidden" type="checkbox" name="dtdr-approve-commenter" value="'.esc_attr( $dtdr_commenter['user_id'] ).'" '.$checked.' />';
                                 }
                                 ?>
                             </td>

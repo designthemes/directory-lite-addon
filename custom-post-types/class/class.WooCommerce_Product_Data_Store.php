@@ -12,7 +12,7 @@ class DT_Product_Data_Store_CPT extends WC_Product_Data_Store_CPT {
 		$product->set_defaults();
 
 		if ( ! $product->get_id() || ! ( $post_object = get_post( $product->get_id() ) ) || ! ( ('product' === $post_object->post_type) ||  ('dtdr_packages' === $post_object->post_type) ) ) {
-			throw new Exception( __( 'Invalid product.', 'woocommerce' ) );
+			throw new Exception( esc_html__( 'Invalid product.', 'dtdr-lite' ) );
 		}
 
 		$id = $product->get_id();

@@ -19,7 +19,7 @@ if(!function_exists('dtdr_sp_media_attachments')) {
 
 		if($attrs['listing_id'] != '') {
 
-			$output .= '<div class="dtdr-listings-attachment-holder '.rsc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
+			$output .= '<div class="dtdr-listings-attachment-holder '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 				$dtdr_media_attachments_titles = $dtdr_media_attachments_items = '';
 				if($attrs['listing_id'] > 0) {

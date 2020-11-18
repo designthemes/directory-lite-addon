@@ -48,9 +48,9 @@ $tabs = apply_filters( 'dtdr_metabox_tabs', $tabs );
         foreach($tabs as $tab) {
 
             $class = '';
-            if($i == 0) { $class = 'class="current"'; }
+            if($i == 0) { $class = 'current'; }
 
-            echo '<li '.$class.'><a href="javascript:void(0);" '.$class.'><span class="'.$tab['icon'].'"></span>'.$tab['label'].'</a></li>';
+            echo '<li class="'.esc_attr( $class ).'"><a href="javascript:void(0);" class="'.esc_attr( $class ).'"><span class="'.esc_attr( $tab['icon'] ).'"></span>'.$tab['label'].'</a></li>';
 
             $i++;
         }

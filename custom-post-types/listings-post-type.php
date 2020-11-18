@@ -193,14 +193,13 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 
 			if(isset($post) && !empty($post)) {
 				if( $post->post_status == 'expired' ) {
-					return array ('Expired');
+					return array (esc_html__('Expired', 'dtdr-lite') );
 				} else if( $post->post_status == 'waitingforapproval' ) {
-					return array ('Waiting For Approval');
+					return array (esc_html__('Waiting For Approval', 'dtdr-lite') );
 				}
 			}
 
 			return $statuses;
-
 		}
 
 		function createPostType() {
@@ -281,13 +280,13 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 					'read_private_posts' => 'read_private_dtdr_listings',
 
 					// primitive caps used inside of map_meta_cap()
-						'read'                   => 'read',
-						'delete_posts'           => 'delete_dtdr_listings',
-						'delete_private_posts'   => 'delete_private_dtdr_listings',
-						'delete_published_posts' => 'delete_published_dtdr_listings',
-						'delete_others_posts'    => 'delete_others_dtdr_listings',
-						'edit_private_posts'     => 'edit_private_dtdr_listings',
-						'edit_published_posts'   => 'edit_published_dtdr_listings'
+					'read'                   => 'read',
+					'delete_posts'           => 'delete_dtdr_listings',
+					'delete_private_posts'   => 'delete_private_dtdr_listings',
+					'delete_published_posts' => 'delete_published_dtdr_listings',
+					'delete_others_posts'    => 'delete_others_dtdr_listings',
+					'edit_private_posts'     => 'edit_private_dtdr_listings',
+					'edit_published_posts'   => 'edit_published_dtdr_listings'
 				)
 			);
 
@@ -593,7 +592,7 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 					if(!empty($image)) {
 						echo $image;
 					} else {
-						echo '<img src="http'.dtdr_ssl().'://placehold.it/75x75" alt="'.$id.'" />';
+						echo '<img src="http'.dtdr_ssl().'://placehold.it/75x75" alt="'.esc_attr( $id ).'" />';
 					}
 				break;
 

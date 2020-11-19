@@ -322,9 +322,6 @@ if(!function_exists('dtdr_save_comment_fields')) {
 		            $_FILES = array ('comment-medias' => $file);
 
 		            foreach ($_FILES as $file => $array) {
-						echo '<pre>';
-						print_r($file);
-						echo '</prE>';
 			          $media_item_id = media_handle_upload( $file, $commentdata['comment_post_ID'] );
 			          array_push($media_ids, $media_item_id);
 		            }

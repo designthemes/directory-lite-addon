@@ -239,9 +239,9 @@ if( !class_exists('DTDirectoryLiteDependentFiles') ) {
 				'adDurationWarning'                => esc_html__('Please provide duration for your ad','dtdr-lite'),
 				'adPricingWarning'                 => esc_html__('Please choose any of the pricing available for your ad','dtdr-lite'),
 				'elementorPreviewMode'             => esc_js($elementor_preview_mode),
-				'primaryColor'                     => $primary_color,
-				'secondaryColor'                   => $secondary_color,
-				'tertiaryColor'                    => $tertiary_color,
+				'primaryColor'                     => esc_js( $primary_color ),
+				'secondaryColor'                   => esc_js( $secondary_color ),
+				'tertiaryColor'                    => esc_js( $tertiary_color ),
 			));
 
 			wp_register_script ( 'dtdr-modules-singlepage', DTDR_LITE_PLUGIN_URL . 'assets/js/single-page.js', array ('jquery', 'dtdr-frontend'), false, true );

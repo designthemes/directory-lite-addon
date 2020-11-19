@@ -361,7 +361,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 										$output .= '<p>';
 											$output .= $contact_address;
 											if($attrs['show_direction_link'] == 'true') {
-												$output .= '<br><a href="//maps.google.com/maps?daddr='.$dtdr_latitude.','.$dtdr_longitude.'" class="dtdr-listings-address-directions" target="_blank">'.esc_html__('Get Direction','dtdr-lite').'<span class="fa fa-angle-right"></span></a>';
+												$output .= '<br><a href="//maps.google.com/maps?daddr='.esc_attr( $dtdr_latitude ).','.esc_attr( $dtdr_longitude ).'" class="dtdr-listings-address-directions" target="_blank">'.esc_html__('Get Direction','dtdr-lite').'<span class="fa fa-angle-right"></span></a>';
 											}
 										$output .= '</p>';
 									$output .= '</li>';
@@ -888,7 +888,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 				if(!empty($listing_taxonomies)) {
 
-					$output .= '<div class="dtdr-listings-taxonomy-container '.$attrs['type'].' '.$attrs['class'].'">';
+					$output .= '<div class="dtdr-listings-taxonomy-container '.esc_attr( $attrs['type'] ).' '.esc_attr( $attrs['class'] ).'">';
 
 						$output .= '<ul class="dtdr-listings-taxonomy-list">';
 
@@ -921,7 +921,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									if($attrs['type'] == 'type1') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												$output .= '<span>'.esc_html($listing_taxonomy->name).'</span>';
 											$output .= '</a>';
 										$output .= '</li>';
@@ -929,7 +929,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 									} else if($attrs['type'] == 'type2') {
 
 										$output .= '<li>';
-											$output .= '<a href="'.get_term_link($listing_taxonomy->term_id).'" '.$tax_bg_color.'>';
+											$output .= '<a href="'.esc_url( get_term_link($listing_taxonomy->term_id) ).'" '.$tax_bg_color.'>';
 												if($icon != '') {
 													$output .= '<span class="'.esc_attr( $icon ).'"></span>';
 												}
@@ -1032,12 +1032,12 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 		function dtdr_sp_contact_form( $attrs, $content = null ) {
 
 			$attrs = shortcode_atts ( array (
-				'listing_id' => '',
+				'listing_id'           => '',
 				'textarea_placeholder' => '',
-				'submit_label' => '',
-				'contact_point' => '',
-				'include_admin' => '',
-				'class' => '',
+				'submit_label'         => '',
+				'contact_point'        => '',
+				'include_admin'        => '',
+				'class'                => '',
 			), $attrs, 'dtdr_sp_contact_form' );
 
 			$output = '';
@@ -1049,7 +1049,7 @@ if( !class_exists('DTDirectoryLiteSinglePageShortcodes') ) {
 
 			if($attrs['listing_id'] != '') {
 
-				$output .= '<div class="dtdr-listings-contactform-container '.$attrs['class'].'">';
+				$output .= '<div class="dtdr-listings-contactform-container '.esc_attr( $attrs['class'] ).'">';
 
 					$output .= '<form method="post" class="dtdr-listings-contactform" name="dtdr-listings-contactform">';
 

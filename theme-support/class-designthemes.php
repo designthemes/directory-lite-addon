@@ -219,7 +219,8 @@ if ( ! class_exists( 'DTDirectoryLiteDesignThemes' ) ) {
 
 			if(!is_author()) {
 				global $post;
-				echo '<article id="post-'.$post->ID.'" class="'.implode(' ', get_post_class()).'">';
+				$p_class = implode(' ', get_post_class() );
+				echo '<article id="post-'.esc_attr( $post->ID ).'" class="'.esc_attr( $p_class ).'">';
 			}
 
 		}

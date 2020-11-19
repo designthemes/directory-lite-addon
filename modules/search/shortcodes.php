@@ -456,7 +456,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 								$mulitple_attr = 'multiple';
 							}
 
-							$output .= '<select class="dtdr-sf-field dtdr-sf-features '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_features'.$tab_id_name.'" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
+							$output .= '<select class="dtdr-sf-field dtdr-sf-features '.esc_attr($additional_class).' dtdr-chosen-select" name="dtdr_sf_features'.esc_attr( $tab_id_name ).'" data-placeholder="'.esc_attr($placeholder_text).'" '.esc_attr($mulitple_attr).'>';
 								if($mulitple_attr == '') {
 									$output .= '<option value="">'.esc_html($placeholder_text).'</option>';
 								}
@@ -481,7 +481,7 @@ if( !class_exists('DTDirectoryLiteSearchFormShortcodes') ) {
 								if(isset($dropdownlist_options)) {
 									foreach($dropdownlist_options as $dropdownlist_option) {
 										$output .= '<li>
-														<input type="checkbox" name="dtdr_sf_features'.$tab_id_name.'[]" class="dtdr-sf-field dtdr-sf-features '.esc_attr($additional_class).'" value="'.esc_attr($dropdownlist_option).'" id="dtdr-sf-features-'.esc_attr($dropdownlist_option).'" '.checked(in_array($dropdownlist_option, $dtdr_sf_features), true, false).' />
+														<input type="checkbox" name="dtdr_sf_features'.esc_attr( $tab_id_name ).'[]" class="dtdr-sf-field dtdr-sf-features '.esc_attr($additional_class).'" value="'.esc_attr($dropdownlist_option).'" id="dtdr-sf-features-'.esc_attr($dropdownlist_option).'" '.checked(in_array($dropdownlist_option, $dtdr_sf_features), true, false).' />
 														<label for="dtdr-sf-features-'.esc_attr($dropdownlist_option).'">'.esc_html($dropdownlist_option).'</label>
 													</li>';
 									}

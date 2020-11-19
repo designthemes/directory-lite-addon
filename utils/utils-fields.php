@@ -213,7 +213,7 @@ function dtdr_upload_promoflash_image($item_id) {
 		$output .= '<div class="dtdr-upload-media-items-container">
 						'.dtdr_adminpanel_image_holder($map_image).'
 						<input name="dtdr_promoflash_url" type="text" value="'.esc_attr__( $map_image ).'" placeholder="'.esc_attr__('Image','dtdr-lite').'" class="uploadfieldurl" readonly />
-						<input name="dtdr_map_image" value="'.$dtdr_map_image.'" type="hidden" placeholder="'.esc_attr__('Image','dtdr-lite').'" class="uploadfieldid" readonly />
+						<input name="dtdr_map_image" value="'.esc_attr( $dtdr_map_image ).'" type="hidden" placeholder="'.esc_attr__('Image','dtdr-lite').'" class="uploadfieldid" readonly />
 						<input type="button" value="'.esc_attr__('Upload','dtdr-lite').'" class="dtdr-upload-media-item-button show-image-holder" />
 						<input type="button" value="'.esc_attr__('Remove','dtdr-lite').'" class="dtdr-upload-media-item-reset" />
 					</div>';

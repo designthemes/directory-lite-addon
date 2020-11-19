@@ -8,7 +8,7 @@ if(!function_exists('dtdr_search_listings_content')) {
 		$output .= '<div class="dtdr-search-container dtdr-search-listings-container">';
 			$seller_singular_label = apply_filters( 'seller_label', 'singular' );
 			$output .= '<span>'.sprintf( esc_html__('%1$s','dtdr-lite'), $seller_singular_label ).'</span>';
-			$output .= '<select class="dtdr-search-listings-seller dtdr-chosen-select" name="dtdr-search-listings-seller" data-placeholder="'.sprintf( esc_html__('Choose %1$s ...','dtdr-lite'), $seller_singular_label ).'" class="dtdr-chosen-select">';
+			$output .= '<select class="dtdr-search-listings-seller dtdr-chosen-select" name="dtdr-search-listings-seller" data-placeholder="'.sprintf( esc_attr__('Choose %1$s ...','dtdr-lite'), $seller_singular_label ).'" class="dtdr-chosen-select">';
 				$output .= '<option value="-1">'.esc_html__('All','dtdr-lite').'</option>';
 				$sellers = get_users ( array ('role' => 'seller') );
 				if ( count( $sellers ) > 0 ) {
@@ -268,11 +268,11 @@ if(!function_exists('dtdr_search_sellers')) {
 										$output .= '<tr>
 														<td>'.esc_html( $i ).'</td>
 														<td>'.get_the_author_meta('display_name', $seller_id).'</td>
-														<td>'.$dtdr_user_status_html.'</td>
-														<td>'.$package_status.'</td>
-														<td>'.$active_package_title.'</td>
-														<td>'.$dtdr_seller_active_package_purchased_date.'</td>
-														<td>'.$dtdr_seller_active_package_expiry_date.'</td>
+														<td>'.esc_html( $dtdr_user_status_html ).'</td>
+														<td>'.esc_html( $package_status ).'</td>
+														<td>'.esc_html( $active_package_title ).'</td>
+														<td>'.esc_html( $dtdr_seller_active_package_purchased_date ).'</td>
+														<td>'.esc_html( $dtdr_seller_active_package_expiry_date ).'</td>
 														<td>';
 
 															$output .= count($seller_incharges);
@@ -392,7 +392,7 @@ if(!function_exists('dtdr_search_seller_incharges')) {
 									$output .= '<tr>
 													<td>'.$i.'</td>
 													<td>'.get_the_author_meta('display_name', $incharge_id).'</td>
-													<td>'.$dtdr_user_status_html.'</td>
+													<td>'.esc_html( $dtdr_user_status_html ).'</td>
 													<td>'.esc_html($listings_post_count).'</td>
 													<td>'.count_user_posts($incharge_id , 'dtdr_listings').'</td>
 												</tr>';

@@ -89,9 +89,7 @@ class DTDirectoryLiteDfListingsListing extends Widget_Base {
 					1  => esc_html__('I Column','dtdr-lite'),
 					2  => esc_html__('II Columns','dtdr-lite'),
 					3  => esc_html__('III Columns','dtdr-lite'),
-					4  => esc_html__('IV Columns','dtdr-lite')/* ,
-					5  => esc_html__('V Columns','dtdr-lite'),
-					6  => esc_html__('VI Columns','dtdr-lite'), */
+					4  => esc_html__('IV Columns','dtdr-lite')
 				),
 				'description' => esc_html__( 'Number of columns you like to display your items.','dtdr-lite'),
 				'condition'   => array( 'type' => array( 'type1', 'type2', 'type4', 'type6', 'type8', 'type10') ),

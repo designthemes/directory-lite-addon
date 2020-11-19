@@ -57,7 +57,7 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 				}
 
 				$output .= '<ul class="dtdr-custom-login '.esc_attr($attrs['class']).'">';
-					$output .= '<li><a href="'.esc_url( $redirect_link ).'">'.get_avatar( $current_user->ID, 150).'<span>'.'&nbsp;'.escc_html( $current_user->display_name ).' </span></a></li>';
+					$output .= '<li><a href="'.esc_url( $redirect_link ).'">'.get_avatar( $current_user->ID, 150).'<span>'.'&nbsp;'.esc_html( $current_user->display_name ).' </span></a></li>';
 					$output .= '<li><a href="'.wp_logout_url(home_url('/')).'" title="'.esc_html__('Logout','dtdr-lite').'">'.esc_html__('Logout','dtdr-lite').'</a></li>';
 				$output .= '</ul>';
 
@@ -65,7 +65,7 @@ if( !class_exists('DTDirectoryLiteShortcodes') ) {
 
 				$output .= '<ul class="dtdr-custom-login '.esc_attr($attrs['class']).'">';
 					$output .= '<li><a href="#" title="'.esc_html__('Login','dtdr-lite').'" class="dtdr-login-link" onclick="return false">'.esc_html__('Login','dtdr-lite').'</a></li>';
-					$output .= '<li><a href="'.wp_registration_url().'" title="'.esc_attr__('Register','dtdr-lite').'">'.esc_html__('Register','dtdr-lite').'</a></li>';
+					$output .= '<li><a href="'.esc_url( wp_registration_url() ).'" title="'.esc_attr__('Register','dtdr-lite').'">'.esc_html__('Register','dtdr-lite').'</a></li>';
 
 				$output .= '</ul>';
 

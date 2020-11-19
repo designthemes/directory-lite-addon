@@ -547,7 +547,8 @@ function dtdr_generate_listing_output_loop($filtered_item_ids, $output_options) 
 		if ( $listings_paginated_query->have_posts() ) :
 
 			if($apply_isotope == 'true') {
-				$content .= '<div class="grid-sizer '.implode(' ', $column_class).'"></div>';
+				$_class = implode(' ', $column_class);
+				$content .= '<div class="grid-sizer '.esc_attr( $_class ).'"></div>';
 			}
 
 			$i = 1;
@@ -1208,7 +1209,7 @@ function dtdr_generate_listing_item_html($data_listing_attributes) {
 				$dtdr_latitude  = get_post_meta($listing_id, 'dtdr_latitude', true);
 				$dtdr_longitude = get_post_meta($listing_id, 'dtdr_longitude', true);
 
-				$output .= '<a href="//maps.google.com/maps?daddr='.$dtdr_latitude.','.$dtdr_longitude.'" class="custom-button-style  dtdr-listings-address-directions" target="_blank">'.esc_html__('View on Map','dtdr-lite').'</a>';
+				$output .= '<a href="//maps.google.com/maps?daddr='.esc_attr( $dtdr_latitude ).','.esc_attr( $dtdr_longitude ).'" class="custom-button-style  dtdr-listings-address-directions" target="_blank">'.esc_html__('View on Map','dtdr-lite').'</a>';
 
 			$output .= '</div>';
 

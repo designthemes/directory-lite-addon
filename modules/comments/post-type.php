@@ -137,7 +137,7 @@ if( !class_exists('DTDirectoryLiteCommentsPostType') ) {
 					}
 
 					$listingPost = array(
-						'ID'          => $_POST ['dtdr_listing_id'],
+						'ID'          => sanitize_text_field( $_POST['dtdr_listing_id'] ),
 						'post_author' => 1
 					);
 					wp_update_post( $listingPost );

@@ -1798,7 +1798,7 @@ add_action( 'wp_ajax_dtdr_process_listing_contactform', 'dtdr_process_listing_co
 add_action( 'wp_ajax_nopriv_dtdr_process_listing_contactform', 'dtdr_process_listing_contactform' );
 function dtdr_process_listing_contactform() {
 
-	$dtdr_contactform_nonce = $_POST['dtdr_contactform_nonce'];
+	$dtdr_contactform_nonce = sanitize_text_field( $_POST['dtdr_contactform_nonce'] );
 	$listing_id             = isset($_REQUEST['dtdr_contactform_listingid']) ? sanitize_text_field($_REQUEST['dtdr_contactform_listingid'])      : -1;
 	$user_id                = isset($_REQUEST['dtdr_contactform_userid']) ? sanitize_text_field($_REQUEST['dtdr_contactform_userid'])            : -1;
 	$contact_point          = isset($_REQUEST['dtdr_contactform_contactpoint']) ? sanitize_text_field($_REQUEST['dtdr_contactform_contactpoint']) : '';

@@ -592,10 +592,6 @@ div[class*="-output-data-container"] div[data-applyisotope*="true"] .dtdr-one-co
 }
 
 
-/* div[class*="-output-data-container"] div[data-applyisotope*="true"] .dtdr-listings-container.dtdr-listings-item-apply-isotope {
-    margin: 0 20px;
-} */
-
 div[class*="-output-data-container"] div[class*="-output-data-holder"]>.swiper-container.swiper-container-fade .swiper-wrapper .swiper-slide {
     opacity: 0 !important;
 }

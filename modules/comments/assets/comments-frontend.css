@@ -616,10 +616,6 @@
 }
 
 
-/* .dtdr-listings-average-rating-container .dtdr-listings-average-rating-overall>span:last-child {
-    margin: 0 0 0 5px;
-} */
-
 .dtdr-listings-average-rating-container .dtdr-listings-average-rating-reviews-count {
     float: left;
     width: auto;
@@ -630,10 +626,6 @@
 
 /* Type 2 */
 
-
-/* .dtdr-listings-average-rating-container.type2>div {
-    margin-bottom: 10px;
-} */
 
 .dtdr-listings-average-rating-container.type2 .dtdr-listings-average-rating-overall {
     padding: 10px 20px;
@@ -680,28 +672,14 @@
 }
 
 .dtdr-listings-average-rating-container.type3 .dtdr-listings-average-rating-overall {
-    /* position: absolute;
-    left: 5px;
-    top: 50%; */
     padding: 15px 0;
     border-radius: 50%;
     color: #fff;
     text-align: center;
-    /* box-shadow: 0 9px 26px rgba(58, 87, 135, 0.25);
-    -webkit-box-shadow: 0 9px 26px rgba(58, 87, 135, 0.25);
-    -moz-box-shadow: 0 9px 26px rgba(58, 87, 135, 0.25);
-    transform: translateY(-50%);
-    -moz-transform: translateY(-50%);
-    -webkit-transform: translateY(-50%); */
     min-width: 49px;
     margin: -15px 10px -15px -30px;
     min-height: 49px;
 }
-
-
-/* .dtdr-listings-average-rating-container.type3 .dtdr-listings-average-rating-overall~div {
-    margin: 0 0 0 10px;
-} */
 
 .dtdr-listings-average-rating-container.type3 .dtdr-listings-average-rating-overall>span {
     margin: 0;

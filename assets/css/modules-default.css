@@ -732,17 +732,6 @@ p.tpl-forget-pwd {
         width: 80%;
         padding: 50px 35px 75px;
     }
-    /* #loginform .login-username,
-#loginform .login-password {
-    width: 100%;
-    margin: 0;
-}
-.dtdr-login-form-container .dtdr-login-form .dtdr-title.dtdr-login-title h2 {
-    font-size: 32px;
-}
-#loginform .login-submit input[type="submit"] {
-    width: 60%;
-} */
     .dtdr-column.dtdr-one-third.dtdr-listing-taxonomy-item {
         width: calc(50% - 1%);
         margin: 0 2% 30px 0;

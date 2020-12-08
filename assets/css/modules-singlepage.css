@@ -379,13 +379,6 @@
     color: #fff;
 }
 
-
-/* .dtdr-listings-price-container.type1 .dtdr-listings-price-label-holder,
-.dtdr-listings-price-container.type2 .dtdr-listings-price-label-holder {
-    color: #2a2a2a;
-} */
-
-
 /*----*****---- << Post Date >> ----*****----*/
 
 .dtdr-listings-post-dates-container .dtdr-listings-date-container {
@@ -416,29 +409,14 @@
     font-size: 14px;
     display: flex;
     align-items: center;
-    /* line-height: normal; */
     flex-wrap: wrap;
 }
-
 
 /* Type 1 */
 
 .dtdr-listings-post-dates-container.type1 {
-    /* display: flex;
-    flex-wrap: wrap;
-    grid-column-gap: 25px;
-    grid-row-gap: 15px; */
     margin-bottom: 10px;
 }
-
-
-/* .dtdr-listings-post-dates-container.type1 .dtdr-listings-post-date-container span {
-    position: relative;
-    font-weight: 100;
-    margin: 0 10px 0 0;
-    font-family: "Font Awesome 5 Free";
-} */
-
 
 /* Type 2 */
 
@@ -486,25 +464,14 @@
     margin-right: 10px;
 }
 
-.dtdr-listings-post-dates-container.type2 .dtdr-listings-post-date-container span
-/* ,
-.dtdr-listings-post-dates-container.type3 .dtdr-listings-post-date-container:hover,
-.dtdr-listings-post-dates-container.type3 .dtdr-listings-post-date-container:hover span,
-.dtdr-listings-post-dates-container.type3 .dtdr-listings-post-date-container:hover a,
-.dtdr-listings-post-dates-container.type3 .dtdr-listings-post-date-container span */
-
-{
+.dtdr-listings-post-dates-container.type2 .dtdr-listings-post-date-container span {
     color: #fff;
 }
 
-
 /* Type 4 */
-
 .dtdr-listings-post-dates-container.type4 {
     display: flex;
     flex-wrap: wrap;
-    /* grid-column-gap: 35px;
-    grid-row-gap: 15px; */
     margin-bottom: 10px;
 }
 
@@ -520,7 +487,6 @@
 .dtdr-listings-post-dates-container.type4 .dtdr-listings-post-date-container span {
     position: relative;
     margin-right: 10px;
-    /* font-size: 12px; */
 }
 
 
@@ -743,9 +709,7 @@
     margin: auto;
 }
 
-
 /*----*****---- << Author Details Style >> ----*****----*/
-
 .dtdr-listings-author-container .dtdr-listings-author-details-holder {
     display: grid;
     grid-template-columns: 35% 65%;
@@ -836,7 +800,6 @@
 
 
 /* Author Carousel */
-
 .dtdr-listings-author-container[class*=swiper-container-] .swiper-slide:hover {
     box-shadow: 0 0 0 0 transparent;
     -moz-box-shadow: 0 0 0 0 transparent;
@@ -875,9 +838,7 @@
     width: 60px;
 }
 
-
 /* Author Bullet Carousel */
-
 .dtdr-listings-author-container[class*=swiper-container-] .dtdr-listings-swiper-pagination-holder .dtdr-swiper-bullet-pagination {
     position: static;
     cursor: auto;
@@ -898,9 +859,7 @@
     border-radius: 1em;
 }
 
-
 /* Author Arrow Pagination */
-
 .dtdr-swiper-arrow-pagination {
     text-align: center;
     display: flex;
@@ -1234,9 +1193,7 @@
     background: none;
 }
 
-
 /* Type 6 */
-
 .dtdr-listings-taxonomy-container.type6 .dtdr-listings-taxonomy-list li a span {
     border: 1px solid;
     padding: 5px 10px;
@@ -1276,9 +1233,7 @@
     opacity: 0;
 }
 
-
 /* Type 7 */
-
 .dtdr-listings-taxonomy-container.type7 li a {
     position: relative;
 }
@@ -1342,9 +1297,7 @@
     border-left: 0 solid transparent;
 }
 
-
 /* Type 8 */
-
 .dtdr-listings-taxonomy-container.type8 li a {
     border-radius: 3px;
     font-size: 12px;
@@ -1388,9 +1341,7 @@
     left: 0;
 }
 
-
 /*----*****---- << Utils Style >> ----*****----*/
-
 .dtdr-listings-utils-container p {
     margin-bottom: 0;
 }
@@ -1508,8 +1459,6 @@
 }
 
 *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-listings-price-item del {
-    /* font-size: 16px;
-    color: #8a8a8a; */
     margin-right: 10px;
     opacity: .35;
 }
@@ -1518,11 +1467,6 @@
     align-items: flex-start;
 }
 
-
-/* *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-listings-price-item ins {
-    font-size: 24px;
-    font-weight: 600;
-} */
 
 *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-listings-price-item .dtdr-price-currency-symbol {
     font-size: 60%;
@@ -1587,11 +1531,6 @@
     display: inline-flex;
 }
 
-
-/* *[class*="dtdr-listings-utils-"] .dtdr-listings-taxonomy-container .dtdr-listings-taxonomy-list li {
-    margin-bottom: 0;
-} */
-
 *[class*="dtdr-listings-utils-"] .dtdr-listings-taxonomy-container .dtdr-listings-taxonomy-list li a span.dtdr-listings-taxonomy-name:last-child {
     width: auto;
     height: auto;
@@ -1621,8 +1560,6 @@
 *[class*="dtdr-listings-utils-"] .dtdr-listings-average-rating-overall span,
 *[class*="dtdr-listings-utils-"] .dtdr-listings-featured-item,
 *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-price-before-label,
-
-/* *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-price-amount .dtdr-price-currency-symbol, */
 
 *[class*="dtdr-listings-utils-"] .dtdr-listings-price-container .dtdr-listings-price-label-holder> :not(*:last-child),
 *[class*="dtdr-listings-utils-"] .dtdr-listings-featured-item-container>span:before,
@@ -1792,10 +1729,7 @@
 /* Note: Design for a width of 767px */
 
 @media only screen and (max-width: 767px) {
-    *[class*="dtdr-listings-utils-"] .dtdr-listings-utils-item .dtdr-listings-contactdetails-list>li:not(:last-child)
-    /* ,
-    *[class*="dtdr-listings-utils-"] .dtdr-listings-utils-item .dtdr-listings-social-share-list>li:not(:last-child) */
-    {
+    *[class*="dtdr-listings-utils-"] .dtdr-listings-utils-item .dtdr-listings-contactdetails-list>li:not(:last-child) {
         margin-bottom: 10px;
     }
 }

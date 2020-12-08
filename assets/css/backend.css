@@ -193,21 +193,6 @@ table.form-table tr.user-description-wrap .chosen-container {
     background: #e46363;
 }
 
-
-/* .dtdr-checkbox-switch.checkbox-switch-on,
-.dtdr-checkbox-switch.checkbox-switch-on {
-    width: 83px;
-    height: 30px;
-    background: url(../images/backend/checkbox-switch-on.png);
-}
-
-.dtdr-checkbox-switch.checkbox-switch-off,
-.dtdr-checkbox-switch.checkbox-switch-off {
-    width: 83px;
-    height: 30px;
-    background: url(../images/backend/checkbox-switch-off.png);
-} */
-
 .dtdr-checkbox-switch:before {
     content: "";
     position: absolute;

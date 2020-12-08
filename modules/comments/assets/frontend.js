@@ -32,19 +32,6 @@ var dtDirectoryFeaturedComments = {
 
 			});
 
-		// Comment Form - Span Tag
-/*
-			jQuery('.dtdr-listings-comment-list-holder input[type="text"]').each(function() {
-				jQuery( '<span></span>' ).insertAfter( jQuery(this) );
-			});
-
-			jQuery('.dtdr-listings-comment-list-holder input[type="email"]').each(function() {
-				jQuery( '<span></span>' ).insertAfter( jQuery(this) );
-			});
-
-			jQuery('.dtdr-listings-comment-list-holder textarea').each(function() {
-				jQuery( '<span></span>' ).insertAfter( jQuery(this) );
-			}); */
 	}
 
 };

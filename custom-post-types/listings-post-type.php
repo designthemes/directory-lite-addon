@@ -592,7 +592,7 @@ if( !class_exists('DTDirectoryLiteListingsPostType') ) {
 					if(!empty($image)) {
 						echo $image;
 					} else {
-						echo '<img src="http'.dtdr_ssl().'://placehold.it/75x75" alt="'.esc_attr( $id ).'" />';
+						echo '<img src="'.esc_url( DTDR_LITE_PLUGIN_URL . 'assets/images/thumb.png' ).'" alt="'.esc_attr( $id ).'"/>';
 					}
 				break;
 
